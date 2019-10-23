@@ -1,6 +1,7 @@
 package com.dmtd.hanfu.forum.dao;
 
 import com.dmtd.hanfu.forum.entity.Article;
+import org.apache.ibatis.annotations.Param;
 
 import java.sql.Timestamp;
 import java.util.List;
