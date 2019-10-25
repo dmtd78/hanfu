@@ -3,9 +3,12 @@ package com.dmtd.hanfu.forum.dao;
 import java.util.Date;
 
 import com.dmtd.hanfu.forum.entity.User;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
-
+@Mapper
+@Component(value = "userDao")
 public interface UserDao {
 
 	public int addUser(@Param("username") String username,

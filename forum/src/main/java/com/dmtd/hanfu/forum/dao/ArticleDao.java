@@ -6,7 +6,12 @@ import org.apache.ibatis.annotations.Param;
 import java.sql.Timestamp;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
+@Mapper
+@Component(value = "articleDao")
 public interface ArticleDao {
 
 	public List<Article> getArticleList();
