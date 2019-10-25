@@ -11,7 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="date" column="date" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/>
 		<result property="lable" column="lable"/>
 		<result property="status" column="status"/>
-		<association property="author" column="uid" select="com.ljc.dao.UserDao.getUserByID" />
+		<association property="author" column="uid" select="com.dmtd.hanfu.forum.dao.UserDao.getUserByID" />
 	</resultMap>
 	
 	<select id="getArticleList" resultMap="ArticleResult">

@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="aid" column="aid"/>
 		<result property="uid" column="uid"/>
 		<result property="date" column="date" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/>
-		<association property="replyer" column="uid" select="com.ljc.dao.UserDao.getUserByID" />
+		<association property="replyer" column="uid" select="com.dmtd.hanfu.forum.dao.UserDao.getUserByID" />
 	</resultMap>
 	
 	<resultMap type="Floor" id="FloorResult">
@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="cid" column="cid"/>
 		<result property="uid" column="uid"/>
 		<result property="content" column="content"/>
-		<association property="floorReplyer" column="uid" select="com.ljc.dao.UserDao.getUserByID" />
+		<association property="floorReplyer" column="uid" select="com.dmtd.hanfu.forum.dao.UserDao.getUserByID" />
 	</resultMap>
 	
 	<insert id="addComment">

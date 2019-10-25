@@ -5,9 +5,12 @@ import java.util.List;
 
 import com.dmtd.hanfu.forum.entity.Comment;
 import com.dmtd.hanfu.forum.entity.Floor;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
-
+@Mapper
+@Component(value = "commentDao")
 public interface CommentDao {
 
 	public int addComment(@Param("content")String content, 
