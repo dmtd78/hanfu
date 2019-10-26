@@ -17,11 +17,7 @@ import com.dmtd.hanfu.forum.util.LogUtils;
 import com.dmtd.hanfu.forum.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -46,7 +42,7 @@ public class ArticleController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping("/list/{currentPage}")
+	@GetMapping("/list/{currentPage}")
 	public ModelAndView getArticlePageList(HttpSession session, @PathVariable("currentPage") int currentPage) {
 		ModelAndView mav = new ModelAndView();
 		int pageSize = Config.DEFAULT_PAGESIZE;// 每页记录数

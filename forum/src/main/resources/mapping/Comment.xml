@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dmtd.hanfu.forum.dao.CommentDao">
 	
-	<resultMap type="Comment" id="CommentResult">
+	<resultMap type="com.dmtd.hanfu.forum.entity.Comment" id="CommentResult">
 		<id property="cid" column="cid"/>
 		<result property="content" column="content"/>
 		<result property="aid" column="aid"/>
@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<association property="replyer" column="uid" select="com.dmtd.hanfu.forum.dao.UserDao.getUserByID" />
 	</resultMap>
 	
-	<resultMap type="Floor" id="FloorResult">
+	<resultMap type="com.dmtd.hanfu.forum.entity.Floor" id="FloorResult">
 		<id property="fid" column="fid"/>
 		<result property="cid" column="cid"/>
 		<result property="uid" column="uid"/>

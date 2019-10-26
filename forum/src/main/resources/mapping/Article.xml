@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dmtd.hanfu.forum.dao.ArticleDao">
 	
-	<resultMap type="Article" id="ArticleResult">
+	<resultMap type="com.dmtd.hanfu.forum.entity.Article" id="ArticleResult">
 		<id property="aid" column="aid"/>
 		<result property="title" column="title"/>
 		<result property="content" column="content"/>
