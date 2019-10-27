@@ -1,0 +1,30 @@
+/* ----- 初始化 ----- */
+*{ margin: 0; padding: 0; font-family: "Microsoft YaHei";}
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td { margin:0; padding:0; }
+html {/*overflow-x: hidden;overflow-y: scroll; min-width: 1200px;*/} 
+body {background: #fff; color: #333; font-size: 12px; font-family: "Microsoft YaHei",Arail,Verdana,Helvetica,sans-serif;}
+body, button, input, select, textarea { font:12px/1.5tahoma, arial, \5b8b\4f53; }
+h1, h2, h3, h4, h5, h6{ font-size:100%; }
+address, cite, dfn, em, var { font-style:normal; }
+code, kbd, pre, samp { font-family:couriernew, courier, monospace; }
+small{ font-size:12px; }
+ul, ol { list-style:none; }
+a { text-decoration:none; }
+a:hover{ text-decoration:underline;}
+sup { vertical-align:text-top; }
+sub{ vertical-align:text-bottom; }
+legend { color:#000; }
+fieldset, img { border:0; }
+button, input, select, textarea { font-size:100%; }
+table { border-collapse:collapse; border-spacing:0; }
+em, i {font-style: normal;}
+a{ color:#666; cursor:pointer;}
+.warpper{width:1170px; margin:0 auto; position:relative; min-width: 750px;}
+.fl{float: left;}
+.fr{float: right;}
+.align_left{text-align: left;}
+.align_right{text-align: right;}
+.align_center{text-align: center;}
+.clearboth{
+	clear: both;
+}

@@ -2,11 +2,8 @@ package com.dmtd.hanfu.forum;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
-@SpringBootApplication(scanBasePackages= {"com.dmtd.hanfu.forum.controller.*",
-		"com.dmtd.hanfu.forum.service.*","com.dmtd.hanfu.forum.dao.*"})
-
+@SpringBootApplication
 public class ForumApplication {
 
 	public static void main(String[] args) {

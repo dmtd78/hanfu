@@ -1,0 +1,202 @@
+.login-content .login-box{
+	height: 528px;
+	border: 1px solid #ccc;
+}
+.login-content .logo-left-top{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 90px;
+	height: 110px;
+	background: #f60;
+}
+.login-content .logo-right-bt{
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	width: 370px;
+	height: 250px;
+	text-align: center;
+}
+.login-content .logo-right-bt .login-text{
+	font-size: 14px;
+    line-height: 27px;
+}
+.login-content .logo-right-bt .login-text .login-name{
+	color: blue;
+}
+.login-box .login-info{
+	font-size: 18px;
+	color: #000;
+	margin-bottom: 130px;
+}
+.login-box .login-copyright{
+	color: #666;
+	font-size: 14px;
+}
+.login-box .login-contaiter{
+	padding-left: 270px;
+    padding-top: 150px;
+}
+.login-search {
+	position: relative;
+	min-height: 50px;
+}
+.login-search .search-table{
+	display: table;
+	width: 290px;
+	position: absolute;
+	right: 50px;
+    border-spacing: 5px 0;
+}
+.login-search .search-cell{
+	display: table-cell;
+}
+.cell-input{
+	width: 180px;
+}
+.cell-input input{
+    width: 180px;
+    box-sizing: border-box;
+    padding: 4px 5px;
+    border: 1px solid #ccc;
+}
+.login-search .search-btn{
+    display: block;	
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    padding: 4px 0;
+    padding-left: 16px;
+    background: url('../images/icon_fdj.png') no-repeat;
+    background-position: 2px 5px;
+    background-size: 12px;
+}
+.forum-content{
+	/*border: 1px solid #ccc;*/
+	border-top: none;
+	margin-bottom: 20px;
+}
+.forum-logo-box{
+	padding: 20px;
+	border-bottom: 1px solid #ccc;
+}
+.forum-logo-box .forum-logo{
+	margin-bottom: 10px;
+}
+.forum-logo-box .forum-text{
+	font-size: 16px;
+	padding-bottom: 10px;
+	border-bottom: 2px solid #ddd;
+}
+.forum-info .forum-info-list{
+	border-bottom: 1px solid #ccc;
+	padding: 20px;
+}
+.login-content .forum-box{
+	height: auto;
+}
+.forum-username{
+	font-size: 14px;
+	color: blue;
+	text-align: center;
+	margin-top: 5px;
+}
+.forum-info-list .forum-table{
+	display: table;
+	width: 100%;
+}
+.forum-info-list .forum-cell{
+	display: table-cell;
+	vertical-align: top;
+	position: relative;
+}
+.forum-info-list .forum-cell-left{
+	width: 100px;
+	padding-right: 20px;
+}
+.forum-text-box{
+	font-size: 14px;
+	margin-bottom: 15px;
+}
+.forum-data{
+	position: absolute;
+    bottom: 0;
+    right: 0;
+}
+.forum-list-container{
+	position: relative;
+	min-height: 350px;
+}
+.forum-list-container .forum-info-right{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 320px;
+    text-align: center;
+}
+.forum-list-container .forum-info-left{
+	margin-right: 340px;
+	padding-left: 10px;
+}
+.forum-info-right .login-text{
+	font-size: 14px;
+	line-height: 30px;
+}
+.login-end{
+	color: blue;
+}
+.forum-info-left .forum-list{
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 10px;
+	margin-bottom: 10px; 
+    overflow: hidden;
+}
+.forum-list .forum-title{
+    float: left;
+    width: 600px;
+}
+.forum-list .forum-user{
+    float: right;
+	width: 200px;
+    text-align: right;
+}
+.forum-list .forum-title .forum-title-top em,.forum-list .forum-title .forum-title-bt em{
+	padding: 3px 5px;
+    display: inline-block;
+    line-height: 1;
+    color: #fff;
+    margin-right: 5px;
+}
+.green-bt{
+	background: green;
+}
+.title-top{
+	background: blue;
+}
+.title-jing{
+	background: red;
+}
+.forum-title-top{
+	margin-bottom: 5px;
+}
+.title-text{
+	font-size: 14px;
+	color: blue;
+}
+.forum-user-text{
+	font-size: 14px;
+	color: blue;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
