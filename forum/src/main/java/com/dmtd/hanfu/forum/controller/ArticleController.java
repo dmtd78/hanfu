@@ -43,19 +43,17 @@ public class ArticleController {
 	 * @return
 	 */
 	@GetMapping("/list/{currentPage}")
-	public ModelAndView getArticlePageList(HttpSession session, @PathVariable("currentPage") int currentPage) {
-		ModelAndView mav = new ModelAndView();
+    @ResponseBody
+	public PageBean getArticlePageList(HttpSession session, @PathVariable("currentPage") int currentPage) {
 		int pageSize = Config.DEFAULT_PAGESIZE;// 每页记录数
 		PageBean pageBean = articleService.getArticlePageList(currentPage, pageSize);
-		mav.addObject("articlePageBean", pageBean);
 
 		// 刷新session
 		if (session.getAttribute("user") != null) {
 			User user = (User) session.getAttribute("user");
 			session.setAttribute("user", userService.getUserByID(user.getUid()));
 		}
-		mav.setViewName("article/articleList");
-		return mav;
+		return pageBean;
 	}
 
 	/**
@@ -65,52 +63,10 @@ public class ArticleController {
 	 * @return
 	 */
 	@RequestMapping("/details/{aid}")
-	public ModelAndView getArticleByID(@PathVariable("aid") Integer aid) {
-		ModelAndView mav = new ModelAndView();
+	public Article getArticleByID(@PathVariable("aid") Integer aid) {
 		// 帖子数据
 		Article article = articleService.getArticleByID(aid);
-		// 评论数据
-		List<Comment> commentList = commentService.findComment(aid, null);
-		// 楼中楼评论数据
-		List<Floor> floorCommentList = commentService.findFloorComment(aid, null);
-		// 数据存放至Model
-		mav.addObject(article);
-		mav.addObject(commentList);
-		mav.addObject("Floor", floorCommentList);
-		// 设置视图
-		mav.setViewName("article/articleContent");
-		return mav;
-	}
-
-	/**
-	 * 添加楼中楼评论
-	 * 
-	 * @param aid
-	 * @param cid
-	 * @param uid
-	 * @param content
-	 * @return
-	 */
-	@ResponseBody
-	@RequestMapping(value = "/floor/add", method = RequestMethod.POST)
-	public Map<String, String> findFloorComment(HttpSession session, @RequestParam("aid") Integer aid, @RequestParam("cid") Integer cid, @RequestParam("uid") Integer uid, @RequestParam("content") String content) {
-		Map<String, String> map = new HashMap<String, String>();
-		// 身份检测
-		User user = (User) session.getAttribute("user"); // 当前登录用户
-		if (user.getUid() != uid) {
-			map.put("data", "回复失败！");
-			return map;
-		}
-		// 楼中楼评论数据
-		int result = commentService.addFloorComment(aid, cid, uid, content);
-		if (result > 0) {
-			LogUtils.info("楼中楼评论成功!内容=>" + content);
-			// map.put("data", "回复成功！");
-		} else {
-			LogUtils.info("楼中楼评论失败!");
-			// map.put("data", "回复失败！");
-		}
-		return map;
+		return article;
 	}
 
 	/**
