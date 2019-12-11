@@ -1,7 +1,8 @@
 <template>
   <div id="app">
+    <Navigate></Navigate>
       <Home msg="欢迎光临大美汉服网站！"></Home>
-    <img alt="Vue logo" class="logo" src="assets/logo.png">
+    <img alt="Vue logo" class="logo" src="assets/logo-hanfu.png">
     <HelloWorld msg="Welcome to beautiful Han-Chinese-clothing website."/>
       <Advertisement></Advertisement>
   </div>
@@ -11,10 +12,12 @@
 import HelloWorld from './components/HelloWorld.vue'
 import Home from './components/Home.vue'
 import Advertisement from "./components/Advertisement";
+import Navigate from "./components/Navigate";
 
 export default {
   name: 'app',
   components: {
+    Navigate,
     HelloWorld,
     Home,Advertisement
   }
