@@ -1,0 +1,63 @@
+export default {
+    common: {
+        placeholder1: 'please select',
+        placeholder2: 'please enter',
+    },
+    select: {
+        notFoundContent: 'not found',
+        loadingText: 'loding...',
+    },
+    timePicker: {
+        placeholder: 'select time',
+        eliminate: 'eliminate',
+    },
+    datePicker: {
+        placeholder: 'please select date',
+        year: '',
+        prevYear: 'prev year',
+        nextYear: 'next year',
+        prevMonth: 'prev month',
+        nextMonth: 'next month',
+        confirm: 'ok',
+        selectYear: 'select year',
+        selectMonth: 'select month',
+        selectTime: 'select time',
+        selectDate: 'select date',
+        days: 'Mo,Tu,We,Th,Fr,Sa,Su',
+        months: 'January,February,March,April,May,June,July,August,September,October,November,December',
+        today: 'Today',
+        yesterday: 'Yesterday',
+        last7days: 'The last 7 days',
+        thisMonth: 'This month',
+        lastMonth: 'Last month',
+        latelyMonth: 'The last month',
+        latelyYear: 'The last year',
+    },
+    modal: {
+        okText: 'OK',
+        cancelText: 'Cancel',
+        justOkText: 'Got it!',
+    },
+    popconfirm: {
+        okText: 'Yes',
+        cancelText: 'No',
+    },
+    transfer: {
+        searchPlaceholder: 'Search here',
+        notFoundContent: 'Not Found',
+        strip: '',
+    },
+    dataTable: {
+        total: 'Total {total}',
+        notFoundContent: 'Not Found',
+    },
+    pagination: {
+        prev: 'Prev',
+        next: 'Next',
+        forward5: '5 pages forward',
+        backward5: '5 pages backward',
+        goto: 'Go to',
+        page: 'page',
+        pageSize: '/page',
+    },
+};
