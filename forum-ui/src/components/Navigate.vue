@@ -1,7 +1,7 @@
 <template>
     <nav>
         <ul>
-            <li><img src="assets/logo-hanfu.png"></li>
+            <li width="80"><img src="../assets/logo-hanfu.png" height="50" width="70"/></li>
             <li v-for="(item, i) in navData" :class="{ nav_li : active == i }" :key="i"
                 @click="$router.push({ path: item.path }), active = i">
                  {{item.name}}
@@ -18,9 +18,7 @@
                 active: 0,
                 navData: [
                     {name: '论坛', path: '/配置的路由'},
-                    {name: '2', path: '/配置的路由'},
-                    {name: '3', path: '/配置的路由'},
-                    {name: '4', path: '/配置的路由'},
+                    {name: '联系我们', path: 'http://www.baidu.com'},
                     {name: '登录/注册', path: '/配置的路由'}
                 ]
             }
@@ -30,9 +28,8 @@
 
 <style scoped>
     ul {
-        width: 100%;
-        height: 60px;
-        line-height: 60px;
+        height: 50px;
+        line-height: 50px;
         margin: 0 auto;
         background: #3b2d50;
         color: #fff;

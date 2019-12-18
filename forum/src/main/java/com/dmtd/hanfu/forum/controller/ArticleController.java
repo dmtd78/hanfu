@@ -63,6 +63,7 @@ public class ArticleController {
 	 * @return
 	 */
 	@RequestMapping("/details/{aid}")
+	@ResponseBody
 	public Article getArticleByID(@PathVariable("aid") Integer aid) {
 		// 帖子数据
 		Article article = articleService.getArticleByID(aid);
