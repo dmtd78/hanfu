@@ -5,30 +5,97 @@
             <a-menu
                     theme="dark"
                     mode="horizontal"
-                    :defaultSelectedKeys="['2']"
+                    :defaultSelectedKeys="['1']"
                     :style="{ lineHeight: '64px' }"
-            >
+                    :openKeys.sync="openKeys"
+                    @click="changeNavigate">
                 <a-menu-item key="1">论坛</a-menu-item>
                 <a-menu-item key="2">关于我们</a-menu-item>
                 <a-menu-item key="3">联系我们</a-menu-item>
             </a-menu>
+
         </a-layout-header>
-        <a-layout-content :style="{ padding: '0 50px', marginTop: '64px' }">
-            <a-breadcrumb :style="{ margin: '16px 0' }">
-                <a-breadcrumb-item>Home</a-breadcrumb-item>
-                <a-breadcrumb-item>List</a-breadcrumb-item>
-                <a-breadcrumb-item>App</a-breadcrumb-item>
-            </a-breadcrumb>
-            <div :style="{ background: '#fff', padding: '24px', minHeight: '380px' }">Content</div>
-        </a-layout-content>
+        <a-layout>
+            <a-layout style="padding: 0 24px 24px">
+                <a-layout-content :style="{ padding: '0 50px', marginTop: '64px' }">
+                    <a-breadcrumb :style="{ margin: '16px 0' }">
+                        <a-breadcrumb-item>Home</a-breadcrumb-item>
+                        <a-breadcrumb-item>List</a-breadcrumb-item>
+                        <a-breadcrumb-item>App</a-breadcrumb-item>
+                    </a-breadcrumb>
+                    <div id="aboutus" :style="{ background: '#fff', padding: '24px', minHeight: '380px' }">大美汉服项目，致力于发扬中国传统文化。
+                    </div>
+                    <div id="forum" :style="{ background: '#fff', padding: '24px', minHeight: '380px' }">
+                        <ForumList></ForumList>
+                    </div>
+                    <div id="connectus" :style="{ background: '#fff', padding: '24px', minHeight: '380px' }">
+                        联系我们：
+                    </div>
+                </a-layout-content>
+            </a-layout>
+            <a-layout-sider width="300" :style="{background: '#fff',padding:'84px 1px 0px 1px',overflow: 'auto', right: 0 }">
+                <a-card hoverable style="width: 240px">
+                    <img
+                            alt="example"
+                            src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                            slot="cover"
+                    />
+                    <template class="ant-card-actions" slot="actions">
+                        <a-icon type="setting" />
+                        <a-icon type="edit" />
+                        <a-icon type="ellipsis" />
+                    </template>
+                    <a-card-meta title="Card title" description="This is the description">
+                        <a-avatar
+                                slot="avatar"
+                                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                        />
+                    </a-card-meta>
+                </a-card>
+                <a-card hoverable style="width: 240px">
+                    <img src="../assets/hanfu-hf.jpg" alt="合肥汉服社" width="240px" slot="cover"/>
+                    <a-card-meta title="合肥汉服社">
+                        <template slot="description">339819261</template>
+                    </a-card-meta>
+                    <a-card-meta title="合肥汉服社2群">
+                        <template slot="description">658735265</template>
+                    </a-card-meta>
+                    <a-card-meta title="合肥汉服社3群">
+                        <template slot="description">570544539</template>
+                    </a-card-meta>
+                </a-card>
+            </a-layout-sider>
+        </a-layout>
         <a-layout-footer :style="{ textAlign: 'center' }">
             大美汉服 Design ©2019 Created by Dmtd
         </a-layout-footer>
     </a-layout>
 </template>
 <script>
+    import ForumList from "./ForumList";
+
     export default {
-        name: "Demo"
+        name: "Demo",
+        components: {ForumList},
+        data() {
+            return {
+                current: ['mail'],
+                openKeys: ['1'],
+            };
+        },
+        methods: {
+            changeNavigate(key, e) {
+
+                // eslint-disable-next-line no-console
+                console.log('click', e);
+            }
+        },
+        watch: {
+            openKeys(val) {
+                // eslint-disable-next-line no-console
+                console.log('openKeys', val);
+            },
+        },
     }
 </script>
 <style>
