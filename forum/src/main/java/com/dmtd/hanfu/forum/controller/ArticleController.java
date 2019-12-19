@@ -34,18 +34,18 @@ public class ArticleController {
 	@Autowired
 	private UserService userService;
 
-	@Autowired
-	private CommentService commentService;
-
 	/**
 	 * 获取帖子分页数据
 	 * 
 	 * @return
 	 */
-	@GetMapping("/list/{currentPage}")
+	@GetMapping("/list")
     @ResponseBody
-	public PageBean getArticlePageList(HttpSession session, @PathVariable("currentPage") int currentPage) {
+	public PageBean getArticlePageList(HttpSession session, @RequestParam("currentPage") int currentPage) {
 		int pageSize = Config.DEFAULT_PAGESIZE;// 每页记录数
+		if(currentPage==0){
+			currentPage=1;
+		}
 		PageBean pageBean = articleService.getArticlePageList(currentPage, pageSize);
 
 		// 刷新session
