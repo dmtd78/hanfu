@@ -120,14 +120,11 @@ public class UserController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping("/info/{uid}")
-	public ModelAndView getUserInfo(@PathVariable("uid") Integer uid) {
-		ModelAndView mav = new ModelAndView();
+	@RequestMapping("/info")
+	@ResponseBody
+	public User getUserInfo(@RequestParam("uid") Integer uid) {
 		// 用户信息
-		User user = userService.getUserByID(uid);
-		mav.addObject("uInfo", user);
-		mav.setViewName("user/userInfo");
-		return mav;
+		return userService.getUserByID(uid);
 	}
 
 	/**
