@@ -1,20 +1,7 @@
 <template>
     <a-layout id="components-layout-demo-fixed">
         <a-layout-header :style="{ position: 'fixed', zIndex: 1, width: '100%' }">
-            <div class="logo"><img src="../assets/logo-hanfu.png" height="51" width="120"/></div>
-            <a-menu
-                    theme="dark"
-                    mode="horizontal"
-                    :defaultSelectedKeys="['/contactUs']"
-                    :style="{ lineHeight: '64px' }"
-                    :openKeys.sync="openKeys"
-                    @click="changeNavigate">
-                <a-menu-item key="/home">论坛</a-menu-item>
-                <a-menu-item key="/aboutUs">关于我们</a-menu-item>
-                <a-menu-item key="/contactUs">联系我们</a-menu-item>
-                <a-menu-item key="/demo">Demo</a-menu-item>
-            </a-menu>
-
+            <Navigate></Navigate>
         </a-layout-header>
         <a-layout>
             <a-layout style="padding: 0 24px 24px">
@@ -50,10 +37,11 @@
     </a-layout>
 </template>
 <script>
-    import InformationCard from "./ImformationCard";
+    import InformationCard from "./InformationCard";
+    import Navigate from "./Navigate";
     export default {
         name: "ContactUs",
-        components: {InformationCard},
+        components: {Navigate, InformationCard},
         data() {
             return {
                 current: ['mail'],

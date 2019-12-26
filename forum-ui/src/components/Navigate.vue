@@ -1,13 +1,18 @@
 <template>
-    <nav>
-        <ul>
-            <li width="80"><img src="../assets/logo-hanfu.png" height="50" width="70"/></li>
-            <li v-for="(item, i) in navData" :class="{ nav_li : active == i }" :key="i"
-                @click="$router.push({ path: item.path }), active = i">
-                 {{item.name}}
-            </li>
-        </ul>
-    </nav>
+    <div id="navigate">
+        <div class="logo"><img src="../assets/logo-hanfu.png" height="51" width="120"/></div>
+        <a-menu
+                theme="dark"
+                mode="horizontal"
+                :defaultSelectedKeys="['/home']"
+                :style="{ lineHeight: '64px' }"
+                :openKeys.sync="openKeys"
+                @click="changeNavigate">
+            <a-menu-item key="/home">论坛</a-menu-item>
+            <a-menu-item key="/aboutUs">关于我们</a-menu-item>
+            <a-menu-item key="/contactUs">联系我们</a-menu-item>
+        </a-menu>
+    </div>
 </template>
 
 <script>
@@ -15,35 +20,24 @@
         name: "Navigate",
         data() {
             return {
-                active: 0,
-                navData: [
-                    {name: '论坛', path: '/配置的路由'},
-                    {name: '联系我们', path: 'http://www.baidu.com'},
-                    {name: '登录/注册', path: '/配置的路由'}
-                ]
+                current: ['mail'],
+                openKeys: ['/home'],
+            };
+        },
+        methods: {
+            changeNavigate({key}) {
+                this.$router.push(key)
             }
-        }
+        },
+        watch: {
+            openKeys(val) {
+                // eslint-disable-next-line no-console
+                console.log('openKeys', val);
+            },
+        },
     }
 </script>
 
-<style scoped>
-    ul {
-        height: 50px;
-        line-height: 50px;
-        margin: 0 auto;
-        background: #3b2d50;
-        color: #fff;
-        font-size: 18px;
-        display: flex;
-        justify-content: space-between;
-    }
+<style>
 
-    li {
-        text-align: center;
-    }
-
-    .nav_li {
-        background-color: #dedede;
-        color: #353535;
-    }
 </style>
