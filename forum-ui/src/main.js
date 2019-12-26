@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from 'vue/dist/vue'
 import App from './App.vue'
 import {Button,Checkbox,Icon
     ,Layout,Menu,Breadcrumb,List,Avatar,Card,Form,Input,Radio,Modal

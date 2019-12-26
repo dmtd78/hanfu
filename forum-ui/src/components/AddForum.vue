@@ -21,23 +21,23 @@
         template: `
     <a-modal
       :visible="visible"
-      title='Create a new collection'
-      okText='Create'
+      title='创建一个新帖'
+      okText='创建'
       @cancel="() => { $emit('cancel') }"
       @ok="() => { $emit('create') }"
     >
       <a-form layout='vertical' :form="form">
-        <a-form-item label='Title'>
+        <a-form-item label='标题'>
           <a-input
             v-decorator="[
               'title',
               {
-                rules: [{ required: true, message: 'Please input the title of collection!' }],
+                rules: [{ required: true, message: '请输入帖子标题！' }],
               }
             ]"
           />
         </a-form-item>
-        <a-form-item label='Description'>
+        <a-form-item label='内容'>
           <a-input
             type='textarea'
             v-decorator="['description']"
@@ -52,8 +52,8 @@
               }
             ]"
           >
-              <a-radio value='public'>Public</a-radio>
-              <a-radio value='private'>Private</a-radio>
+              <a-radio value='public'>公开</a-radio>
+              <a-radio value='private'>私有</a-radio>
             </a-radio-group>
         </a-form-item>
       </a-form>
@@ -66,7 +66,7 @@
         components: { CollectionCreateForm },
         data() {
             return {
-                visible: true,
+                visible: false,
             };
         },
         methods: {

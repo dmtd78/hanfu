@@ -82,7 +82,8 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, String> login(HttpSession session, @RequestParam("username") String username, @RequestParam("password") String password) {
+	public Map<String, String> login(HttpSession session, @RequestParam("username") String username,
+                                     @RequestParam("password") String password) {
 		User user = userService.findUser(username, StringUtils.MD5(password));
 		Map<String, String> map = new HashMap<String, String>();
 		if (user != null) {
@@ -102,8 +103,8 @@ public class UserController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping("/manager/{uid}")
-	public ModelAndView getUserManager(@PathVariable("uid") Integer uid) {
+	@RequestMapping("/manager")
+	public ModelAndView getUserManager(@RequestParam("uid") Integer uid) {
 		ModelAndView mav = new ModelAndView();
 		// 用户信息
 		User user = userService.getUserByID(uid);
@@ -137,8 +138,8 @@ public class UserController {
 	 * @throws IOException
 	 * @throws IllegalStateException
 	 */
-	@RequestMapping(value = "/headimg/{uid}", method = RequestMethod.POST)
-	public String updateHeadImg(HttpServletRequest request, @RequestParam("file") MultipartFile file, @PathVariable("uid") Integer uid) throws IllegalStateException, IOException {
+	@RequestMapping(value = "/headimg", method = RequestMethod.POST)
+	public String updateHeadImg(HttpServletRequest request, @RequestParam("file") MultipartFile file, @RequestParam("uid") Integer uid) throws IllegalStateException, IOException {
 		// 防止空白头像的情况
 		if (file.isEmpty())
 			return null;
@@ -170,9 +171,10 @@ public class UserController {
 	 * @param password
 	 * @return
 	 */
-	@RequestMapping(value = "/update/{uid}", method = RequestMethod.POST)
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, String> updateUserInfo(HttpSession session, @PathVariable("uid") Integer uid, @RequestParam("password") String password) {
+	public Map<String, String> updateUserInfo(HttpSession session, @RequestParam("uid") Integer uid,
+                                              @RequestParam("password") String password) {
 		Map<String, String> map = new HashMap<>();
 		// 身份检测
 		User user = (User) session.getAttribute("user"); // 当前登录用户

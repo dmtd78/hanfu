@@ -11,14 +11,12 @@ import javax.servlet.http.HttpSession;
 import com.dmtd.hanfu.forum.config.Config;
 import com.dmtd.hanfu.forum.entity.*;
 import com.dmtd.hanfu.forum.service.ArticleService;
-import com.dmtd.hanfu.forum.service.CommentService;
 import com.dmtd.hanfu.forum.service.UserService;
 import com.dmtd.hanfu.forum.util.LogUtils;
 import com.dmtd.hanfu.forum.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 
 /**
@@ -62,12 +60,11 @@ public class ArticleController {
 	 * @param aid
 	 * @return
 	 */
-	@RequestMapping("/details/{aid}")
+	@RequestMapping("/details")
 	@ResponseBody
-	public Article getArticleByID(@PathVariable("aid") Integer aid) {
+	public Article getArticleByID(@RequestParam("aid") Integer aid) {
 		// 帖子数据
-		Article article = articleService.getArticleByID(aid);
-		return article;
+		return articleService.getArticleByID(aid);
 	}
 
 	/**
@@ -76,9 +73,9 @@ public class ArticleController {
 	 * @param aid
 	 * @return
 	 */
-	@RequestMapping("/delete/{aid}")
+	@RequestMapping("/delete")
 	@ResponseBody
-	public Map<String, String> deleteArticleByID(HttpSession session, @PathVariable("aid") Integer aid) {
+	public Map<String, String> deleteArticleByID(HttpSession session, @RequestParam("aid") Integer aid) {
 		Map<String, String> map = new HashMap<>();
 		// 身份检测
 		User user = (User) session.getAttribute("user"); // 当前登录用户
@@ -137,14 +134,9 @@ public class ArticleController {
 	 * @return
 	 */
 	@RequestMapping("/search")
-	public ModelAndView SearchArticle(@RequestParam("key") String key) {
-		ModelAndView mav = new ModelAndView();
-		List<Article> list = articleService.searchArticleByKey(key);
-		LogUtils.info("查询关键字:{},共查询到{}条记录", key, list.size());
-		mav.addObject("key", key);
-		mav.addObject("resultList", list);
-		mav.setViewName("search");
-		return mav;
+	@ResponseBody
+	public List<Article> SearchArticle(@RequestParam("key") String key) {
+		return articleService.searchArticleByKey(key);
 	}
 
 }

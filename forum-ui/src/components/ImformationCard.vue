@@ -1,5 +1,5 @@
 <template>
-    <a-card hoverable style="width: 300px">
+    <a-card hoverable style="width: 240px">
         <img
                 alt="example"
                 src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
@@ -21,7 +21,7 @@
 
 <script>
     export default {
-        name: "ImformationCard"
+        name: "InformationCard"
     }
 </script>
 

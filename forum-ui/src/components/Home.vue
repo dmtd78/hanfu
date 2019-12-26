@@ -31,24 +31,7 @@
                 </a-layout-content>
             </a-layout>
             <a-layout-sider width="300" :style="{background: '#fff',padding:'84px 1px 0px 1px',overflow: 'auto', right: 0 }">
-                <a-card hoverable style="width: 240px">
-                    <img
-                            alt="example"
-                            src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                            slot="cover"
-                    />
-                    <template class="ant-card-actions" slot="actions">
-                        <a-icon type="setting" />
-                        <a-icon type="edit" />
-                        <a-icon type="ellipsis" />
-                    </template>
-                    <a-card-meta title="Card title" description="This is the description">
-                        <a-avatar
-                                slot="avatar"
-                                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                        />
-                    </a-card-meta>
-                </a-card>
+                <InformationCard></InformationCard>
             </a-layout-sider>
         </a-layout>
         <a-layout-footer :style="{ textAlign: 'center' }">
@@ -59,10 +42,11 @@
 <script>
     import ForumList from "./ForumList";
     import AddForum from "./AddForum";
+    import InformationCard from "./ImformationCard";
 
     export default {
         name: "Demo",
-        components: {AddForum, ForumList},
+        components: {InformationCard, AddForum, ForumList},
         data() {
             return {
                 current: ['mail'],
