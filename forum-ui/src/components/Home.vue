@@ -22,8 +22,9 @@
                     <a-breadcrumb :style="{ margin: '16px 0' }">
                         <a-breadcrumb-item>Home</a-breadcrumb-item>
                         <a-breadcrumb-item>List</a-breadcrumb-item>
-                        <a-breadcrumb-item>App</a-breadcrumb-item>
+                        <a-breadcrumb-item>论坛</a-breadcrumb-item>
                     </a-breadcrumb>
+                    <div><AddForum></AddForum></div>
                     <div id="forum" :style="{ background: '#fff', padding: '24px', minHeight: '380px' }">
                         <ForumList></ForumList>
                     </div>
@@ -57,10 +58,11 @@
 </template>
 <script>
     import ForumList from "./ForumList";
+    import AddForum from "./AddForum";
 
     export default {
         name: "Demo",
-        components: {ForumList},
+        components: {AddForum, ForumList},
         data() {
             return {
                 current: ['mail'],
