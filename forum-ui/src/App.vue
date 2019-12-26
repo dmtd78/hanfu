@@ -1,22 +1,18 @@
 <template>
   <div id="app">
-    <Home></Home>
+    <!-- 路由匹配到的组件将渲染在这里 -->
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-  import Home from "./components/Home"
-
+  import router from './router'
 export default {
   name: 'app',
-  components: {
-    Home
-  }
+  router,
 }
 </script>
 <style>
-#app {
-
-}
-    .logo{width: 200px;height: 200px;}
+#app {}
+.logo{width: 200px;height: 200px;}
 </style>

@@ -5,7 +5,7 @@ import {Button,Checkbox,Icon
 } from "ant-design-vue";
 import 'ant-design-vue/dist/antd.css';
 import moment from 'moment';
-
+import VueRouter from 'vue-router'
 
 Vue.config.productionTip = false;
 
@@ -22,6 +22,7 @@ Vue.use(Form)
 Vue.use(Input)
 Vue.use(Radio)
 Vue.use(Modal)
+Vue.use(VueRouter)
 Vue.prototype.$moment = moment
 new Vue({
   render: h => h(App),

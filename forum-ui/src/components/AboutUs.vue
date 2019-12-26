@@ -5,7 +5,7 @@
             <a-menu
                     theme="dark"
                     mode="horizontal"
-                    :defaultSelectedKeys="['/home']"
+                    :defaultSelectedKeys="['/aboutUs']"
                     :style="{ lineHeight: '64px' }"
                     :openKeys.sync="openKeys"
                     @click="changeNavigate">
@@ -22,10 +22,12 @@
                     <a-breadcrumb :style="{ margin: '16px 0' }">
                         <a-breadcrumb-item>Home</a-breadcrumb-item>
                         <a-breadcrumb-item>List</a-breadcrumb-item>
-                        <a-breadcrumb-item>App</a-breadcrumb-item>
+                        <a-breadcrumb-item>关于我们</a-breadcrumb-item>
                     </a-breadcrumb>
                     <div id="forum" :style="{ background: '#fff', padding: '24px', minHeight: '380px' }">
-                        <ForumList></ForumList>
+                        <a-card hoverable style="width: 240px">
+                            大美汉服，致力于发扬中国传统文化。
+                        </a-card>
                     </div>
                 </a-layout-content>
             </a-layout>
@@ -48,6 +50,7 @@
                         />
                     </a-card-meta>
                 </a-card>
+
             </a-layout-sider>
         </a-layout>
         <a-layout-footer :style="{ textAlign: 'center' }">
@@ -56,15 +59,13 @@
     </a-layout>
 </template>
 <script>
-    import ForumList from "./ForumList";
-
     export default {
-        name: "Demo",
-        components: {ForumList},
+        name: "AboutUs",
+        components: {},
         data() {
             return {
                 current: ['mail'],
-                openKeys: ['/home'],
+                openKeys: ['/aboutUs'],
             };
         },
         methods: {
