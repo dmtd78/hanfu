@@ -11,7 +11,6 @@
                         <a-breadcrumb-item>List</a-breadcrumb-item>
                         <a-breadcrumb-item>注册</a-breadcrumb-item>
                     </a-breadcrumb>
-                    <div><Login></Login></div>
                     <div id="forum" :style="{ background: '#fff', padding: '24px', minHeight: '380px' }">
                         <RegisterSubmit></RegisterSubmit>
                     </div>
@@ -30,11 +29,10 @@
     import InformationCard from "./InformationCard";
     import Navigate from "./Navigate";
     import RegisterSubmit from "./RegisterSubmit";
-    import Login from "./Login";
 
     export default {
         name: "Register",
-        components: {Login, RegisterSubmit, Navigate, InformationCard},
+        components: {RegisterSubmit, Navigate, InformationCard},
     }
 </script>
 <style>

@@ -10,7 +10,7 @@
             <a-icon type="edit" />
             <a-icon type="ellipsis" />
         </template>
-        <a-card-meta :title="data.username" description="This is the description">
+        <a-card-meta :title="data.username" :description="msg+$moment(data.lastLoginTime).format('YYYY-MM-DD')">
             <a-avatar
                     slot="avatar"
                     src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
@@ -30,13 +30,14 @@
                 loading: true,
                 loadingMore: false,
                 showLoadingMore: true,
+                msg:'上次登录时间：',
                 data: [],
             };
         },
         mounted() {
             this.getData(res => {
                 this.loading = false;
-                this.data = res;
+                this.data = res.data;
             });
         },
         methods: {

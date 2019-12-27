@@ -9,6 +9,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="username" column="username"/>
 		<result property="password" column="password"/>
 		<result property="headimg" column="headimg"/>
+		<result property="sex" column="sex"/>
+		<result property="email" column="email"/>
+		<result property="phone" column="phone"/>
+		<result property="nickname" column="nickname"/>
+		<result property="createTime" column="create_time"/>
+		<result property="lastLoginTime" column="last_login_time"/>
 	</resultMap>
 	
 	<insert id="addUser">

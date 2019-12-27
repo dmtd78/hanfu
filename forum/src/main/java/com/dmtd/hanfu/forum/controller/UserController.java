@@ -15,6 +15,7 @@ import com.dmtd.hanfu.forum.config.Config;
 import com.dmtd.hanfu.forum.entity.Article;
 import com.dmtd.hanfu.forum.entity.User;
 import com.dmtd.hanfu.forum.exception.JsonResult;
+import com.dmtd.hanfu.forum.exception.JsonResultData;
 import com.dmtd.hanfu.forum.service.ArticleService;
 import com.dmtd.hanfu.forum.service.UserService;
 import com.dmtd.hanfu.forum.util.LogUtils;
@@ -120,9 +121,12 @@ public class UserController {
 	 */
 	@RequestMapping("/info")
 	@ResponseBody
-	public User getUserInfo(@RequestParam("uid") Integer uid) {
+	public JsonResultData getUserInfo(@RequestParam("uid") Integer uid) {
+		JsonResultData jsonResultData = new JsonResultData();
 		// 用户信息
-		return userService.getUserByID(uid);
+		User user = userService.getUserByID(uid);
+		jsonResultData.setData(user);
+		return jsonResultData;
 	}
 
 	/**
