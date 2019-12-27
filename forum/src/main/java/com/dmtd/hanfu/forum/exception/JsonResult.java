@@ -1,6 +1,18 @@
 package com.dmtd.hanfu.forum.exception;
 
-
+/**
+ * <br>
+ * Copyright (c) 12/27/2019 All Rights Reserved By dmtd<br>
+ * <br>
+ * Package: com.dmtd.hanfu.forum.exception <br>
+ * FileName: JsonResult <br>
+ * <br>
+ *
+ * @author duanmin
+ * @created 12/27/2019-10:15 AM
+ * @last Modified
+ * @history
+ */
 public class JsonResult {
     protected int resultCode;
     protected String errorInfo;

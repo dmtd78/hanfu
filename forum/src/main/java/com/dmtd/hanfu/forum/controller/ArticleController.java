@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import com.dmtd.hanfu.forum.config.Config;
 import com.dmtd.hanfu.forum.entity.*;
+import com.dmtd.hanfu.forum.exception.JsonResult;
 import com.dmtd.hanfu.forum.service.ArticleService;
 import com.dmtd.hanfu.forum.service.UserService;
 import com.dmtd.hanfu.forum.util.LogUtils;
@@ -105,26 +106,17 @@ public class ArticleController {
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, String> addArticle(HttpSession session, @RequestParam(value = "title") String title, @RequestParam(value = "content") String content, @RequestParam(value = "uid") Integer uid, @RequestParam(value = "lable", required = false) String lable) {
-		Map<String, String> map = new HashMap<>();
-		// 身份检测
-		User user = (User) session.getAttribute("user");
-		if (user == null) {
-			map.put("data", "请登录后在发帖！");
-			return map;
-		}
+	public JsonResult addArticle(HttpSession session, @RequestParam(value = "title") String title,
+										  @RequestParam(value = "content") String content,
+										  @RequestParam(value = "uid") Integer uid,
+										  @RequestParam(value = "lable", required = false) String lable) {
+		JsonResult result = new JsonResult();
 		if (StringUtils.isEmpty(title) || StringUtils.isBlank(title)) {
-			map.put("data", "标题不能为空！");
-			return map;
+			result.setErrorInfo("标题不能为空！");
+			return result;
 		}
-		int result = articleService.addArticle(title, content, new Timestamp(new Date().getTime()), uid, lable);
-		if (result > 0) {
-			LogUtils.info("发帖成功,标题:{},内容长度:{}", title, content.length());
-			map.put("data", "发帖成功！");
-		} else {
-			LogUtils.info("发帖失败！");
-		}
-		return map;
+		articleService.addArticle(title, content, new Timestamp(new Date().getTime()), uid, lable);
+		return result;
 	}
 
 	/**
