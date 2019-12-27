@@ -4,7 +4,7 @@
         <a-menu
                 theme="dark"
                 mode="horizontal"
-                :selectedkeys="selectedKeys"
+                :selectedKeys="selectedKeys"
                 :style="{ lineHeight: '64px' }"
                 @select="changeNavigate">
             <a-menu-item key="/home">论坛</a-menu-item>
