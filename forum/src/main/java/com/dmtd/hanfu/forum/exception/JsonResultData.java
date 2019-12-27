@@ -5,17 +5,19 @@ package com.dmtd.hanfu.forum.exception;
  * Copyright (c) 12/27/2019 All Rights Reserved By dmtd<br>
  * <br>
  * Package: com.dmtd.hanfu.forum.exception <br>
- * FileName: JsonResult <br>
+ * FileName: JsonResultData <br>
  * <br>
  *
  * @author duanmin
- * @created 12/27/2019-10:15 AM
+ * @created 12/27/2019-2:30 PM
  * @last Modified
  * @history
  */
-public class JsonResult {
+public class JsonResultData {
     protected int resultCode;
     protected String resultInfo;
+    private Object data;
+
     public int getResultCode() {
         return resultCode;
     }
@@ -28,10 +30,19 @@ public class JsonResult {
     public void setResultInfo(String resultInfo) {
         this.resultInfo = resultInfo;
     }
+
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
+    }
+
     /**
      * 构造一个成功的结果返回
      */
-    public JsonResult() {
+    public JsonResultData() {
         this.setResultCode(0);
     }
     /**
@@ -39,7 +50,7 @@ public class JsonResult {
      *
      * @param resultInfo
      */
-    public JsonResult(String resultInfo) {
+    public JsonResultData(String resultInfo) {
         this.setResultCode(-1);
         this.setResultInfo(resultInfo);
     }

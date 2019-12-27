@@ -1,7 +1,7 @@
 <template>
     <a-layout id="components-layout-demo-fixed">
         <a-layout-header :style="{ position: 'fixed', zIndex: 1, width: '100%' }">
-            <Navigate></Navigate>
+            <Navigate current="/register"></Navigate>
         </a-layout-header>
         <a-layout>
             <a-layout style="padding: 0 24px 24px">
@@ -11,7 +11,7 @@
                         <a-breadcrumb-item>List</a-breadcrumb-item>
                         <a-breadcrumb-item>注册</a-breadcrumb-item>
                     </a-breadcrumb>
-                    <div><AddForum></AddForum></div>
+                    <div><Login></Login></div>
                     <div id="forum" :style="{ background: '#fff', padding: '24px', minHeight: '380px' }">
                         <RegisterSubmit></RegisterSubmit>
                     </div>
@@ -27,14 +27,14 @@
     </a-layout>
 </template>
 <script>
-    import AddForum from "./AddForum";
     import InformationCard from "./InformationCard";
     import Navigate from "./Navigate";
     import RegisterSubmit from "./RegisterSubmit";
+    import Login from "./Login";
 
     export default {
         name: "Register",
-        components: {RegisterSubmit, Navigate, InformationCard, AddForum},
+        components: {Login, RegisterSubmit, Navigate, InformationCard},
     }
 </script>
 <style>

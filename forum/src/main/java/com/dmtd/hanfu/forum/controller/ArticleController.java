@@ -112,7 +112,7 @@ public class ArticleController {
 										  @RequestParam(value = "lable", required = false) String lable) {
 		JsonResult result = new JsonResult();
 		if (StringUtils.isEmpty(title) || StringUtils.isBlank(title)) {
-			result.setErrorInfo("标题不能为空！");
+			result.setResultInfo("标题不能为空！");
 			return result;
 		}
 		articleService.addArticle(title, content, new Timestamp(new Date().getTime()), uid, lable);

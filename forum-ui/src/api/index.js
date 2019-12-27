@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 // 配置API接口地址
 var root = 'https://cnodejs.org/api/v1'
 // 引用axios
@@ -45,9 +46,10 @@ function apiAxios (method, url, params, success, failure) {
         withCredentials: false
     })
         .then(function (res) {
-            if (res.data.success === true) {
+            console.log(res)
+            if (res.data.resultCode === '0') {
                 if (success) {
-                    success(res.data)
+                    this.$api.success(res.data.resultInfo)
                 }
             } else {
                 if (failure) {
@@ -58,6 +60,7 @@ function apiAxios (method, url, params, success, failure) {
             }
         })
         .catch(function (err) {
+            console.log(err)
             let res = err.response
             if (err) {
                 window.alert('api error, HTTP CODE: ' + res.status)
@@ -78,5 +81,11 @@ export default {
     },
     delete: function (url, params, success, failure) {
         return apiAxios('DELETE', url, params, success, failure)
+    },
+    success:function() {
+        this.$message.success(
+            'This is a prompt message for success, and it will disappear in 10 seconds',
+            10,
+        );
     }
 }

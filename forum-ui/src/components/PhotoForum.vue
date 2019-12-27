@@ -1,7 +1,7 @@
 <template>
     <a-layout id="components-layout-demo-fixed">
         <a-layout-header :style="{ position: 'fixed', zIndex: 1, width: '100%' }">
-            <Navigate></Navigate>
+            <Navigate current="/photoForum"></Navigate>
         </a-layout-header>
         <a-layout>
             <a-layout style="padding: 0 24px 24px">

@@ -1,5 +1,23 @@
 <template>
+    <div>
     <a-form :form="form" @submit="handleSubmit">
+        <a-form-item v-bind="formItemLayout">
+
+      <span slot="label">
+        登录账号&nbsp;
+        <a-tooltip title="如果输入了手机号，也可以用手机号登录！">
+          <a-icon type="question-circle-o" />
+        </a-tooltip>
+      </span>
+            <a-input
+                    v-decorator="[
+          'username',
+          {
+            rules: [{ required: true, message: '请输入你的登录账号！', whitespace: true }],
+          },
+        ]"
+            />
+        </a-form-item>
         <a-form-item v-bind="formItemLayout" label="密码">
             <a-input v-decorator="['password',
           {
@@ -24,7 +42,7 @@
             rules: [
               {
                 required: true,
-                message: 'Please confirm your password!',
+                message: '请确认密码！',
               },
               {
                 validator: compareToFirstPassword,
@@ -36,42 +54,12 @@
                     @blur="handleConfirmBlur"
             />
         </a-form-item>
-        <a-form-item v-bind="formItemLayout">
-      <span slot="label">
-        昵称&nbsp;
-        <a-tooltip title="其他人怎么称呼你?">
-          <a-icon type="question-circle-o" />
-        </a-tooltip>
-      </span>
-            <a-input
-                    v-decorator="[
-          'nickname',
-          {
-            rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
-          },
-        ]"
-            />
-        </a-form-item>
-        <a-form-item v-bind="formItemLayout" label="常住城市">
-            <a-cascader
-                    v-decorator="[
-          'residence',
-          {
-            initialValue: ['安徽', '合肥', '蜀山区'],
-            rules: [
-              { type: 'array', required: false, message: 'Please select your habitual residence!' },
-            ],
-          },
-        ]"
-                    :options="residences"
-            />
-        </a-form-item>
         <a-form-item v-bind="formItemLayout" label="手机号">
             <a-input
                     v-decorator="[
           'phone',
           {
-            rules: [{ required: false, message: 'Please input your phone number!' }],
+            rules: [{ required: false, message: '请输入你的手机号！' }],
           },
         ]"
                     style="width: 100%"
@@ -90,120 +78,22 @@
                 </a-select>
             </a-input>
         </a-form-item>
-        <a-form-item v-bind="formItemLayout" label="E-mail">
-            <a-input
-                    v-decorator="[
-          'email',
-          {
-            rules: [
-              {
-                type: 'email',
-                message: 'The input is not valid E-mail!',
-              },
-              {
-                required: true,
-                message: 'Please input your E-mail!',
-              },
-            ],
-          },
-        ]"
-            />
-        </a-form-item>
-        <a-form-item v-bind="formItemLayout" label="Website">
-            <a-auto-complete
-                    v-decorator="['website', { rules: [{ required: false, message: 'Please input website!' }] }]"
-                    placeholder="website"
-                    @change="handleWebsiteChange"
-            >
-                <template slot="dataSource">
-                    <a-select-option v-for="website in autoCompleteResult" :key="website">
-                        {{ website }}
-                    </a-select-option>
-                </template>
-                <a-input />
-            </a-auto-complete>
-        </a-form-item>
-        <a-form-item
-                v-bind="formItemLayout"
-                label="验证码"
-                extra="We must make sure that your are a human."
-        >
-            <a-row :gutter="8">
-                <a-col :span="12">
-                    <a-input
-                            v-decorator="[
-              'captcha',
-              { rules: [{ required: true, message: 'Please input the captcha you got!' }] },
-            ]"
-                    />
-                </a-col>
-                <a-col :span="12">
-                    <a-button>Get captcha</a-button>
-                </a-col>
-            </a-row>
-        </a-form-item>
-        <a-form-item v-bind="tailFormItemLayout">
-            <a-checkbox v-decorator="['agreement', { valuePropName: 'checked' }]">
-                I have read the
-                <a href="">
-                    agreement
-                </a>
-            </a-checkbox>
-        </a-form-item>
         <a-form-item v-bind="tailFormItemLayout">
             <a-button type="primary" html-type="submit">
-                Register
+                注册
             </a-button>
         </a-form-item>
     </a-form>
+    </div>
 </template>
 
 <script>
-    const residences = [
-        {
-            value: 'Anhui',
-            label: '安徽',
-            children: [
-                {
-                    value: 'Hefei',
-                    label: '合肥',
-                    children: [
-                        {
-                            value: 'Shushan',
-                            label: '蜀山区',
-                        },
-                        {
-                            value: 'Gaoxin',
-                            label: '高新区',
-                        },
-                    ],
-                },
-            ],
-        },
-        {
-            value: 'Jiangsu',
-            label: '江苏',
-            children: [
-                {
-                    value: 'Nanjing',
-                    label: '南京',
-                    children: [
-                        {
-                            value: 'zhonghuamen',
-                            label: '中华门',
-                        },
-                    ],
-                },
-            ],
-        },
-    ];
-
     export default {
         name:"RegisterSubmit",
         data() {
             return {
+                closable: true,
                 confirmDirty: false,
-                residences,
                 autoCompleteResult: [],
                 formItemLayout: {
                     labelCol: {
@@ -239,6 +129,7 @@
                     if (!err) {
                         // eslint-disable-next-line no-console
                         console.log('Received values of form: ', values);
+                        this.$api.post('http://localhost:8081/user/regist?username='+values.username+'&password='+values.password,values);
                     }
                 });
             },
@@ -249,7 +140,7 @@
             compareToFirstPassword(rule, value, callback) {
                 const form = this.form;
                 if (value && value !== form.getFieldValue('password')) {
-                    callback('Two passwords that you enter is inconsistent!');
+                    callback('两个密码要一致！');
                 } else {
                     callback();
                 }
@@ -260,15 +151,6 @@
                     form.validateFields(['confirm'], { force: true });
                 }
                 callback();
-            },
-            handleWebsiteChange(value) {
-                let autoCompleteResult;
-                if (!value) {
-                    autoCompleteResult = [];
-                } else {
-                    autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`);
-                }
-                this.autoCompleteResult = autoCompleteResult;
             },
         },
     };

@@ -10,12 +10,12 @@ import api from './api/index.js'
 Vue.prototype.$api = api
 
 import {Button,Checkbox,Icon
-    ,Layout,Menu,Breadcrumb,List,Avatar,Card,Form,Input,Radio,Modal,Select,Row,Col,Cascader
+    ,Layout,Menu,Breadcrumb,List,Avatar,Card,Form,Input,Radio,Modal,Select,Row,Col,Cascader,Tooltip,Alert,message
 } from "ant-design-vue";
 import 'ant-design-vue/dist/antd.css';
 import moment from 'moment';
 import VueRouter from 'vue-router'
-
+Vue.prototype.$message = message;
 Vue.config.productionTip = false;
 
 Vue.use(Button)
@@ -36,6 +36,8 @@ Vue.use(Select)
 Vue.use(Row)
 Vue.use(Col)
 Vue.use(Cascader)
+Vue.use(Tooltip)
+Vue.use(Alert)
 Vue.prototype.$moment = moment
 new Vue({
   render: h => h(App),

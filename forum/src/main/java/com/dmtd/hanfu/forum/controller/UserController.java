@@ -14,13 +14,13 @@ import javax.servlet.http.HttpSession;
 import com.dmtd.hanfu.forum.config.Config;
 import com.dmtd.hanfu.forum.entity.Article;
 import com.dmtd.hanfu.forum.entity.User;
+import com.dmtd.hanfu.forum.exception.JsonResult;
 import com.dmtd.hanfu.forum.service.ArticleService;
 import com.dmtd.hanfu.forum.service.UserService;
 import com.dmtd.hanfu.forum.util.LogUtils;
 import com.dmtd.hanfu.forum.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,25 +51,23 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/regist", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, String> regist(@RequestParam("username") String username, @RequestParam("password") String password) {
-
-		Map<String, String> map = new HashMap<String, String>();
+	public JsonResult regist(@RequestParam("username") String username, @RequestParam("password") String password) {
+		JsonResult jsonResult = new JsonResult();
 		// 保证用户名唯一
 		if (userService.findUser(username, null) != null) {
-			map.put("data", "用户名已存在！");
-			return map;
+			jsonResult.setResultInfo("用户名已存在！");
+			return jsonResult;
 		}
 		// 默认头像
 		String headimg = Config.DEFAULT_HEADIMG_ADDRESS;
 		int result = userService.addUser(username, StringUtils.MD5(password), headimg);
 		if (result > 0) {
-			LogUtils.info("注册成功！用户名:{},密码：{}", username, password);
-			map.put("data", "注册成功,请重新登录！");
+			jsonResult.setResultInfo("注册成功！");
+			return jsonResult;
 		} else {
-			LogUtils.info("注册失败!");
-			map.put("data", "注册失败！");
+			jsonResult.setResultInfo("注册失败！");
 		}
-		return map;
+		return jsonResult;
 	}
 
 	/**
@@ -82,20 +80,19 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, String> login(HttpSession session, @RequestParam("username") String username,
+	public JsonResult login(HttpSession session, @RequestParam("username") String username,
                                      @RequestParam("password") String password) {
+		JsonResult jsonResult = new JsonResult();
 		User user = userService.findUser(username, StringUtils.MD5(password));
-		Map<String, String> map = new HashMap<String, String>();
 		if (user != null) {
 			userService.updateUserLoginTime(user.getUid(), new Date());
-			LogUtils.info("登录成功！用户名:{},密码：{}", username, password);
-			map.put("data", "登录成功！");
+			jsonResult.setResultInfo("登录成功！");
 			session.setAttribute("user", user);
 		} else {
-			LogUtils.info("登录失败!");
-			map.put("data", "登录失败！");
+			jsonResult.setResultInfo("登录失败！");
+			return jsonResult;
 		}
-		return map;
+		return jsonResult;
 	}
 
 	/**
@@ -196,7 +193,6 @@ public class UserController {
 	/**
 	 * 安全退出
 	 * 
-	 * @param request
 	 * @return
 	 */
 	@RequestMapping("/exit")
