@@ -4,10 +4,9 @@
         <a-menu
                 theme="dark"
                 mode="horizontal"
-                :defaultSelectedKeys="['/home']"
+                :selectedkeys="selectedKeys"
                 :style="{ lineHeight: '64px' }"
-                :openKeys.sync="openKeys"
-                @click="changeNavigate">
+                @select="changeNavigate">
             <a-menu-item key="/home">论坛</a-menu-item>
             <a-menu-item key="/aboutUs">关于我们</a-menu-item>
             <a-menu-item key="/contactUs">联系我们</a-menu-item>
@@ -19,22 +18,24 @@
     export default {
         name: "Navigate",
         data() {
-            return {
-                current: ['mail'],
-                openKeys: ['/home'],
-            };
+            return {}
+        },
+        props: {
+            current:{
+                type: String,
+                default: '/home'
+            }
+        },
+        computed: {
+            selectedKeys() {
+                return [this.current]
+            }
         },
         methods: {
             changeNavigate({key}) {
                 this.$router.push(key)
             }
-        },
-        watch: {
-            openKeys(val) {
-                // eslint-disable-next-line no-console
-                console.log('openKeys', val);
-            },
-        },
+        }
     }
 </script>
 
