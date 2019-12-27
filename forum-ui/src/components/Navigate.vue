@@ -33,7 +33,7 @@
         },
         methods: {
             changeNavigate({key}) {
-                this.$router.push(key)
+                this.$router.push(key).catch(() => {})
             }
         }
     }
