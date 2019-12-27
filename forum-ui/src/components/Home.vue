@@ -1,7 +1,7 @@
 <template>
     <a-layout id="components-layout-demo-fixed">
         <a-layout-header :style="{ position: 'fixed', zIndex: 1, width: '100%' }">
-            <Navigate></Navigate>
+            <Navigate current="/contactUs"></Navigate>
         </a-layout-header>
         <a-layout>
             <a-layout style="padding: 0 24px 24px">
@@ -27,14 +27,14 @@
     </a-layout>
 </template>
 <script>
-    import ForumList from "./ForumList";
     import AddForum from "./AddForum";
     import InformationCard from "./InformationCard";
     import Navigate from "./Navigate";
+    import ForumList from "./ForumList";
 
     export default {
         name: "Demo",
-        components: {Navigate, InformationCard, AddForum, ForumList},
+        components: {ForumList, Navigate, InformationCard, AddForum},
     }
 </script>
 <style>

@@ -11,12 +11,11 @@
 
         <a-list-item slot="renderItem" slot-scope="item">
             <a slot="actions">{{$moment(item.date).format('YYYY-MM-DD')}}</a>
-            <a-list-item-meta :description="item.author.username ">
+            <a-list-item-meta :description="item.content">
                 <a slot="title" href="http://106.12.61.131:8081/article/details?aid=">{{item.title}}</a>
                 <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
                 />
             </a-list-item-meta>
-            <div>{{item.content}}</div>
         </a-list-item>
     </a-list>
 </template>

@@ -1,7 +1,7 @@
 <template>
     <a-layout id="components-layout-demo-fixed">
         <a-layout-header :style="{ position: 'fixed', zIndex: 1, width: '100%' }">
-            <Navigate current="/aboutUs"></Navigate>
+            <Navigate></Navigate>
         </a-layout-header>
         <a-layout>
             <a-layout style="padding: 0 24px 24px">
@@ -9,12 +9,11 @@
                     <a-breadcrumb :style="{ margin: '16px 0' }">
                         <a-breadcrumb-item>Home</a-breadcrumb-item>
                         <a-breadcrumb-item>List</a-breadcrumb-item>
-                        <a-breadcrumb-item>关于我们</a-breadcrumb-item>
+                        <a-breadcrumb-item>图文赏析</a-breadcrumb-item>
                     </a-breadcrumb>
+                    <div><AddForum></AddForum></div>
                     <div id="forum" :style="{ background: '#fff', padding: '24px', minHeight: '380px' }">
-                        <a-card hoverable style="width: 240px">
-                            大美汉服，致力于发扬中国传统文化。
-                        </a-card>
+                        <ForumListImg></ForumListImg>
                     </div>
                 </a-layout-content>
             </a-layout>
@@ -28,28 +27,14 @@
     </a-layout>
 </template>
 <script>
+    import AddForum from "./AddForum";
     import InformationCard from "./InformationCard";
     import Navigate from "./Navigate";
+    import ForumListImg from "./ForumListImg";
+
     export default {
-        name: "AboutUs",
-        components: {Navigate, InformationCard},
-        data() {
-            return {
-                current: ['mail'],
-                openKeys: ['/aboutUs'],
-            };
-        },
-        methods: {
-            changeNavigate({key}) {
-                this.$router.push(key)
-            }
-        },
-        watch: {
-            openKeys(val) {
-                // eslint-disable-next-line no-console
-                console.log('openKeys', val);
-            },
-        },
+        name: "PhotoForum",
+        components: {ForumListImg, Navigate, InformationCard, AddForum},
     }
 </script>
 <style>

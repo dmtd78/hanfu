@@ -84,6 +84,7 @@
                     }
                     // eslint-disable-next-line no-console
                     console.log('Received values of form: ', values);
+                    this.$api.post('http://106.12.61.131:8081/article/add?title='+values.title+'&content='+values.description+'&uid=1',values,'success','failure');
                     form.resetFields();
                     this.visible = false;
                 });
