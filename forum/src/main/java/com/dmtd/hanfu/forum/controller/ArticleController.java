@@ -101,21 +101,20 @@ public class ArticleController {
 	 * 发表新帖
 	 * 
 	 * @param title
-	 * @param content
 	 * @return
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
-	public JsonResult addArticle(HttpSession session, @RequestParam(value = "title") String title,
-										  @RequestParam(value = "content") String content,
-										  @RequestParam(value = "uid") Integer uid,
+	public JsonResult addArticle(@RequestParam(value = "title") String title,
+										  @RequestParam(value = "description") String description,
+										  @RequestParam(value = "userId") Integer userId,
 										  @RequestParam(value = "lable", required = false) String lable) {
 		JsonResult result = new JsonResult();
 		if (StringUtils.isEmpty(title) || StringUtils.isBlank(title)) {
 			result.setResultInfo("标题不能为空！");
 			return result;
 		}
-		articleService.addArticle(title, content, new Timestamp(new Date().getTime()), uid, lable);
+		articleService.addArticle(title, description, new Timestamp(new Date().getTime()), userId, lable);
 		return result;
 	}
 

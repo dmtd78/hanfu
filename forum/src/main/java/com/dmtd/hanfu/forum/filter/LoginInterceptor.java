@@ -2,7 +2,6 @@ package com.dmtd.hanfu.forum.filter;
 
 import com.dmtd.hanfu.forum.entity.User;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,7 +40,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         HttpSession session = httpServletRequest.getSession();
         User user = (User) session.getAttribute("user");
         if (user == null) {
-            return false;
+            return true;
         }
         return true;
     }

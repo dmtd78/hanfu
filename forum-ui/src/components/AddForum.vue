@@ -84,7 +84,7 @@
                     }
                     // eslint-disable-next-line no-console
                     console.log('Received values of form: ', values);
-                    this.$api.post('http://localhost:8081/article/add',values,'success','failure');
+                    this.$api.post('http://localhost:8081/article/add?title='+values.title+'&description='+values.description+'&uid=1',values);
                     form.resetFields();
                     this.visible = false;
                 });

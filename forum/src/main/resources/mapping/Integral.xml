@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dmtd.hanfu.forum.dao.IntegralDao">
+	
+	<resultMap type="com.dmtd.hanfu.forum.entity.Integral" id="IntegralResult">
+		<id property="id" column="id"/>
+		<result property="integral" column="integral"/>
+		<result property="lastIntegral" column="last_integral"/>
+		<result property="todayIntegral" column="today_integral" />
+		<result property="createTime" column="create_time" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP"/>
+		<result property="updateTime" column="update_time" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP"/>
+		<result property="userId" column="user_id" />
+	</resultMap>
+
+	<select id="getIntegralByUserId" resultType="Integral">
+		select * from forum_integral where user_id=#{userId}
+	</select>
+	
+</mapper>

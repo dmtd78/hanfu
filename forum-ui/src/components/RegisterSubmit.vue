@@ -137,7 +137,7 @@
                     if (!err) {
                         // eslint-disable-next-line no-console
                         console.log('Received values of form: ', values);
-                        this.$api.post('http://localhost:8081/user/regist?username=' + values.username + '&password=' + values.password, values);
+                        this.$api.post('http://106.12.61.131:8081/user/regist?username=' + values.username + '&password=' + values.password, values);
                     }
                 });
             },
