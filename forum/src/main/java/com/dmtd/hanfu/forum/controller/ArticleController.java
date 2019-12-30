@@ -42,13 +42,13 @@ public class ArticleController {
      */
     @GetMapping("/list")
     @ResponseBody
-    public JsonResultData getArticlePageList(@RequestParam("currentPage") int currentPage) {
+    public JsonResultData getArticlePageList(@RequestParam("currentPage") int currentPage,@RequestParam("type") int type) {
         int pageSize = Config.DEFAULT_PAGESIZE;// 每页记录数
         if (currentPage == 0) {
             currentPage = 1;
         }
         JsonResultData jsonResultData = new JsonResultData();
-        PageBean pageBean = articleService.getArticlePageList(currentPage, pageSize);
+        PageBean pageBean = articleService.getArticlePageList(currentPage, pageSize,type);
         jsonResultData.setData(pageBean);
         return jsonResultData;
     }
@@ -61,9 +61,11 @@ public class ArticleController {
      */
     @RequestMapping("/details")
     @ResponseBody
-    public Article getArticleByID(@RequestParam("aid") Integer aid) {
+    public JsonResultData getArticleByID(@RequestParam("aid") Integer aid) {
+        JsonResultData jsonResultData = new JsonResultData();
+        jsonResultData.setData(articleService.getArticleByID(aid));
         // 帖子数据
-        return articleService.getArticleByID(aid);
+        return jsonResultData;
     }
 
     /**

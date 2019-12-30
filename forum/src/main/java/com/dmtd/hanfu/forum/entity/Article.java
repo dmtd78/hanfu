@@ -19,6 +19,15 @@ public class Article implements Serializable {
 	private String lable; // 帖子标签
 	private Integer status; // 置顶:2、加精:1、加精且置顶:3
 	private User author;
+	private Integer type;
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
 
 	public Integer getAid() {
 		return aid;

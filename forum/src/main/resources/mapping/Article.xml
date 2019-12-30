@@ -11,6 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="date" column="date" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/>
 		<result property="lable" column="lable"/>
 		<result property="status" column="status"/>
+		<result property="type" column="type"/>
 		<association property="author" column="uid" select="com.dmtd.hanfu.forum.dao.UserDao.getUserByID" />
 	</resultMap>
 	
@@ -23,7 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="getArticlePageList" resultMap="ArticleResult">
-	select * from (select * from article order by `status` desc limit #{currentPage},#{pageSize})t,user where t.uid=`user`.uid;
+	select * from (select * from article order by `status` desc limit #{currentPage},#{pageSize})t,user where t.uid=`user`.uid and t.type=#{type};
 	</select>
 	
 	<select id="getArticleByID" resultMap="ArticleResult">

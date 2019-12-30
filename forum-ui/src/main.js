@@ -4,7 +4,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios,axios)
 //当创建实例时，设置默认配置。
-axios.defaults.baseURL = 'http://localhost:8081';
+axios.defaults.baseURL = 'http://106.12.61.131/:8081';
 
 import Vuex from 'vuex'
 Vue.use(Vuex)

@@ -12,7 +12,7 @@
         <a-list-item slot="renderItem" slot-scope="item">
             <a slot="actions">{{$moment(item.date).format('YYYY-MM-DD')}}</a>
             <a-list-item-meta :description="item.content">
-                <a slot="title" href="http://106.12.61.131:8081/article/details?aid=">{{item.title}}</a>
+                <a slot="title" @click="gotoDetail(item.aid)">{{item.title}}</a>
                 <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
                 />
             </a-list-item-meta>
@@ -21,8 +21,9 @@
 </template>
 <script>
     import reqwest from 'reqwest';
+    import axios from 'axios';
 
-    const fakeDataUrl = 'http://106.12.61.131:8081/article/list?currentPage=1';
+    const fakeDataUrl = 'http://106.12.61.131:8081/article/list?currentPage=1&type=1';
 
     export default {
         name:"ForumList",
@@ -37,10 +38,32 @@
         mounted() {
             this.getData(res => {
                 this.loading = false;
-                this.data = res.list;
+                this.data = res.data.list;
             });
         },
         methods: {
+            gotoDetail(aid){
+                axios.post('/article/details?aid='+aid,{aid,
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                }).then((res) => {
+                    // eslint-disable-next-line no-console
+                    console.log(res)
+                    if (res.data.resultCode == 0) {
+                        this.articleData = res.data.data;
+                        this.$message.success(
+                            "标题："+this.articleData.title+"内容：\n"+this.articleData.content,
+                            10,
+                        );
+                    } else {
+                        this.$message.failure(
+                            res.data.resultInfo,
+                            10,
+                        );
+                    }
+                })
+            },
             getData(callback) {
                 reqwest({
                     url: fakeDataUrl,

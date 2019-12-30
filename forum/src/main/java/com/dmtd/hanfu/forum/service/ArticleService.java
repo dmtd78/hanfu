@@ -53,7 +53,7 @@ public interface ArticleService {
 	 * @param pageSize
 	 * @return
 	 */
-	public PageBean getArticlePageList(int currentPage, int pageSize);
+	public PageBean getArticlePageList(int currentPage, int pageSize,int type);
 
 	/**
 	 * 关键字搜索

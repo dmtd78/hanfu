@@ -84,17 +84,10 @@
                     if (err) {
                         return;
                     }
+
                     // eslint-disable-next-line no-console
                     console.log('Received values of form: ', values);
-                    let myName = JSON.parse(sessionStorage.getItem("userId"));
-                    // eslint-disable-next-line no-console
-                    console.log(myName);
-                    axios.post('/article/add?title=' + values.title + '&description=' + values.description + '&userId=' + userId, {
-                        values,
-                        xhrFields: {
-                            withCredentials: true
-                        },
-                    }).then((res) => {
+                    axios.post('/article/add', 'title='+values.title+'&description='+values.description+'&userId='+userId).then((res) => {
                         // eslint-disable-next-line no-console
                         console.log(res)
                         if (res.data.resultCode == 0) {

@@ -27,7 +27,7 @@ public interface ArticleDao {
 
 	public int deleteArticleByID(@Param("aid")Integer aid);
 
-	public List<Article> getArticlePageList(@Param("currentPage") int currentPage,@Param("pageSize") int pageSize);
+	public List<Article> getArticlePageList(@Param("currentPage") int currentPage,@Param("pageSize") int pageSize,@Param("type") int type);
 
 	public List<Article> searchArticleByKey(@Param("key")String key);
 	

@@ -43,10 +43,10 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public PageBean getArticlePageList(int currentPage, int pageSize) {
+	public PageBean getArticlePageList(int currentPage, int pageSize,int type) {
 		int count = articleDao.getArticleCount();
 		int totalPage = count % pageSize == 0 ? count / pageSize : count / pageSize + 1;
-		List<Article> articleList = articleDao.getArticlePageList((currentPage - 1) * pageSize, pageSize);
+		List<Article> articleList = articleDao.getArticlePageList((currentPage - 1) * pageSize, pageSize,type);
 		PageBean pageBean = new PageBean(currentPage, pageSize, count, totalPage, articleList);
 		return pageBean;
 	}

@@ -20,7 +20,7 @@
 </template>
 <script>
     import reqwest from 'reqwest';
-    const fakeDataUrl = 'http://106.12.61.131:8081/article/list?currentPage=1';
+    const fakeDataUrl = 'http://106.12.61.131:8081/article/list?currentPage=1&type=2';
     const listData = [];
     for (let i = 0; i < 23; i++) {
         listData.push({
@@ -56,7 +56,7 @@
         mounted() {
             this.getData(res => {
                 this.loading = false;
-                this.data = res.list;
+                this.data = res.data.list;
             });
         },
         methods: {

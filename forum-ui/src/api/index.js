@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 // 配置API接口地址
-var root = 'http://localhost:8081'
+var root = 'http://106.12.61.131:8081'
 // 引用axios
 var axios = require('axios')
 
