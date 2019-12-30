@@ -22,7 +22,10 @@
 <script>
     import reqwest from 'reqwest';
 
-    const fakeDataUrl = 'http://106.12.61.131:8081/user/info?uid=1';
+
+    // eslint-disable-next-line no-irregular-whitespace
+    const userId=JSON.parse(sessionStorage.getItem("userId"));
+    const fakeDataUrl = 'http://localhost:8081/user/info?uid='+userId;
     export default {
         name: "InformationCard",
         data() {

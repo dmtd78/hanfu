@@ -1,11 +1,11 @@
 package com.dmtd.hanfu.forum.filter;
 
 import com.dmtd.hanfu.forum.entity.User;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.logging.Logger;
 
 /**
@@ -22,6 +22,7 @@ import java.util.logging.Logger;
  * @last Modified
  * @history
  */
+@Component
 public class LoginInterceptor implements HandlerInterceptor {
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -37,10 +38,9 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         logger.info("---------------开始进入地址拦截器-------------------");
-        HttpSession session = httpServletRequest.getSession();
-        User user = (User) session.getAttribute("user");
+        User user = (User) httpServletRequest.getSession().getAttribute("user");
         if (user == null) {
-            return true;
+            return false;
         }
         return true;
     }

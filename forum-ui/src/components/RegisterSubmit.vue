@@ -94,7 +94,7 @@
 
 <script>
     import LoginForm from "./LoginForm";
-
+    import axios from 'axios';
     export default {
         name: "RegisterSubmit",
         components: {LoginForm},
@@ -137,7 +137,23 @@
                     if (!err) {
                         // eslint-disable-next-line no-console
                         console.log('Received values of form: ', values);
-                        this.$api.post('http://106.12.61.131:8081/user/regist?username=' + values.username + '&password=' + values.password, values);
+                        axios.post('/user/regist?username=' + values.username + '&password=' + values.password,{values,
+                            xhrFields: {
+                                withCredentials: true
+                            },
+                        }).then((res) => {
+                            if (res.data.resultCode == 0) {
+                                this.$message.success(
+                                    res.data.resultInfo,
+                                    10,
+                                );
+                            } else {
+                                this.$message.failure(
+                                    res.data.resultInfo,
+                                    10,
+                                );
+                            }
+                        })
                     }
                 });
             },

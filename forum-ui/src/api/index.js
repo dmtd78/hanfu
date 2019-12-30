@@ -1,14 +1,16 @@
 /* eslint-disable no-console */
 // 配置API接口地址
-var root = 'https://cnodejs.org/api/v1'
+var root = 'http://localhost:8081'
 // 引用axios
 var axios = require('axios')
+
 // 自定义判断元素类型JS
-function toType (obj) {
+function toType(obj) {
     return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
 }
+
 // 参数过滤函数
-function filterNull (o) {
+function filterNull(o) {
     for (var key in o) {
         if (o[key] === null) {
             delete o[key]
@@ -33,7 +35,7 @@ function filterNull (o) {
   主要是，不同的接口的成功标识和失败提示是不一致的。
   另外，不同的项目的处理方法也是不一致的，这里出错就是简单的alert
 */
-function apiAxios (method, url, params, success, failure) {
+function apiAxios(method, url, params) {
     if (params) {
         params = filterNull(params)
     }
@@ -46,25 +48,22 @@ function apiAxios (method, url, params, success, failure) {
         withCredentials: false
     })
         .then(function (res) {
-            console.log(res)
-            if (res.data.resultCode === '0') {
-                if (success) {
-                    this.$api.success(res.data.resultInfo)
-                }
+            console.log('resultCode content is :'+res.data.resultCode)
+            console.log('resultInfo content is :'+res.data.resultInfo)
+            if (res.data.resultCode === 0) {
+                console.log('success:'+res.data.resultInfo);
+                this.$message.success(
+                    res.data.resultInfo,
+                    10,
+                );
             } else {
-                if (failure) {
-                    failure(res.data)
-                } else {
-                    window.alert('error: ' + JSON.stringify(res.data))
-                }
+                console.log(res.resultInfo);
+                this.failure(res.resultInfo)
             }
         })
         .catch(function (err) {
             console.log(err)
-            let res = err.response
-            if (err) {
-                window.alert('api error, HTTP CODE: ' + res.status)
-            }
+            this.failure(err)
         })
 }
 
@@ -82,9 +81,15 @@ export default {
     delete: function (url, params, success, failure) {
         return apiAxios('DELETE', url, params, success, failure)
     },
-    success:function() {
+    success: function (resultInfo) {
         this.$message.success(
-            'This is a prompt message for success, and it will disappear in 10 seconds',
+            resultInfo,
+            10,
+        );
+    },
+    failure: function (resultInfo) {
+        this.$message.failure(
+            resultInfo,
             10,
         );
     }

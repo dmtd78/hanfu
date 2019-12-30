@@ -28,7 +28,7 @@
 </template>
 
 <script>
-
+    import axios from 'axios';
     export default {
         name:"LoginForm",
         data() {
@@ -50,7 +50,28 @@
                     }
                     // eslint-disable-next-line no-console
                     console.log('Received values of form: ', values);
-                    this.$api.post('http://localhost:8081/user/login?username='+values.username+'&password='+values.password,values,'success','failure');
+                    axios.post('/user/login?username='+values.username+'&password='+values.password,{values,
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                    }).then((res) => {
+                        // eslint-disable-next-line no-console
+                        console.log(res)
+                        if (res.data.resultCode == 0) {
+                            this.userData = res.data.data;
+                            sessionStorage.setItem("userId",this.userData.uid);
+                            sessionStorage.setItem("userToken",this.userData.token);
+                            this.$message.success(
+                                res.data.resultInfo,
+                                10,
+                            );
+                        } else {
+                            this.$message.failure(
+                                res.data.resultInfo,
+                                10,
+                            );
+                        }
+                    })
                 });
             },
         },

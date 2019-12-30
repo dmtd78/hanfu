@@ -16,7 +16,7 @@
     const CollectionCreateForm = {
         props: ['visible'],
         beforeCreate() {
-            this.form = this.$form.createForm(this, { name: 'form_in_modal' });
+            this.form = this.$form.createForm(this, {name: 'form_in_modal'});
         },
         template: `
     <a-modal
@@ -60,10 +60,12 @@
     </a-modal>
   `,
     };
-
+    import axios from 'axios';
+    // eslint-disable-next-line no-irregular-whitespace
+    const userId = JSON.parse(sessionStorage.getItem("userId"));
     export default {
-        name:"AddForum",
-        components: { CollectionCreateForm },
+        name: "AddForum",
+        components: {CollectionCreateForm},
         data() {
             return {
                 visible: false,
@@ -84,7 +86,29 @@
                     }
                     // eslint-disable-next-line no-console
                     console.log('Received values of form: ', values);
-                    this.$api.post('http://localhost:8081/article/add?title='+values.title+'&description='+values.description+'&uid=1',values);
+                    let myName = JSON.parse(sessionStorage.getItem("userId"));
+                    // eslint-disable-next-line no-console
+                    console.log(myName);
+                    axios.post('/article/add?title=' + values.title + '&description=' + values.description + '&userId=' + userId, {
+                        values,
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                    }).then((res) => {
+                        // eslint-disable-next-line no-console
+                        console.log(res)
+                        if (res.data.resultCode == 0) {
+                            this.$message.success(
+                                res.data.resultInfo,
+                                10,
+                            );
+                        } else {
+                            this.$message.failure(
+                                res.data.resultInfo,
+                                10,
+                            );
+                        }
+                    })
                     form.resetFields();
                     this.visible = false;
                 });
