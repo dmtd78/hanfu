@@ -9,12 +9,10 @@
                     <a-breadcrumb :style="{ margin: '16px 0' }">
                         <a-breadcrumb-item>Home</a-breadcrumb-item>
                         <a-breadcrumb-item>List</a-breadcrumb-item>
-                        <a-breadcrumb-item>关于我们</a-breadcrumb-item>
+                        <a-breadcrumb-item>小白</a-breadcrumb-item>
                     </a-breadcrumb>
                     <div id="forum" :style="{ background: '#fff', padding: '24px', minHeight: '380px' }">
-                        <a-card hoverable style="width: 240px">
-                            大美汉服，致力于发扬中国传统文化。
-                        </a-card>
+                        <LittleWhiteList></LittleWhiteList>
                     </div>
                 </a-layout-content>
             </a-layout>
@@ -30,9 +28,10 @@
 <script>
     import InformationCard from "./InformationCard";
     import Navigate from "./Navigate";
+    import LittleWhiteList from "./LittleWhiteList";
     export default {
         name: "LittleWhite",
-        components: {Navigate, InformationCard},
+        components: {LittleWhiteList, Navigate, InformationCard},
         data() {
             return {
                 current: ['mail'],

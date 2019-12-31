@@ -50,7 +50,7 @@
                     }
                     // eslint-disable-next-line no-console
                     console.log('Received values of form: ', values);
-                    axios.post('/user/login?username='+values.username+'&password='+values.password,{values,
+                    axios.post('/user/login','username='+values.username+'&password='+values.password,{
                         xhrFields: {
                             withCredentials: true
                         },

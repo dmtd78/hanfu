@@ -10,6 +10,7 @@
   "dependencies": {
     "ant-design-vue": "^1.4.10",
     "axios": "^0.19.0",
+    "babel-polyfill": "^6.26.0",
     "core-js": "^3.4.3",
     "reqwest": "^2.0.5",
     "vue": "^2.6.10",

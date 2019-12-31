@@ -25,7 +25,7 @@
 
     // eslint-disable-next-line no-irregular-whitespace
     const userId=JSON.parse(sessionStorage.getItem("userId"));
-    const fakeDataUrl = 'http://106.12.61.131/:8081/user/info?uid='+userId;
+    const fakeDataUrl = 'http://106.12.61.131:8081/user/info?uid='+userId;
     export default {
         name: "InformationCard",
         data() {

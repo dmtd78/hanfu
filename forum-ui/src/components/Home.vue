@@ -9,7 +9,7 @@
                     <a-breadcrumb :style="{ margin: '16px 0' }">
                         <a-breadcrumb-item>Home</a-breadcrumb-item>
                         <a-breadcrumb-item>List</a-breadcrumb-item>
-                        <a-breadcrumb-item>论坛</a-breadcrumb-item>
+                        <a-breadcrumb-item>闲聊</a-breadcrumb-item>
                     </a-breadcrumb>
                     <div><AddForum></AddForum></div>
                     <div id="forum" :style="{ background: '#fff', padding: '24px', minHeight: '380px' }">
