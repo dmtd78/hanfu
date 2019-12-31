@@ -192,7 +192,6 @@ public class UserController {
     /**
      * 根据uid更新用户密码
      *
-     * @param session
      * @param uid
      * @param password
      * @return
@@ -225,10 +224,12 @@ public class UserController {
      * @return
      */
     @RequestMapping("/exit")
-    public String exit(HttpServletRequest request) {
+    @ResponseBody
+    public JsonResult exit(HttpServletRequest request,@RequestParam("uid") Integer uid) {
+        JsonResult jsonResult = new JsonResult();
         // 销毁session
         request.getSession().invalidate();
-        return "redirect:/index.jsp";
+        return jsonResult;
     }
 
 }
