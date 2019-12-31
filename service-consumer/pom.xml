@@ -2,17 +2,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
 	<parent>
 		<artifactId>hanfu</artifactId>
 		<groupId>com.dmtd</groupId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-
 	<groupId>com.dmtd</groupId>
-	<artifactId>dubbo-zkp-provider</artifactId>
+	<artifactId>service-consumer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>dubbo-zkp-provider</name>
+	<name>service-consumer</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
@@ -38,12 +36,11 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.dubbo/dubbo-spring-boot-starter -->
-		<dependency>
-			<groupId>com.alibaba.spring.boot</groupId>
-			<artifactId>dubbo-spring-boot-starter</artifactId>
-			<version>2.0.0</version>
-		</dependency>
-
+        <dependency>
+            <groupId>com.alibaba.spring.boot</groupId>
+            <artifactId>dubbo-spring-boot-starter</artifactId>
+            <version>2.0.0</version>
+        </dependency>
 		<dependency>
 			<groupId>org.apache.zookeeper</groupId>
 			<artifactId>zookeeper</artifactId>
@@ -75,20 +72,20 @@
 		</dependency>
 		<dependency>
 			<groupId>com.dmtd</groupId>
-			<artifactId>dubbo-zkp-api</artifactId>
+			<artifactId>service-api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.101tec</groupId>
-			<artifactId>zkclient</artifactId>
-			<version>0.10</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.dubbo</groupId>
 			<artifactId>dubbo-monitor-default</artifactId>
 			<version>2.7.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.101tec</groupId>
+			<artifactId>zkclient</artifactId>
+			<version>0.10</version>
 		</dependency>
 	</dependencies>
 

@@ -10,9 +10,9 @@
 	</parent>
 
 	<groupId>com.dmtd</groupId>
-	<artifactId>dubbo-zkp-api</artifactId>
+	<artifactId>service-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>dubbo-zkp-api</name>
+	<name>service-api</name>
 	<description>Demo project for Spring Boot</description>
 
 
