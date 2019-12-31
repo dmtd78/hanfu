@@ -6,6 +6,10 @@ import 'babel-polyfill';
 Vue.use(VueAxios,axios)
 //当创建实例时，设置默认配置。
 axios.defaults.baseURL = 'http://106.12.61.131:8081';
+// axios.defaults.baseURL = 'http://localhost:8081';
+axios.defaults.headers = {
+    "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+}
 
 import Vuex from 'vuex'
 Vue.use(Vuex)
@@ -14,6 +18,7 @@ Vue.use(Vuex)
 import api from './api/index.js'
 // 将API方法绑定到全局
 Vue.prototype.$api = api
+
 
 import {Button,Checkbox,Icon
     ,Layout,Menu,Breadcrumb,List,Avatar,Card,Form,Input,Radio,Modal,Select,Row,Col,Cascader,Tooltip,Alert,message,Tabs

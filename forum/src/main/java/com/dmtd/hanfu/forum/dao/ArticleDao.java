@@ -21,7 +21,7 @@ public interface ArticleDao {
 			@Param("content") String content,
 			@Param("date") Timestamp timestamp,
 			@Param("uid") Integer uid,
-			@Param("lable") String lable);
+			@Param("lable") String lable,@Param("type") Integer type);
 
 	public List<Article> getArticleByUID(@Param("uid")Integer uid);
 

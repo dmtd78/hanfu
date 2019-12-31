@@ -31,7 +31,7 @@ public interface ArticleService {
 	 * @param lable 
 	 * @return
 	 */
-	public int addArticle(String title, String content,Timestamp timestamp,Integer uid, String lable);
+	public int addArticle(String title, String content,Timestamp timestamp,Integer uid, String lable,Integer type);
 
 	/**
 	 * 根据uid获得用户的帖子数据

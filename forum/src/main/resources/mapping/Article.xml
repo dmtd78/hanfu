@@ -44,7 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="addArticle">
-		insert into article(title,content,date,uid,lable) values(#{title},#{content},#{date},#{uid},#{lable})
+		insert into article(title,content,date,uid,lable,type) values(#{title},#{content},#{date},#{uid},#{lable},#{type})
 	</insert>
 	
 	<select id="getArticleByUID" resultType="Article">

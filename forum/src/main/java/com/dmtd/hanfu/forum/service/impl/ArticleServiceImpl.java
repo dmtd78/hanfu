@@ -28,8 +28,8 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public int addArticle(String title, String content, Timestamp timestamp, Integer uid, String lable) {
-		return articleDao.addArticle(title, content, timestamp, uid, lable);
+	public int addArticle(String title, String content, Timestamp timestamp, Integer uid, String lable,Integer type) {
+		return articleDao.addArticle(title, content, timestamp, uid, lable, type);
 	}
 
 	@Override

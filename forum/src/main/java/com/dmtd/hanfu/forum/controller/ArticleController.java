@@ -108,13 +108,14 @@ public class ArticleController {
     public JsonResult addArticle(@RequestParam(value = "title") String title,
                                  @RequestParam(value = "description") String description,
                                  @RequestParam(value = "userId") Integer userId,
+                                 @RequestParam(value = "type") Integer type,
                                  @RequestParam(value = "lable", required = false) String lable) {
         JsonResult result = new JsonResult();
         if (StringUtils.isEmpty(title) || StringUtils.isBlank(title)) {
             result.setResultInfo("标题不能为空！");
             return result;
         }
-        articleService.addArticle(title, description, new Timestamp(new Date().getTime()), userId, lable);
+        articleService.addArticle(title, description, new Timestamp(new Date().getTime()), userId, lable,type);
         result.setResultInfo("发帖成功！");
         return result;
     }

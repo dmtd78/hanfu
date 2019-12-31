@@ -11,6 +11,13 @@
                 @cancel="handleCancel"
         >
             <a-form layout='vertical' :form="form" ref="createArticleForm">
+                <a-form-item>
+                    <a-radio-group buttonStyle="solid" v-decorator="['type',{ initialValue: ['1'] }]" >
+                        <a-radio-button value="1">闲聊</a-radio-button>
+                        <a-radio-button value="2">图文赏析</a-radio-button>
+                        <a-radio-button value="3">小白</a-radio-button>
+                    </a-radio-group>
+                </a-form-item>
                 <a-form-item label='标题'>
                     <a-input v-decorator="[ 'title', { rules: [{ required: true, message: '请输入帖子标题！' }], } ]"
                     />
@@ -52,7 +59,7 @@
                     }
                     // eslint-disable-next-line no-console
                     console.log('Received values of form: ', values);
-                    axios.post('/article/add', 'title='+values.title+'&description='+values.description+'&userId='+userId).then((res) => {
+                    axios.post('/article/add', 'type='+values.type+'&title='+values.title+'&description='+values.description+'&userId='+userId).then((res) => {
                         // eslint-disable-next-line no-console
                         console.log(res)
                         if (res.data.resultCode == 0) {

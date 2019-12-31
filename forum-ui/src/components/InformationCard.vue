@@ -10,18 +10,17 @@
             <a-icon type="edit" />
             <a-icon type="ellipsis" />
         </template>
-        <a-card-meta :title="data.username" :description="msg+$moment(data.lastLoginTime).format('YYYY-MM-DD')">
-            <a-avatar
-                    slot="avatar"
-                    src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-            />
+        <a-card-meta v-if="data.username==null" :title="loginMsg">
+            <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"/>
+        </a-card-meta>
+        <a-card-meta v-else :title="data.username" :description="msg+$moment(data.lastLoginTime).format('YYYY-MM-DD')">
+            <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"/>
         </a-card-meta>
     </a-card>
 </template>
 
 <script>
     import reqwest from 'reqwest';
-
 
     // eslint-disable-next-line no-irregular-whitespace
     const userId=JSON.parse(sessionStorage.getItem("userId"));
@@ -34,6 +33,7 @@
                 loadingMore: false,
                 showLoadingMore: true,
                 msg:'上次登录时间：',
+                loginMsg:'请登录',
                 data: [],
             };
         },

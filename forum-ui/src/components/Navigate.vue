@@ -12,16 +12,21 @@
             <a-menu-item key="/littleWhite">小白</a-menu-item>
             <a-menu-item key="/aboutUs">关于我们</a-menu-item>
             <a-menu-item key="/contactUs">联系我们</a-menu-item>
-            <a-menu-item key="/register">注册/登录</a-menu-item>
+            <a-menu-item key="/register">{{lrmsg}}</a-menu-item>
         </a-menu>
     </div>
 </template>
 
 <script>
+    import axios from 'axios';
+    // eslint-disable-next-line no-irregular-whitespace
+    const userId=JSON.parse(sessionStorage.getItem("userId"));
     export default {
         name: "Navigate",
         data() {
-            return {}
+            return {
+                lrmsg:'注册/登录'
+            }
         },
         props: {
             current:{
@@ -34,10 +39,31 @@
                 return [this.current]
             }
         },
+        mounted() {
+            this.getData(res => {
+                this.data = res.data;
+            });
+        },
         methods: {
             changeNavigate({key}) {
                 this.$router.push(key).catch(() => {})
-            }
+            },
+            getData() {
+                axios.get('/user/info?uid='+userId,{
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                }).then((res) => {
+                    if (res.data.resultCode == 0) {
+                        this.lrmsg = res.data.data.username;
+                    } else {
+                        this.$message.failure(
+                            res.data.resultInfo,
+                            10,
+                        );
+                    }
+                })
+            },
         }
     }
 </script>
