@@ -1,33 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dmtd.hanfu.forum.dao.ArticleDao">
-	
-	<resultMap type="com.dmtd.hanfu.forum.entity.Article" id="ArticleResult">
-		<id property="aid" column="aid"/>
-		<result property="title" column="title"/>
-		<result property="content" column="content"/>
-		<result property="date" column="date" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/>
-		<result property="lable" column="lable"/>
-		<result property="status" column="status"/>
-		<result property="type" column="type"/>
-		<association property="author" column="uid" select="com.dmtd.hanfu.forum.dao.UserDao.getUserByID" />
-	</resultMap>
-	
-	<select id="getArticleList" resultMap="ArticleResult">
+
+    <resultMap type="com.dmtd.hanfu.forum.entity.Article" id="ArticleResult">
+        <id property="aid" column="aid"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="date" column="date" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/>
+        <result property="lable" column="lable"/>
+        <result property="status" column="status"/>
+        <result property="type" column="type"/>
+        <association property="author" column="uid" select="com.dmtd.hanfu.forum.dao.UserDao.getUserByID"/>
+    </resultMap>
+
+    <select id="getArticleList" resultMap="ArticleResult">
 		select * from article order by aid desc
 	</select>
-	
-	<select id="getArticleCount" resultType="java.lang.Integer">
+
+    <select id="getArticleCount" resultType="java.lang.Integer">
 		select count(*) from article
 	</select>
-	
-	<select id="getArticlePageList" resultMap="ArticleResult">
-	select * from (select * from article order by `status` desc limit #{currentPage},#{pageSize})t,user where t.uid=`user`.uid and t.type=#{type};
+
+    <select id="getArticlePageList" resultMap="ArticleResult">
+		select * from article t
+		<where>
+		<if test="type!=null and type!=''">
+			and t.type=#{type}
+		</if>
+		<if test="userId!=null and userId!=''">
+			and t.uid=#{userId}
+		</if>
+		</where>
 	</select>
-	
-	<select id="getArticleByID" resultMap="ArticleResult">
+
+    <select id="getArticleByID" resultMap="ArticleResult">
 		select * from 
 			article,user 
 		where 
@@ -35,28 +43,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and 
 			aid=#{aid}
 	</select>
-	
-	<select id="getArticleListByStatus" resultMap="ArticleResult">
-		select * from article 
-		where status in
-		<foreach  item="item" collection="list" index="index"  open="(" separator="," close=")">#{item}</foreach>
-		order by aid desc
-	</select>
-	
-	<insert id="addArticle">
+
+    <select id="getArticleListByStatus" resultMap="ArticleResult">
+        select * from article
+        where status in
+        <foreach item="item" collection="list" index="index" open="(" separator="," close=")">#{item}</foreach>
+        order by aid desc
+    </select>
+
+    <insert id="addArticle">
 		insert into article(title,content,date,uid,lable,type) values(#{title},#{content},#{date},#{uid},#{lable},#{type})
 	</insert>
-	
-	<select id="getArticleByUID" resultType="Article">
+
+    <select id="getArticleByUID" resultType="Article">
 		select * from article where uid=#{uid} order by aid desc
 	</select>
-	
-	<delete id="deleteArticleByID">
+
+    <delete id="deleteArticleByID">
 		delete from article where aid=#{aid}
 	</delete>
-	
-	<select id="searchArticleByKey" resultMap="ArticleResult">
+
+    <select id="searchArticleByKey" resultMap="ArticleResult">
 		select * from article where title like '%' #{key} '%' order by aid desc
 	</select>
-	
+
 </mapper>

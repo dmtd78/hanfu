@@ -5,8 +5,8 @@ import VueAxios from 'vue-axios'
 import 'babel-polyfill';
 Vue.use(VueAxios,axios)
 //当创建实例时，设置默认配置。
-// axios.defaults.baseURL = 'http://106.12.61.131:8081';
-axios.defaults.baseURL = 'http://localhost:8081';
+axios.defaults.baseURL = 'http://106.12.61.131:8081';
+// axios.defaults.baseURL = 'http://localhost:8081';
 axios.defaults.headers = {
     "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
 }
@@ -21,7 +21,7 @@ Vue.prototype.$api = api
 
 
 import {Button,Checkbox,Icon
-    ,Layout,Menu,Breadcrumb,List,Avatar,Card,Form,Input,Radio,Modal,Select,Row,Col,Cascader,Tooltip,Alert,message,Tabs,Popover
+    ,Layout,Menu,Breadcrumb,List,Avatar,Card,Form,Input,Radio,Modal,Select,Row,Col,Cascader,Tooltip,Alert,message,Tabs,Popover,Divider
 } from "ant-design-vue";
 import 'ant-design-vue/dist/antd.css';
 import moment from 'moment';
@@ -51,6 +51,7 @@ Vue.use(Tooltip)
 Vue.use(Alert)
 Vue.use(Tabs)
 Vue.use(Popover)
+Vue.use(Divider)
 Vue.prototype.$moment = moment
 new Vue({
   render: h => h(App),

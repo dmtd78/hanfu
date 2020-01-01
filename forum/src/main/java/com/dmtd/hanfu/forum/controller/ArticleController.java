@@ -42,16 +42,19 @@ public class ArticleController {
      */
     @GetMapping("/list")
     @ResponseBody
-    public JsonResultData getArticlePageList(@RequestParam("currentPage") int currentPage,@RequestParam("type") int type) {
+    public JsonResultData getArticlePageList(@RequestParam("currentPage") int currentPage,
+                                             @RequestParam(value = "type",required = false) Integer type,
+                                             @RequestParam(value = "userId",required = false) Integer userId) {
         int pageSize = Config.DEFAULT_PAGESIZE;// 每页记录数
         if (currentPage == 0) {
             currentPage = 1;
         }
         JsonResultData jsonResultData = new JsonResultData();
-        PageBean pageBean = articleService.getArticlePageList(currentPage, pageSize,type);
+        PageBean pageBean = articleService.getArticlePageList(currentPage, pageSize, type, userId);
         jsonResultData.setData(pageBean);
         return jsonResultData;
     }
+
 
     /**
      * 根据id获取帖子数据
@@ -115,7 +118,7 @@ public class ArticleController {
             result.setResultInfo("标题不能为空！");
             return result;
         }
-        articleService.addArticle(title, description, new Timestamp(new Date().getTime()), userId, lable,type);
+        articleService.addArticle(title, description, new Timestamp(new Date().getTime()), userId, lable, type);
         result.setResultInfo("发帖成功！");
         return result;
     }

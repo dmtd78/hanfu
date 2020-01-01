@@ -1,7 +1,8 @@
 <template>
     <a-popover title="">
         <template slot="content">
-            <a @click="loginOut">退出</a>
+            <p><a @click="gotoPersonalInfo">个人中心</a></p>
+            <p><a @click="loginOut">退出</a></p>
         </template>
         <a-button>{{lrmsg}}</a-button>
     </a-popover>
@@ -55,6 +56,9 @@
                     }
                 })
             },
+            gotoPersonalInfo(){
+                this.$router.push('/personalInfo');
+            },
             loginOut(){
                 axios.get('/user/exit?uid='+userId,{
                     xhrFields: {
@@ -62,6 +66,8 @@
                     },
                 }).then((res) => {
                     if (res.data.resultCode == 0) {
+                        sessionStorage.removeItem("userId");
+                        sessionStorage.removeItem("userToken");
                         this.$router.push('/home');
                     } else {
                         this.$message.failure(

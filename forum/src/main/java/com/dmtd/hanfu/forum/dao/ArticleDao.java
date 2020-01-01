@@ -13,25 +13,26 @@ import org.springframework.stereotype.Component;
 @Component(value = "articleDao")
 public interface ArticleDao {
 
-	public List<Article> getArticleList();
+    public List<Article> getArticleList();
 
-	public Article getArticleByID(@Param("aid")Integer aid);
+    public Article getArticleByID(@Param("aid") Integer aid);
 
-	public int addArticle(@Param("title") String title,
-			@Param("content") String content,
-			@Param("date") Timestamp timestamp,
-			@Param("uid") Integer uid,
-			@Param("lable") String lable,@Param("type") Integer type);
+    public int addArticle(@Param("title") String title,
+                          @Param("content") String content,
+                          @Param("date") Timestamp timestamp,
+                          @Param("uid") Integer uid,
+                          @Param("lable") String lable, @Param("type") Integer type);
 
-	public List<Article> getArticleByUID(@Param("uid")Integer uid);
+    public List<Article> getArticleByUID(@Param("uid") Integer uid);
 
-	public int deleteArticleByID(@Param("aid")Integer aid);
+    public int deleteArticleByID(@Param("aid") Integer aid);
 
-	public List<Article> getArticlePageList(@Param("currentPage") int currentPage,@Param("pageSize") int pageSize,@Param("type") int type);
+    public List<Article> getArticlePageList(@Param("currentPage") int currentPage, @Param("pageSize") int pageSize,
+                                            @Param("type") Integer type, @Param("userId") Integer userId);
 
-	public List<Article> searchArticleByKey(@Param("key")String key);
-	
-	public List<Article> getArticleListByStatus(List<Integer> statusList);
-	
-	public int getArticleCount();
+    public List<Article> searchArticleByKey(@Param("key") String key);
+
+    public List<Article> getArticleListByStatus(List<Integer> statusList);
+
+    public int getArticleCount();
 }

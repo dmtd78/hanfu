@@ -7,12 +7,13 @@
                 :visible="visible"
                 title='创建一个新帖'
                 okText='创建'
+                cancelText='取消'
                 @ok="handleCreate"
                 @cancel="handleCancel"
         >
             <a-form layout='vertical' :form="form" ref="createArticleForm">
                 <a-form-item>
-                    <a-radio-group buttonStyle="solid" v-decorator="['type',{ initialValue: ['1'] }]" >
+                    <a-radio-group buttonStyle="solid" defaultValue="1" v-decorator="['type']" >
                         <a-radio-button value="1">闲聊</a-radio-button>
                         <a-radio-button value="2">图文赏析</a-radio-button>
                         <a-radio-button value="3">小白</a-radio-button>

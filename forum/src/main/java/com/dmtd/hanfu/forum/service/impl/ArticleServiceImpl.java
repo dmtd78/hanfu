@@ -14,51 +14,51 @@ import org.springframework.stereotype.Service;
 @Service("articleService")
 public class ArticleServiceImpl implements ArticleService {
 
-	@Autowired
-	private ArticleDao articleDao;
+    @Autowired
+    private ArticleDao articleDao;
 
-	@Override
-	public List<Article> getArticleList() {
-		return articleDao.getArticleList();
-	}
+    @Override
+    public List<Article> getArticleList() {
+        return articleDao.getArticleList();
+    }
 
-	@Override
-	public Article getArticleByID(Integer aid) {
-		return articleDao.getArticleByID(aid);
-	}
+    @Override
+    public Article getArticleByID(Integer aid) {
+        return articleDao.getArticleByID(aid);
+    }
 
-	@Override
-	public int addArticle(String title, String content, Timestamp timestamp, Integer uid, String lable,Integer type) {
-		return articleDao.addArticle(title, content, timestamp, uid, lable, type);
-	}
+    @Override
+    public int addArticle(String title, String content, Timestamp timestamp, Integer uid, String lable, Integer type) {
+        return articleDao.addArticle(title, content, timestamp, uid, lable, type);
+    }
 
-	@Override
-	public List<Article> getArticleByUID(Integer uid) {
-		return articleDao.getArticleByUID(uid);
-	}
+    @Override
+    public List<Article> getArticleByUID(Integer uid) {
+        return articleDao.getArticleByUID(uid);
+    }
 
-	@Override
-	public int deleteArticleByID(Integer aid) {
-		return articleDao.deleteArticleByID(aid);
-	}
+    @Override
+    public int deleteArticleByID(Integer aid) {
+        return articleDao.deleteArticleByID(aid);
+    }
 
-	@Override
-	public PageBean getArticlePageList(int currentPage, int pageSize,int type) {
-		int count = articleDao.getArticleCount();
-		int totalPage = count % pageSize == 0 ? count / pageSize : count / pageSize + 1;
-		List<Article> articleList = articleDao.getArticlePageList((currentPage - 1) * pageSize, pageSize,type);
-		PageBean pageBean = new PageBean(currentPage, pageSize, count, totalPage, articleList);
-		return pageBean;
-	}
+    @Override
+    public PageBean getArticlePageList(int currentPage, int pageSize, Integer type, Integer userId) {
+        int count = articleDao.getArticleCount();
+        int totalPage = count % pageSize == 0 ? count / pageSize : count / pageSize + 1;
+        List<Article> articleList = articleDao.getArticlePageList((currentPage - 1) * pageSize, pageSize, type, userId);
+        PageBean pageBean = new PageBean(currentPage, pageSize, count, totalPage, articleList);
+        return pageBean;
+    }
 
-	@Override
-	public List<Article> searchArticleByKey(String key) {
-		return articleDao.searchArticleByKey(key);
-	}
+    @Override
+    public List<Article> searchArticleByKey(String key) {
+        return articleDao.searchArticleByKey(key);
+    }
 
-	@Override
-	public List<Article> getArticleListByStatus(List<Integer> statusList) {
-		return articleDao.getArticleListByStatus(statusList);
-	}
+    @Override
+    public List<Article> getArticleListByStatus(List<Integer> statusList) {
+        return articleDao.getArticleListByStatus(statusList);
+    }
 
 }
