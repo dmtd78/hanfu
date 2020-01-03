@@ -33,6 +33,7 @@
 			and t.uid=#{userId}
 		</if>
 		</where>
+		order by t.date desc
 	</select>
 
     <select id="getArticleByID" resultMap="ArticleResult">

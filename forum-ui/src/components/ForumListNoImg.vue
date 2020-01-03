@@ -8,8 +8,6 @@
           {{text}}
         </span>
             </template>
-            <img slot="extra" width="272" alt="logo" src="../assets/logo-hanfu.png"
-            />
             <a-list-item-meta :description="item.author.username">
                 <a slot="title" :href="item.href">{{item.title}}</a>
                 <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
@@ -20,7 +18,7 @@
 </template>
 <script>
     import reqwest from 'reqwest';
-    const fakeDataUrl = 'http://106.12.61.131:8081/article/list?currentPage=1&type=2';
+    const fakeDataUrl = 'http://106.12.61.131:8081/article/list?currentPage=1&type=1';
     const listData = [];
     for (let i = 0; i < 23; i++) {
         listData.push({
@@ -35,7 +33,7 @@
     }
 
     export default {
-        name:"ForumListImg",
+        name:"ForumListNoImg",
         data() {
             return {
                 data:[],

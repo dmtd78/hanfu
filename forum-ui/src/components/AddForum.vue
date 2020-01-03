@@ -11,9 +11,9 @@
                 @ok="handleCreate"
                 @cancel="handleCancel"
         >
-            <a-form layout='vertical' :form="form" >
+            <a-form layout='vertical' :form="form">
                 <a-form-item>
-                    <a-radio-group buttonStyle="solid" v-model="value" v-decorator="[ 'type']" >
+                    <a-radio-group buttonStyle="solid" v-model="value" v-decorator="[ 'type']">
                         <a-radio-button value="1">闲聊</a-radio-button>
                         <a-radio-button value="2">图文赏析</a-radio-button>
                         <a-radio-button value="3">小白</a-radio-button>
@@ -24,11 +24,9 @@
                     />
                 </a-form-item>
                 <a-form-item label='内容'>
-                    <a-input type='textarea'
-                             v-decorator="['description', { rules: [{ required: true, message: '请输入帖子内容！' }], }]"
-                    />
+                    <a-input v-decorator="['description']" v-model="description" v-show="false"></a-input>
                 </a-form-item>
-
+                <QuillEditorForArticle v-on:description="showMsgFromChild"></QuillEditorForArticle>
             </a-form>
         </a-modal>
     </div>
@@ -37,22 +35,28 @@
 <script>
     import axios from 'axios';
     import qs from 'qs';
+    import QuillEditorForArticle from "./QuillEditorForArticle";
     // eslint-disable-next-line no-irregular-whitespace
     const userId = JSON.parse(sessionStorage.getItem("userId"));
     export default {
         name: "AddForum",
+        components: {QuillEditorForArticle},
         data() {
             return {
                 visible: false,
-                userIdShow :false,
-                value:1,
+                userIdShow: false,
+                value: 1,
+                description: ''
             };
         },
         beforeCreate() {
             this.form = this.$form.createForm(this, {name: 'create article form'});
-            this.form.userId=userId;
+            this.form.userId = userId;
         },
         methods: {
+            showMsgFromChild: function (data) {
+                this.form.descreption = data;
+            },
             showModal() {
                 this.visible = true;
             },
@@ -66,6 +70,7 @@
                     }
                     let obj = values;
                     obj.userId = userId;
+                    obj.description = this.form.descreption;
                     // eslint-disable-next-line no-console
                     console.log('Received values of form: ', obj);
                     axios.post('/article/add', qs.stringify(obj), {

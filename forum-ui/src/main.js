@@ -2,6 +2,13 @@ import Vue from 'vue/dist/vue'
 import App from './App.vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import VueQuillEditor from 'vue-quill-editor'
+// require styles
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+
+Vue.use(VueQuillEditor)
 import 'babel-polyfill';
 Vue.use(VueAxios,axios)
 //当创建实例时，设置默认配置。

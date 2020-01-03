@@ -13,7 +13,7 @@
                     </a-breadcrumb>
                     <div><AddForum></AddForum></div>
                     <div id="forum" :style="{ background: '#fff', padding: '24px', minHeight: '380px' }">
-                        <ForumList></ForumList>
+                        <ForumListNoImg></ForumListNoImg>
                     </div>
                 </a-layout-content>
             </a-layout>
@@ -30,11 +30,11 @@
     import AddForum from "./AddForum";
     import InformationCard from "./InformationCard";
     import Navigate from "./Navigate";
-    import ForumList from "./ForumList";
+    import ForumListNoImg from "./ForumListNoImg";
 
     export default {
         name: "Demo",
-        components: {ForumList, Navigate, InformationCard, AddForum},
+        components: {ForumListNoImg, Navigate, InformationCard, AddForum},
     }
 </script>
 <style>
