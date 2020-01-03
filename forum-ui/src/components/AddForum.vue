@@ -11,9 +11,9 @@
                 @ok="handleCreate"
                 @cancel="handleCancel"
         >
-            <a-form layout='vertical' :form="form" ref="createArticleForm">
+            <a-form layout='vertical' :form="form" >
                 <a-form-item>
-                    <a-radio-group buttonStyle="solid" defaultValue="1" v-decorator="['type']" >
+                    <a-radio-group buttonStyle="solid" v-model="value" v-decorator="[ 'type']" >
                         <a-radio-button value="1">闲聊</a-radio-button>
                         <a-radio-button value="2">图文赏析</a-radio-button>
                         <a-radio-button value="3">小白</a-radio-button>
@@ -24,9 +24,11 @@
                     />
                 </a-form-item>
                 <a-form-item label='内容'>
-                    <a-input type='textarea' v-decorator="['description', { rules: [{ required: true, message: '请输入帖子内容！' }], }]"
+                    <a-input type='textarea'
+                             v-decorator="['description', { rules: [{ required: true, message: '请输入帖子内容！' }], }]"
                     />
                 </a-form-item>
+
             </a-form>
         </a-modal>
     </div>
@@ -34,6 +36,7 @@
 
 <script>
     import axios from 'axios';
+    import qs from 'qs';
     // eslint-disable-next-line no-irregular-whitespace
     const userId = JSON.parse(sessionStorage.getItem("userId"));
     export default {
@@ -41,10 +44,13 @@
         data() {
             return {
                 visible: false,
+                userIdShow :false,
+                value:1,
             };
         },
         beforeCreate() {
-            this.form = this.$form.createForm(this, { name: 'create article form' });
+            this.form = this.$form.createForm(this, {name: 'create article form'});
+            this.form.userId=userId;
         },
         methods: {
             showModal() {
@@ -58,9 +64,15 @@
                     if (err) {
                         return;
                     }
+                    let obj = values;
+                    obj.userId = userId;
                     // eslint-disable-next-line no-console
-                    console.log('Received values of form: ', values);
-                    axios.post('/article/add', 'type='+values.type+'&title='+values.title+'&description='+values.description+'&userId='+userId).then((res) => {
+                    console.log('Received values of form: ', obj);
+                    axios.post('/article/add', qs.stringify(obj), {
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                    },).then((res) => {
                         // eslint-disable-next-line no-console
                         console.log(res)
                         if (res.data.resultCode == 0) {

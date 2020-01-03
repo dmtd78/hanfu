@@ -9,7 +9,7 @@ import LittleWhite from "./components/LittleWhite";
 import PersonalInfo from "./components/PersonalInfo";
 
 const router = new VueRouter({
-    mode: 'history',
+    // mode: 'history',
     base: __dirname,
     routes: [
         { path: '/home', name: 'home', component: Home },

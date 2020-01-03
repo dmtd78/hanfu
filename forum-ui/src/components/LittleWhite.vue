@@ -11,6 +11,7 @@
                         <a-breadcrumb-item>List</a-breadcrumb-item>
                         <a-breadcrumb-item>小白</a-breadcrumb-item>
                     </a-breadcrumb>
+                    <div><AddForum></AddForum></div>
                     <div id="forum" :style="{ background: '#fff', padding: '24px', minHeight: '380px' }">
                         <LittleWhiteList></LittleWhiteList>
                     </div>
@@ -29,9 +30,10 @@
     import InformationCard from "./InformationCard";
     import Navigate from "./Navigate";
     import LittleWhiteList from "./LittleWhiteList";
+    import AddForum from "./AddForum";
     export default {
         name: "LittleWhite",
-        components: {LittleWhiteList, Navigate, InformationCard},
+        components: {AddForum, LittleWhiteList, Navigate, InformationCard},
         data() {
             return {
                 current: ['mail'],
