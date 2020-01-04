@@ -12,8 +12,8 @@ Vue.use(VueQuillEditor)
 import 'babel-polyfill';
 Vue.use(VueAxios,axios)
 //当创建实例时，设置默认配置。
-// axios.defaults.baseURL = 'http://106.12.61.131:8081';
-axios.defaults.baseURL = 'http://localhost:8081';
+axios.defaults.baseURL = 'http://106.12.61.131:8081';
+// axios.defaults.baseURL = 'http://localhost:8081';
 axios.defaults.headers = {
     "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
 }

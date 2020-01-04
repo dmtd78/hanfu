@@ -14,7 +14,8 @@
                 <a slot="title" :href="item.href">{{item.title}}</a>
                 <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
             </a-list-item-meta>
-            <p v-html="item.content"></p>
+            <p v-html="item.content.substring(0,400)">{{allContent}}</p>
+            <div v-if="item.content.length>400"><a @click="showMoreContent(item.content)">阅读全文</a></div>
         </a-list-item>
     </a-list>
 </template>
@@ -38,6 +39,7 @@
         name:"ForumListImg",
         data() {
             return {
+                allContent:'1',
                 data:[],
                 pagination: {
                     onChange: page => {
@@ -60,6 +62,9 @@
             });
         },
         methods: {
+            showMoreContent(str){
+                this.allContent=str;
+            },
             getData(callback) {
                 reqwest({
                     url: fakeDataUrl,

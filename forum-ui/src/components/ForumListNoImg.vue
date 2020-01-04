@@ -16,7 +16,7 @@
         </a-list-item>
     </a-list>
 </template>
-<script>
+<script>0
     import reqwest from 'reqwest';
     const fakeDataUrl = 'http://106.12.61.131:8081/article/list?currentPage=1&type=1';
     const listData = [];
