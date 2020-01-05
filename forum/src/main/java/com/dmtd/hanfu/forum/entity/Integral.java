@@ -15,9 +15,6 @@ public class Integral implements Serializable {
 	private String userId;
 	private Integer integral;
 	private Date createTime;
-	private Date updateTime;
-	private Integer lastIntegral; //
-	private Integer todayIntegral;
 
 	public Integer getId() {
 		return id;
@@ -49,29 +46,5 @@ public class Integral implements Serializable {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
-	}
-
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
-
-	public Integer getLastIntegral() {
-		return lastIntegral;
-	}
-
-	public void setLastIntegral(Integer lastIntegral) {
-		this.lastIntegral = lastIntegral;
-	}
-
-	public Integer getTodayIntegral() {
-		return todayIntegral;
-	}
-
-	public void setTodayIntegral(Integer todayIntegral) {
-		this.todayIntegral = todayIntegral;
 	}
 }

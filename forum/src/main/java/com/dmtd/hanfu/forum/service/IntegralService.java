@@ -2,6 +2,8 @@ package com.dmtd.hanfu.forum.service;
 
 import com.dmtd.hanfu.forum.entity.Integral;
 
+import java.util.List;
+
 /**
  * <br>
  * Copyright (c) 12/28/2019 All Rights Reserved By dmtd<br>
@@ -17,4 +19,8 @@ import com.dmtd.hanfu.forum.entity.Integral;
  */
 public interface IntegralService {
     public Integral getIntegralByUserId(Integer userId);
+
+    List<Integral> getIntegralListByUserId(Integer userId);
+
+    void addIntegralByUserId(Integer userId);
 }
