@@ -2,12 +2,6 @@
     <a-list itemLayout="vertical" size="large" :pagination="pagination" :dataSource="data">
         <div slot="footer"><b>大美汉服</b> ，致力于发扬中国传统文化。</div>
         <a-list-item slot="renderItem" slot-scope="item" key="item.title">
-            <template slot="actions" v-for="{type, text} in actions">
-        <span :key="type" @click="show(type)">
-          <a-icon :type="type" style="margin-right: 8px" />
-          {{text}}
-        </span>
-            </template>
             <img slot="extra" width="272" alt="logo" src="../assets/logo-hanfu.png"
             />
             <a-list-item-meta :description="item.author.username">
@@ -20,16 +14,18 @@
                 <a @click="showMoreContent(1)" v-show="shortShow">阅读全文</a>
                 <a @click="showMoreContent(2)" v-show="longShow">收起</a>
             </div>
+            <AddComment></AddComment>
         </a-list-item>
     </a-list>
 </template>
 <script>
     import reqwest from 'reqwest';
-    import axios from 'axios';
+    import AddComment from "./AddComment";
     const fakeDataUrl = 'http://106.12.61.131:8081/article/list?currentPage=1&type=2';
 
     export default {
         name:"ForumListImg",
+        components: {AddComment},
         data() {
             return {
                 allContent:'1',
@@ -44,11 +40,6 @@
                     },
                     pageSize: 3,
                 },
-                actions: [
-                    { type: 'star-o', text: '156' },
-                    { type: 'like-o', text: '156' },
-                    { type: 'message', text: '2' },
-                ],
             };
         },
         mounted() {
@@ -58,28 +49,6 @@
             });
         },
         methods: {
-            show(str){
-                // eslint-disable-next-line no-console
-                console.log(str);
-                if(str=='star-o'){
-                    axios.post('/').then((res) => {
-                        if (res.data.resultCode == 0) {
-                            this.$message.success(
-                                res.data.resultInfo,
-                                10,
-                            );
-                            this.$router.push('/home');
-                        } else {
-                            this.$message.failure(
-                                res.data.resultInfo,
-                                10,
-                            );
-                        }
-                    })
-                }else if(str=='like-o'){
-                    axios.post('/')
-                }
-            },
             showMoreContent(flag){
                 //this.allContent=str;
                 //this.moreContent=str;

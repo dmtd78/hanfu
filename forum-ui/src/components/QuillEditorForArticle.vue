@@ -24,15 +24,10 @@
         data() {
             return {
                 name: '02-example',
-                content: `<h1 class="ql-align-center">
-                  <h1 class="ql-align-center">
-                    <span class="ql-font-serif"><span class="ql-cursor">我是一个示例！</span></span>
-                  </h1>
-                  <p><span class="ql-font-serif">我是一个示例，请输入你想输入的内容.</span></p>
-                  `,
+                content: ``,
                 editorOption: {
                     theme: 'bubble',
-                    placeholder: "输入任何内容，支持html",
+                    placeholder: "请输入您想要表达的内容！",
                     modules: {
                         toolbar: [
                             ['bold', 'italic', 'underline', 'strike'],
