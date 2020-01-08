@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 
 	<select id="getTypeTextByArticleId" resultMap="TypeTextMap">
-		select 'star' as type, count(*) as text  from forum_collect where article_id = #{articleId} group by article_id
+		select 'star-o' as type, count(*) as text  from forum_collect where article_id = #{articleId} group by article_id
 	</select>
 
 	<select id="getCollectByUserId" resultType="Collect">

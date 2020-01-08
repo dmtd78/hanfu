@@ -14,7 +14,7 @@
                 <a @click="showMoreContent(1)" v-show="shortShow">阅读全文</a>
                 <a @click="showMoreContent(2)" v-show="longShow">收起</a>
             </div>
-            <AddComment></AddComment>
+            <v-addComment :articleId="item.aid"></v-addComment>
         </a-list-item>
     </a-list>
 </template>
@@ -25,7 +25,9 @@
 
     export default {
         name:"ForumListImg",
-        components: {AddComment},
+        components: {
+            'v-addComment':AddComment,
+        },
         data() {
             return {
                 allContent:'1',

@@ -81,6 +81,10 @@ public class ArticleServiceImpl implements ArticleService {
         if (commentTypeText != null) {
             typeTexts.add(commentTypeText);
         }
+        TypeText likeTypeText = new TypeText();
+        likeTypeText.setText("2");
+        likeTypeText.setType("like-o");
+        typeTexts.add(likeTypeText);
         return typeTexts;
     }
 

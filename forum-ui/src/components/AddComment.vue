@@ -8,19 +8,31 @@
 </template>
 <script>
     import axios from "axios";
-
+    // import qs from 'qs';
     export default {
         name: "AddComment",
         data() {
             return {
-                actions: [
-                    {type: 'star-o', text: '156'},
-                    {type: 'like-o', text: '156'},
-                    {type: 'message', text: '2'},
-                ],
+                actions: [],
             }
         },
+        mounted() {
+            this.getData(res => {
+                this.actions = res.data.data;
+            });
+        },
         methods: {
+            getData(callback) {
+                axios.get('/article/getArticleActions',{params:{articleId:this.articleId}}, {
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                },).then((res) => {
+                    if (res.data.resultCode == 0) {
+                        callback(res);
+                    }
+                })
+            },
             show(str) {
                 // eslint-disable-next-line no-console
                 console.log(str);
@@ -45,7 +57,9 @@
                     axios.post('/')
                 }
             },
-        }
+        },
+        props:['articleId']
+
     }
 </script>
 
