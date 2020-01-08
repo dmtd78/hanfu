@@ -2,6 +2,7 @@ package com.dmtd.hanfu.forum.dao;
 
 import com.dmtd.hanfu.forum.entity.Comment;
 import com.dmtd.hanfu.forum.entity.Floor;
+import com.dmtd.hanfu.forum.entity.TypeText;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -25,4 +26,5 @@ public interface CommentDao {
 	public int addFloorComment(@Param("aid")Integer aid, @Param("cid")Integer cid,
 			@Param("uid")Integer uid, @Param("content")String content);
 
+    TypeText getTypeTextByArticleId(@Param("articleId")Integer articleId);
 }

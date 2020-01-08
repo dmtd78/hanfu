@@ -19,7 +19,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="content" column="content"/>
 		<association property="floorReplyer" column="uid" select="com.dmtd.hanfu.forum.dao.UserDao.getUserByID" />
 	</resultMap>
-	
+
+	<resultMap id="TypeTextMap" type="com.dmtd.hanfu.forum.entity.TypeText" >
+		<result column="type" property="type" />
+		<result column="text" property="text" />
+	</resultMap>
+
+	<select id="getTypeTextByArticleId" resultMap="TypeTextMap">
+		select 'message' as type, count(*) as text  from forum_comment where article_id = #{articleId} group by article_id
+	</select>
+
+
 	<insert id="addComment">
 		insert into forum_comment(content,article_id,user_id,create_time) values(#{content},#{articleId},#{userId},now())
 	</insert>

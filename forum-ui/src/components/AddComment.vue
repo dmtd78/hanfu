@@ -1,10 +1,9 @@
 <template slot="actions">
     <div>
-
         <span v-for="{type, text} in actions" :key="type" @click="show(type)">
-                  <a-icon :type="type" style="margin-right: 8px"/>
-                  {{text}}
-                </span>
+               <a-icon :type="type" style="margin-right: 8px"/>
+              {{text}}
+      </span>
     </div>
 </template>
 <script>

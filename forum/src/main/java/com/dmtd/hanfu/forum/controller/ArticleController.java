@@ -3,6 +3,7 @@ package com.dmtd.hanfu.forum.controller;
 import com.dmtd.hanfu.forum.config.Config;
 import com.dmtd.hanfu.forum.entity.Article;
 import com.dmtd.hanfu.forum.entity.PageBean;
+import com.dmtd.hanfu.forum.entity.TypeText;
 import com.dmtd.hanfu.forum.entity.User;
 import com.dmtd.hanfu.forum.exception.JsonResult;
 import com.dmtd.hanfu.forum.exception.JsonResultData;
@@ -23,7 +24,17 @@ import java.util.Map;
 
 
 /**
- * @author LJC 帖子列表Controller
+ * <br>
+ * Copyright (c) 1/8/2020 All Rights Reserved By dmtd<br>
+ * <br>
+ * Package: com.dmtd.hanfu.forum.controller <br>
+ * FileName: ArticleController <br>
+ * <br>
+ *
+ * @author duanmin
+ * @created 1/8/2020-10:29 AM
+ * @last Modified
+ * @history
  */
 @Controller
 @RequestMapping("article")
@@ -52,6 +63,20 @@ public class ArticleController {
         JsonResultData jsonResultData = new JsonResultData();
         PageBean pageBean = articleService.getArticlePageList(currentPage, pageSize, type, userId);
         jsonResultData.setData(pageBean);
+        return jsonResultData;
+    }
+
+    /**
+     * 获取帖子收藏/点赞/评论数
+     *
+     * @return
+     */
+    @GetMapping("/getArticleActions")
+    @ResponseBody
+    public JsonResultData getArticleActions(@RequestParam(value = "articleId",required = false) Integer articleId) {
+        JsonResultData jsonResultData = new JsonResultData();
+        List<TypeText> typeTexts = articleService.getArticleActions(articleId);
+        jsonResultData.setData(typeTexts);
         return jsonResultData;
     }
 

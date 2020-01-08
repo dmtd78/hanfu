@@ -1,6 +1,7 @@
 package com.dmtd.hanfu.forum.dao;
 
 import com.dmtd.hanfu.forum.entity.Collect;
+import com.dmtd.hanfu.forum.entity.TypeText;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -31,4 +32,6 @@ public interface CollectionDao {
     void addCollectByUserId(@Param("articleId")Integer articleId, @Param("userId")Integer userId);
 
     Collect getCollectByUserIdAndArticleId(@Param("articleId")Integer articleId, @Param("userId")Integer userId);
+
+    TypeText getTypeTextByArticleId(@Param("articleId")Integer articleId);
 }

@@ -2,6 +2,7 @@ package com.dmtd.hanfu.forum.service;
 
 import com.dmtd.hanfu.forum.entity.Article;
 import com.dmtd.hanfu.forum.entity.PageBean;
+import com.dmtd.hanfu.forum.entity.TypeText;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -77,4 +78,5 @@ public interface ArticleService {
      */
     public List<Article> getArticleListByStatus(List<Integer> statusList);
 
+    List<TypeText> getArticleActions(Integer articleId);
 }

@@ -1,14 +1,18 @@
 package com.dmtd.hanfu.forum.service.impl;
 
-import java.sql.Timestamp;
-import java.util.List;
-
 import com.dmtd.hanfu.forum.dao.ArticleDao;
+import com.dmtd.hanfu.forum.dao.CollectionDao;
+import com.dmtd.hanfu.forum.dao.CommentDao;
 import com.dmtd.hanfu.forum.entity.Article;
 import com.dmtd.hanfu.forum.entity.PageBean;
+import com.dmtd.hanfu.forum.entity.TypeText;
 import com.dmtd.hanfu.forum.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service("articleService")
@@ -16,6 +20,11 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private ArticleDao articleDao;
+
+    @Autowired
+    private CollectionDao collectionDao;
+    @Autowired
+    private CommentDao commentDao;
 
     @Override
     public List<Article> getArticleList() {
@@ -59,6 +68,20 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<Article> getArticleListByStatus(List<Integer> statusList) {
         return articleDao.getArticleListByStatus(statusList);
+    }
+
+    @Override
+    public List<TypeText> getArticleActions(Integer articleId) {
+        TypeText collectioinTypeText = collectionDao.getTypeTextByArticleId(articleId);
+        TypeText commentTypeText = commentDao.getTypeTextByArticleId(articleId);
+        List<TypeText> typeTexts = new ArrayList<>();
+        if (collectioinTypeText != null) {
+            typeTexts.add(collectioinTypeText);
+        }
+        if (commentTypeText != null) {
+            typeTexts.add(commentTypeText);
+        }
+        return typeTexts;
     }
 
 }
