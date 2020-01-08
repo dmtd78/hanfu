@@ -10,6 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="articleId" column="article_id"/>
 		<result property="userId" column="user_id"/>
 		<result property="createTime" column="create_time" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/>
+		<result property="userName" column="username"/>
 	</resultMap>
 	
 	<resultMap type="com.dmtd.hanfu.forum.entity.Floor" id="FloorResult">
@@ -35,16 +36,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<select id="findComment" resultMap="CommentResult">
-		select * from 
-			comment,user
-		where 
-			comment.uid=user.uid
-		<if test="aid!=null">
-			and aid=#{aid}
+		select * from forum_comment c left join user u on c.user_id = u.uid
+		<where> 1=1
+		<if test="articleId!=null">
+			and article_id = #{articleId}
 		</if>
-		<if test="uid!=null">
-			and uid=#{uid}
+		<if test="userId!=null">
+			and user_id = #{userId}
 		</if>
+		</where>
 	</select>
 	
 	<select id="getCommentCount" resultType="java.lang.Integer">

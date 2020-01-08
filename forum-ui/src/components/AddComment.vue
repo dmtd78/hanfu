@@ -4,45 +4,49 @@
                <a-icon :type="type" style="margin-right: 8px"/>
               {{text}}
       </span>
-        <a-list :visible="visible"
-                v-if="comments.length"
-                :dataSource="comments"
-                :header="`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`"
-                itemLayout="horizontal"
-        >
-            <a-list-item slot="renderItem" slot-scope="item">
-                <a-comment
-                        :author="item.author"
-                        :avatar="item.avatar"
-                        :content="item.content"
-                        :datetime="item.datetime"
-                >
-                </a-comment>
-            </a-list-item>
-        </a-list>
-        <a-comment>
-            <a-avatar
-                    slot="avatar"
-                    src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                    alt="Han Solo"
-            />
-            <div slot="content">
-                <a-form-item>
-                    <a-textarea :rows="4" @change="handleChange" :value="value"></a-textarea>
-                </a-form-item>
-                <a-form-item>
-                    <a-button htmlType="submit" :loading="submitting" @click="handleSubmit" type="primary">
-                        Add Comment
-                    </a-button>
-                </a-form-item>
-            </div>
-        </a-comment>
+        <div v-show="commentIsShow">
+            <a-list v-if="comments.length" :pagination="pagination"
+                    :dataSource="comments"
+                    :header="`${comments.length} ${comments.length > 1 ? '回复' : '回复'}`"
+                    itemLayout="horizontal"
+            >
+                <a-list-item slot="renderItem" slot-scope="item">
+                    <a-comment
+                            :author="item.userName"
+                            :avatar="item.avatar"
+                            :content="item.content"
+                            :datetime="$moment(item.createTime).format('MM-DD HH:mm')"
+                    >
+                    </a-comment>
+                </a-list-item>
+            </a-list>
+            <a-comment>
+                <a-avatar
+                        slot="avatar"
+                        src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                        alt="Han Solo"
+                />
+                <div slot="content">
+                    <a-form-item>
+                        <a-textarea :rows="4" @change="handleChange" :value="value"></a-textarea>
+                    </a-form-item>
+                    <a-form-item>
+                        <a-button htmlType="submit" :loading="submitting" @click="handleSubmit" type="primary">
+                            发布
+                        </a-button>
+                    </a-form-item>
+                </div>
+            </a-comment>
+        </div>
     </div>
 </template>
 <script>
     import axios from "axios";
     import moment from 'moment';
-    // import qs from 'qs';
+    // eslint-disable-next-line no-irregular-whitespace
+    const userId = JSON.parse(sessionStorage.getItem("userId"));
+    import qs from 'qs';
+
     export default {
         name: "AddComment",
         data() {
@@ -52,7 +56,14 @@
                 submitting: false,
                 value: '',
                 moment,
-                visible:false,
+                commentIsShow: false,
+                pagination: {
+                    onChange: page => {
+                        // eslint-disable-next-line no-console
+                        console.log(page);
+                    },
+                    pageSize: 3,
+                },
             }
         },
         mounted() {
@@ -62,7 +73,7 @@
         },
         methods: {
             getData(callback) {
-                axios.get('/article/getArticleActions',{params:{articleId:this.articleId}}, {
+                axios.get('/article/getArticleActions', {params: {articleId: this.articleId}}, {
                     xhrFields: {
                         withCredentials: true
                     },
@@ -93,35 +104,63 @@
                 } else if (str == 'like-o') {
                     axios.post('/')
                 } else if (str == 'message') {
-                    this.visible = true;
+                    if (this.commentIsShow == false) {
+                        axios.get('/comment/list',{params:{articleId:this.articleId}},{
+                            xhrFields: {
+                                withCredentials: true
+                            },
+                        },).then((res) => {
+                            if (res.data.resultCode == 0) {
+                                this.comments = res.data.data;
+                            }
+                        })
+                        this.commentIsShow = true;
+                    } else {
+                        this.commentIsShow = false;
+                    }
                 }
             },
-        },
-        props:['articleId'],
-        handleSubmit() {
-            if (!this.value) {
-                return;
-            }
+            handleSubmit() {
+                if (!this.value) {
+                    return;
+                }
 
-            this.submitting = true;
-
-            setTimeout(() => {
-                this.submitting = false;
-                this.comments = [
-                    {
-                        author: 'Han Solo',
-                        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-                        content: this.value,
-                        datetime: moment().fromNow(),
+                this.submitting = true;
+                let values = {
+                    articleId: this.articleId,
+                    userId: userId,
+                    content: this.value
+                };
+                axios.post('/comment/add', qs.stringify(values), {
+                    xhrFields: {
+                        withCredentials: true
                     },
-                    ...this.comments,
-                ];
-                this.value = '';
-            }, 1000);
+                },).then((res) => {
+                    this.submitting = false;
+                    if (res.data.resultCode == 0) {
+                        this.comments = [
+                            {
+                                userName: 'Han Solo',
+                                avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+                                content: this.value,
+                                createTime: moment().fromNow(),
+                            },
+                            ...this.comments,
+                        ];
+                        this.value = '';
+                    } else {
+                        this.$message.failure(
+                            res.data.resultInfo,
+                            10,
+                        );
+                    }
+                })
+            },
+            handleChange(e) {
+                this.value = e.target.value;
+            },
         },
-        handleChange(e) {
-            this.value = e.target.value;
-        },
+        props: ['articleId'],
 
     }
 </script>

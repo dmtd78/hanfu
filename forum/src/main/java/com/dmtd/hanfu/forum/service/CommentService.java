@@ -13,20 +13,19 @@ public interface CommentService {
 	/**
 	 * 发表评论
 	 * @param content
-	 * @param aid
-	 * @param uid
-	 * @param timestamp
+	 * @param articleId
+	 * @param userId
 	 * @return
 	 */
 	public int addComment(String content, Integer articleId, Integer userId);
-	
+
 	/**
 	 * 通过id获得评论数据
-	 * @param aid
-	 * @param uid
+	 * @param articleId
+	 * @param userId
 	 * @return
 	 */
-	public List<Comment> findComment(Integer aid, Integer uid);
+	public List<Comment> findComment(Integer articleId, Integer userId);
 	
 	/**
 	 * 通过aid获得该帖子回复数量

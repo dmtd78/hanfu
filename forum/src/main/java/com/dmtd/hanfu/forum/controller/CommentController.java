@@ -62,18 +62,18 @@ public class CommentController {
 
     /**
      * @param content
-     * @param aid
-     * @param uid
+     * @param articleId
+     * @param userId
      * @return
      */
-    @RequestMapping(value = "/commentList", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public JsonResultData commentList(@RequestParam(value = "content", required = false) String content,
-                                      @RequestParam(value = "aid") Integer aid,
-                                      @RequestParam(value = "uid") Integer uid) {
+                                      @RequestParam(value = "articleId" ,required = false) Integer articleId,
+                                      @RequestParam(value = "userId", required = false) Integer userId) {
         JsonResultData jsonResultData = new JsonResultData();
         // 评论列表
-        jsonResultData.setData(commentService.findComment(aid, uid));
+        jsonResultData.setData(commentService.findComment(articleId, userId));
         return jsonResultData;
     }
 

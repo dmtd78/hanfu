@@ -24,7 +24,16 @@ public class Comment implements Serializable {
 	private String content;
 	private Integer articleId;
 	private Integer userId;
+	private String userName;
 	private Date createTime;
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
 	public Integer getId() {
 		return id;

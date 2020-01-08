@@ -22,8 +22,8 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public List<Comment> findComment(Integer aid, Integer uid) {
-		return commentDao.findComment(aid, uid);
+	public List<Comment> findComment(Integer articleId, Integer userId) {
+		return commentDao.findComment(articleId, userId);
 	}
 
 	@Override

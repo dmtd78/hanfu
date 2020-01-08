@@ -17,7 +17,7 @@ public interface CommentDao {
 			@Param("articleId")Integer articleId,
 			@Param("userId")Integer userId);
 
-	public List<Comment> findComment(@Param("aid")Integer aid, @Param("uid")Integer uid);
+	public List<Comment> findComment(@Param("articleId")Integer articleId, @Param("userId")Integer userId);
 
 	public int getCommentCount(@Param("aid")Integer aid);
 
