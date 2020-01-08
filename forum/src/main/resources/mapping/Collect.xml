@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dmtd.hanfu.forum.dao.CollectDao">
+	
+	<resultMap type="com.dmtd.hanfu.forum.entity.Collect" id="CollectResult">
+		<id property="id" column="id"/>
+		<result property="articleId" column="article_id"/>
+		<result property="createTime" column="create_time" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP"/>
+		<result property="userId" column="user_id" />
+	</resultMap>
+
+	<select id="getCollectByUserId" resultType="Collect">
+		select * from forum_collect where user_id=#{userId}
+	</select>
+
+	<select id="getCollectListByUserId" resultMap="CollectResult">
+		select * from forum_collect where user_id=#{userId}
+	</select>
+
+	<insert id="addCollectByUserId" >
+		insert into forum_collect(user_id,article_id,create_time) values(#{userId},#{articleId},now())
+	</insert>
+
+	<select id="getYesterdayCollectByUserId" resultType="Collect">
+		select * from forum_collect
+		where date_format(create_time,'%Y-%m-%d') = DATE_SUB(curdate(),INTERVAL 1 DAY)
+		and user_id=#{userId}
+		order by create_time
+		limit 1
+	</select>
+
+	<select id="getTodayCollectByUserId" resultType="Collect">
+		select * from forum_collect
+		where date_format(create_time,'%Y-%m-%d') = DATE_SUB(curdate(),INTERVAL 0 DAY)
+		and user_id=#{userId}
+		order by create_time
+		limit 1
+	</select>
+</mapper>

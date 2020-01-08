@@ -5,12 +5,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.dmtd.hanfu.forum.dao.CommentDao">
 	
 	<resultMap type="com.dmtd.hanfu.forum.entity.Comment" id="CommentResult">
-		<id property="cid" column="cid"/>
+		<id property="id" column="id"/>
 		<result property="content" column="content"/>
-		<result property="aid" column="aid"/>
-		<result property="uid" column="uid"/>
-		<result property="date" column="date" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/>
-		<association property="replyer" column="uid" select="com.dmtd.hanfu.forum.dao.UserDao.getUserByID" />
+		<result property="articleId" column="article_id"/>
+		<result property="userId" column="user_id"/>
+		<result property="createTime" column="create_time" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/>
 	</resultMap>
 	
 	<resultMap type="com.dmtd.hanfu.forum.entity.Floor" id="FloorResult">
@@ -22,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 	
 	<insert id="addComment">
-		insert into comment(content,aid,uid,date) values(#{content},#{aid},#{uid},#{date})
+		insert into forum_comment(content,article_id,user_id,create_time) values(#{content},#{articleId},#{userId},now())
 	</insert>
 	
 	<select id="findComment" resultMap="CommentResult">
@@ -39,7 +38,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="getCommentCount" resultType="java.lang.Integer">
-		select count(*) from comment where aid=#{aid}
+		select count(*) from forum_comment where aid=#{aid}
 	</select>
 	
 	<select id="findFloorComment" resultMap="FloorResult">

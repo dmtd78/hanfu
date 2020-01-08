@@ -21,7 +21,7 @@ public class Collect implements Serializable {
 
     private Integer id;
     private String userId;
-    private Integer collect;
+    private String articleId;
     private Date createTime;
 
     public Integer getId() {
@@ -40,12 +40,12 @@ public class Collect implements Serializable {
         this.userId = userId;
     }
 
-    public Integer getCollect() {
-        return collect;
+    public String getArticleId() {
+        return articleId;
     }
 
-    public void setCollect(Integer collect) {
-        this.collect = collect;
+    public void setArticleId(String articleId) {
+        this.articleId = articleId;
     }
 
     public Date getCreateTime() {

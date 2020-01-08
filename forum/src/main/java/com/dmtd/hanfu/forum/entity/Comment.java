@@ -4,25 +4,34 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author LJC 评论内容实体
+ * <br>
+ * Copyright (c) 2020/1/7 All Rights Reserved By dmtd<br>
+ * <br>
+ * Package: com.dmtd.hanfu.forum.entity <br>
+ * FileName: Comment.java <br>
+ * <br>
+ *评论
+ * @author duanmin
+ * @created 2020/1/7-10:34 PM
+ * @last Modified
+ * @history
  */
 public class Comment implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Integer cid;
+	private Integer id;
 	private String content;
-	private Integer aid;
-	private Integer uid;
-	private Date date;
-	private User replyer;
+	private Integer articleId;
+	private Integer userId;
+	private Date createTime;
 
-	public Integer getCid() {
-		return cid;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setCid(Integer cid) {
-		this.cid = cid;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getContent() {
@@ -33,36 +42,27 @@ public class Comment implements Serializable {
 		this.content = content;
 	}
 
-	public Integer getAid() {
-		return aid;
+	public Integer getArticleId() {
+		return articleId;
 	}
 
-	public void setAid(Integer aid) {
-		this.aid = aid;
+	public void setArticleId(Integer articleId) {
+		this.articleId = articleId;
 	}
 
-	public Integer getUid() {
-		return uid;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setUid(Integer uid) {
-		this.uid = uid;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
-	public Date getDate() {
-		return date;
+	public Date getCreateTime() {
+		return createTime;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
-
-	public User getReplyer() {
-		return replyer;
-	}
-
-	public void setReplyer(User replyer) {
-		this.replyer = replyer;
-	}
-
 }

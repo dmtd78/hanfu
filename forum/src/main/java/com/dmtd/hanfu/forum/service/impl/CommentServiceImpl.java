@@ -1,14 +1,13 @@
 package com.dmtd.hanfu.forum.service.impl;
 
-import java.sql.Timestamp;
-import java.util.List;
-
 import com.dmtd.hanfu.forum.dao.CommentDao;
 import com.dmtd.hanfu.forum.entity.Comment;
 import com.dmtd.hanfu.forum.entity.Floor;
 import com.dmtd.hanfu.forum.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service("commentService")
@@ -18,8 +17,8 @@ public class CommentServiceImpl implements CommentService {
 	private CommentDao commentDao;
 	
 	@Override
-	public int addComment(String content, Integer aid, Integer uid,Timestamp timestamp) {
-		return commentDao.addComment(content, aid, uid, timestamp);
+	public int addComment(String content, Integer articleId, Integer userId) {
+		return commentDao.addComment(content, articleId, userId);
 	}
 
 	@Override

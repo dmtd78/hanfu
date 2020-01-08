@@ -17,7 +17,7 @@ import java.util.List;
  * @last Modified
  * @history
  */
-public interface CollectService {
+public interface CollectionService {
 
     public Collect getCollectByUserId(Integer userId);
 

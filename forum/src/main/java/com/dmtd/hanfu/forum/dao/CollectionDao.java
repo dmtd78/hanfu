@@ -21,8 +21,8 @@ import java.util.List;
  * @history
  */
 @Mapper
-@Component(value = "collectDao")
-public interface CollectDao {
+@Component(value = "collectionDao")
+public interface CollectionDao {
 
     public Collect getCollectByUserId(@Param("userId")Integer userId);
 
