@@ -28,11 +28,12 @@ Vue.prototype.$api = api
 
 
 import {Button,Checkbox,Icon,Layout,Menu,Breadcrumb,List,Avatar,Card,Form,Input,Radio,Modal,Select,Row,Col,Cascader,
-    Tooltip,Alert,message,Tabs,Popover,Divider,Collapse,Comment} from "ant-design-vue";
+    Tooltip,Alert,message,Tabs,Popover,Divider,Collapse,Comment,notification,Calendar} from "ant-design-vue";
 import 'ant-design-vue/dist/antd.css';
 import moment from 'moment';
 import VueRouter from 'vue-router'
 Vue.prototype.$message = message;
+Vue.prototype.$notification = notification;
 Vue.config.productionTip = false;
 
 Vue.use(Button)
@@ -60,6 +61,7 @@ Vue.use(Popover)
 Vue.use(Divider)
 Vue.use(Comment)
 Vue.use(Collapse)
+Vue.use(Calendar)
 Vue.prototype.$moment = moment
 new Vue({
   render: h => h(App),

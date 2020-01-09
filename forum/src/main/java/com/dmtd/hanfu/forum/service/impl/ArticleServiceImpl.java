@@ -3,6 +3,7 @@ package com.dmtd.hanfu.forum.service.impl;
 import com.dmtd.hanfu.forum.dao.ArticleDao;
 import com.dmtd.hanfu.forum.dao.CollectionDao;
 import com.dmtd.hanfu.forum.dao.CommentDao;
+import com.dmtd.hanfu.forum.dao.ThumbsUpDao;
 import com.dmtd.hanfu.forum.entity.Article;
 import com.dmtd.hanfu.forum.entity.PageBean;
 import com.dmtd.hanfu.forum.entity.TypeText;
@@ -25,6 +26,8 @@ public class ArticleServiceImpl implements ArticleService {
     private CollectionDao collectionDao;
     @Autowired
     private CommentDao commentDao;
+    @Autowired
+    private ThumbsUpDao thumbsUpDao;
 
     @Override
     public List<Article> getArticleList() {
@@ -74,6 +77,7 @@ public class ArticleServiceImpl implements ArticleService {
     public List<TypeText> getArticleActions(Integer articleId) {
         TypeText collectioinTypeText = collectionDao.getTypeTextByArticleId(articleId);
         TypeText commentTypeText = commentDao.getTypeTextByArticleId(articleId);
+        TypeText thumbsUpTypeText = thumbsUpDao.getTypeTextByArticleId(articleId);
         List<TypeText> typeTexts = new ArrayList<>();
         if (collectioinTypeText != null) {
             typeTexts.add(collectioinTypeText);
@@ -91,10 +95,15 @@ public class ArticleServiceImpl implements ArticleService {
             commentTypeText.setText("");
             typeTexts.add(commentTypeText);
         }
-        TypeText likeTypeText = new TypeText();
-        likeTypeText.setText("2");
-        likeTypeText.setType("like-o");
-        typeTexts.add(likeTypeText);
+        if (thumbsUpTypeText != null) {
+            typeTexts.add(thumbsUpTypeText);
+        } else {
+            thumbsUpTypeText = new TypeText();
+            thumbsUpTypeText.setText("");
+            thumbsUpTypeText.setType("like-o");
+            typeTexts.add(thumbsUpTypeText);
+        }
+
         return typeTexts;
     }
 
