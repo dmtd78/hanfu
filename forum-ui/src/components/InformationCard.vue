@@ -32,13 +32,15 @@
                 showLoadingMore: true,
                 msg: '上次登录时间：',
                 loginMsg: '请登录',
-                data: [],
+                data: {},
             };
         },
         mounted() {
             this.getData(res => {
                 this.loading = false;
                 this.data = res.data.data;
+                // eslint-disable-next-line no-console
+                console.log('get data :'+this.data);
             });
         },
         methods: {
