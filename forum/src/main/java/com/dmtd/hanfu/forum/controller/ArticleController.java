@@ -4,23 +4,18 @@ import com.dmtd.hanfu.forum.config.Config;
 import com.dmtd.hanfu.forum.entity.Article;
 import com.dmtd.hanfu.forum.entity.PageBean;
 import com.dmtd.hanfu.forum.entity.TypeText;
-import com.dmtd.hanfu.forum.entity.User;
 import com.dmtd.hanfu.forum.exception.JsonResult;
 import com.dmtd.hanfu.forum.exception.JsonResultData;
 import com.dmtd.hanfu.forum.service.ArticleService;
 import com.dmtd.hanfu.forum.service.UserService;
-import com.dmtd.hanfu.forum.util.LogUtils;
 import com.dmtd.hanfu.forum.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -99,23 +94,14 @@ public class ArticleController {
     /**
      * 根据id删除帖子数据
      *
-     * @param aid
+     * @param articleId
      * @return
      */
     @RequestMapping("/delete")
     @ResponseBody
-    public JsonResult deleteArticleByID(HttpServletRequest request, @RequestParam("aid") Integer aid) {
-        Map<String, String> map = new HashMap<>();
+    public JsonResult deleteArticleByID(@RequestParam("articleId") Integer articleId) {
         JsonResult jsonResult = new JsonResult();
-        // 身份检测
-        User user = (User) request.getSession().getAttribute("user"); // 当前登录用户
-        // Integer uid = articleService.getArticleByID(aid).getUid(); //帖子作者
-        Integer uid = articleService.getArticleByID(aid).getAuthor().getUid(); // 帖子作者
-        if (user.getUid() != uid) {
-            jsonResult.setResultInfo("只能删除自己的帖子！");
-            return jsonResult;
-        }
-        int result = articleService.deleteArticleByID(aid);
+        int result = articleService.deleteArticleByID(articleId);
         if (result > 0) {
             jsonResult.setResultInfo("删除成功！");
         } else {

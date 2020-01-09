@@ -6,9 +6,9 @@
                 slot="cover"
         />
         <template class="ant-card-actions" slot="actions">
-            <a-icon type="setting" />
-            <a-icon type="edit" />
-            <a-icon type="ellipsis" />
+            <a-icon type="setting"/>
+            <a-icon type="edit"/>
+            <a-icon type="ellipsis"/>
         </template>
         <a-card-meta v-if="data.username==null" :title="loginMsg">
             <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"/>
@@ -20,11 +20,9 @@
 </template>
 
 <script>
-    import reqwest from 'reqwest';
-
+    import axios from 'axios';
     // eslint-disable-next-line no-irregular-whitespace
-    const userId=JSON.parse(sessionStorage.getItem("userId"));
-    const fakeDataUrl = 'http://106.12.61.131:8081/user/info?uid='+userId;
+    const userId = JSON.parse(sessionStorage.getItem("userId"));
     export default {
         name: "InformationCard",
         data() {
@@ -32,28 +30,31 @@
                 loading: true,
                 loadingMore: false,
                 showLoadingMore: true,
-                msg:'上次登录时间：',
-                loginMsg:'请登录',
+                msg: '上次登录时间：',
+                loginMsg: '请登录',
                 data: [],
             };
         },
         mounted() {
             this.getData(res => {
                 this.loading = false;
-                this.data = res.data;
+                this.data = res.data.data;
             });
         },
         methods: {
             getData(callback) {
-                reqwest({
-                    url: fakeDataUrl,
-                    type: 'json',
-                    method: 'get',
-                    contentType: 'application/json',
-                    success: res => {
-                        callback(res);
+                if (userId == null) {
+                    return;
+                }
+                axios.get('/user/info', {params: {uid: userId}}, {
+                    xhrFields: {
+                        withCredentials: true
                     },
-                });
+                }).then((res) => {
+                    if (res.data.resultCode == 0) {
+                        callback(res);
+                    }
+                })
             },
         }
     }

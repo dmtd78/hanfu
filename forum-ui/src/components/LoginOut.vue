@@ -12,16 +12,16 @@
 <script>
     import axios from 'axios';
     // eslint-disable-next-line no-irregular-whitespace
-    const userId=JSON.parse(sessionStorage.getItem("userId"));
+    const userId = JSON.parse(sessionStorage.getItem("userId"));
     export default {
         name: "LoginOut",
         data() {
             return {
-                lrmsg:'注册/登录'
+                lrmsg: '注册/登录'
             }
         },
         props: {
-            current:{
+            current: {
                 type: String,
                 default: '/home'
             }
@@ -38,10 +38,14 @@
         },
         methods: {
             changeNavigate({key}) {
-                this.$router.push(key).catch(() => {})
+                this.$router.push(key).catch(() => {
+                })
             },
             getData() {
-                axios.get('/user/info?uid='+userId,{
+                if (userId == null) {
+                    return;
+                }
+                axios.get('/user/info', {params: {uid: userId}}, {
                     xhrFields: {
                         withCredentials: true
                     },
@@ -56,11 +60,11 @@
                     }
                 })
             },
-            gotoPersonalInfo(){
+            gotoPersonalInfo() {
                 this.$router.push('/personalInfo');
             },
-            loginOut(){
-                axios.get('/user/exit?uid='+userId,{
+            loginOut() {
+                axios.get('/user/exit?uid=' + userId, {
                     xhrFields: {
                         withCredentials: true
                     },

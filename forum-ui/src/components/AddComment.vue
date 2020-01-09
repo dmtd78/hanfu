@@ -111,6 +111,10 @@
                 if (!this.value) {
                     return;
                 }
+                if (!userId) {
+                    this.$message.info('请先登录！',5);
+                    setTimeout(()=>{this.$router.push('/register')},1000);
+                }
 
                 this.submitting = true;
                 let values = {

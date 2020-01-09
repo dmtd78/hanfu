@@ -31,21 +31,22 @@
 </template>
 
 <script>
-    import axios from 'axios';
     import LoginOut from "./LoginOut";
     // eslint-disable-next-line no-irregular-whitespace
-    const userId=JSON.parse(sessionStorage.getItem("userId"));
+    const userId = JSON.parse(sessionStorage.getItem("userId"));
     export default {
         name: "Navigate",
         components: {LoginOut},
+        beforeCreate() {
+            this.userId = JSON.parse(sessionStorage.getItem("userId"));
+        },
         data() {
             return {
-                lrmsg:'注册/登录',
-                userId:userId
+                userId: userId
             }
         },
         props: {
-            current:{
+            current: {
                 type: String,
                 default: '/home'
             }
@@ -55,29 +56,9 @@
                 return [this.current]
             }
         },
-        mounted() {
-            this.getData(res => {
-                this.data = res.data;
-            });
-        },
         methods: {
             changeNavigate({key}) {
-                this.$router.push(key).catch(() => {})
-            },
-            getData() {
-                axios.get('/user/info?uid='+userId,{
-                    xhrFields: {
-                        withCredentials: true
-                    },
-                }).then((res) => {
-                    if (res.data.resultCode == 0) {
-                        this.lrmsg = res.data.data.username;
-                    } else {
-                        this.$message.failure(
-                            res.data.resultInfo,
-                            10,
-                        );
-                    }
+                this.$router.push(key).catch(() => {
                 })
             },
         }

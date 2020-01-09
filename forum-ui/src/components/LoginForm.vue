@@ -17,6 +17,7 @@
 
 <script>
     import axios from 'axios';
+    import qs from 'qs';
     export default {
         name:"LoginForm",
         beforeCreate() {
@@ -31,7 +32,7 @@
                     if (err) {
                         return;
                     }
-                    axios.post('/user/login','username='+values.username+'&password='+values.password,{
+                    axios.post('/user/login',qs.stringify(values),{
                         xhrFields: {
                             withCredentials: true
                         },
@@ -44,7 +45,7 @@
                                 res.data.resultInfo,
                                 10,
                             );
-                            this.$router.push('/home');
+                            setTimeout( () => this.$router.push('/home'), 1000);
                         } else {
                             this.$message.failure(
                                 res.data.resultInfo,
