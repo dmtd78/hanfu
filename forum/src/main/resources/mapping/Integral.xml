@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 
 	<select id="getIntegralByUserId" resultType="Integral">
-		select * from forum_integral where user_id=#{userId}
+		select sum(integral) as integral,user_id from forum_integral where user_id=#{userId} group by user_id
 	</select>
 
 	<select id="getIntegralListByUserId" resultMap="IntegralResult">
