@@ -77,8 +77,18 @@ public class ArticleServiceImpl implements ArticleService {
         List<TypeText> typeTexts = new ArrayList<>();
         if (collectioinTypeText != null) {
             typeTexts.add(collectioinTypeText);
+        } else {
+            collectioinTypeText = new TypeText();
+            collectioinTypeText.setType("star-o");
+            collectioinTypeText.setText("");
+            typeTexts.add(collectioinTypeText);
         }
         if (commentTypeText != null) {
+            typeTexts.add(commentTypeText);
+        } else {
+            commentTypeText = new TypeText();
+            commentTypeText.setType("message");
+            commentTypeText.setText("");
             typeTexts.add(commentTypeText);
         }
         TypeText likeTypeText = new TypeText();

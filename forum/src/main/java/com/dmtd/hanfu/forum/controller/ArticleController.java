@@ -104,25 +104,24 @@ public class ArticleController {
      */
     @RequestMapping("/delete")
     @ResponseBody
-    public Map<String, String> deleteArticleByID(HttpServletRequest request, @RequestParam("aid") Integer aid) {
+    public JsonResult deleteArticleByID(HttpServletRequest request, @RequestParam("aid") Integer aid) {
         Map<String, String> map = new HashMap<>();
+        JsonResult jsonResult = new JsonResult();
         // 身份检测
         User user = (User) request.getSession().getAttribute("user"); // 当前登录用户
         // Integer uid = articleService.getArticleByID(aid).getUid(); //帖子作者
         Integer uid = articleService.getArticleByID(aid).getAuthor().getUid(); // 帖子作者
         if (user.getUid() != uid) {
-            map.put("data", "只能删除自己的帖子！");
-            return map;
+            jsonResult.setResultInfo("只能删除自己的帖子！");
+            return jsonResult;
         }
         int result = articleService.deleteArticleByID(aid);
         if (result > 0) {
-            LogUtils.info("成功删除id为{}的帖子！", aid);
-            map.put("data", "删除成功！");
+            jsonResult.setResultInfo("删除成功！");
         } else {
-            LogUtils.info("删除失败id为{}的帖子！", aid);
-            map.put("data", "删除失败！");
+            jsonResult.setResultInfo("删除失败！");
         }
-        return map;
+        return jsonResult;
     }
 
     /**

@@ -87,22 +87,9 @@
                 // eslint-disable-next-line no-console
                 console.log(str);
                 if (str == 'star-o') {
-                    axios.post('/').then((res) => {
-                        if (res.data.resultCode == 0) {
-                            this.$message.success(
-                                res.data.resultInfo,
-                                10,
-                            );
-                            this.$router.push('/home');
-                        } else {
-                            this.$message.failure(
-                                res.data.resultInfo,
-                                10,
-                            );
-                        }
-                    })
+                    this.$message.info('程序员忙不过来，该功能暂未上线，请期待！（你可以试试评论）',5);
                 } else if (str == 'like-o') {
-                    axios.post('/')
+                    this.$message.info('程序员忙不过来，该功能暂未上线，请期待！（你可以试试评论）',5);
                 } else if (str == 'message') {
                     if (this.commentIsShow == false) {
                         axios.get('/comment/list',{params:{articleId:this.articleId}},{

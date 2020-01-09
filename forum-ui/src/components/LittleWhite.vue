@@ -7,8 +7,7 @@
             <a-layout style="padding: 0 24px 24px">
                 <a-layout-content :style="{ padding: '0 50px', marginTop: '64px' }">
                     <a-breadcrumb :style="{ margin: '16px 0' }">
-                        <a-breadcrumb-item>Home</a-breadcrumb-item>
-                        <a-breadcrumb-item>List</a-breadcrumb-item>
+                        <a-breadcrumb-item>首页</a-breadcrumb-item>
                         <a-breadcrumb-item>小白</a-breadcrumb-item>
                     </a-breadcrumb>
                     <div><AddForum></AddForum></div>
