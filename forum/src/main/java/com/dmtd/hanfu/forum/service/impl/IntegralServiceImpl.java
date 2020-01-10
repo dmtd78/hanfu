@@ -58,4 +58,9 @@ public class IntegralServiceImpl implements IntegralService {
             integralDao.addIntegralByUserId(integralNum, userId);
         }
     }
+
+    @Override
+    public Integral hasIntegralByUserId(Integer userId) {
+        return integralDao.getTodayIntegralByUserId(userId);
+    }
 }

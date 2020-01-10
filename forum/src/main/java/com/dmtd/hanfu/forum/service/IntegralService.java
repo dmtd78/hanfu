@@ -23,4 +23,6 @@ public interface IntegralService {
     List<Integral> getIntegralListByUserId(Integer userId);
 
     void addIntegralByUserId(Integer userId);
+
+    Integral hasIntegralByUserId(Integer userId);
 }

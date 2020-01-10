@@ -64,4 +64,17 @@ public class IntegralController {
         jsonResultData.setData(integralService.getIntegralListByUserId(userId));
         return jsonResultData;
     }
+
+    /**
+     * 看今天是否已签到
+     * @param userId
+     * @return
+     */
+    @GetMapping("/hasIntegralByUserId")
+    @ResponseBody
+    public JsonResultData hasIntegralByUserId(@RequestParam("userId") Integer userId) {
+        JsonResultData jsonResultData = new JsonResultData();
+        jsonResultData.setData(integralService.hasIntegralByUserId(userId));
+        return jsonResultData;
+    }
 }
