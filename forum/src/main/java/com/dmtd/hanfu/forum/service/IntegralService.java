@@ -25,4 +25,6 @@ public interface IntegralService {
     void addIntegralByUserId(Integer userId);
 
     Integral hasIntegralByUserId(Integer userId);
+
+    Integral getRecentlyIntegralByUserId(Integer userId);
 }

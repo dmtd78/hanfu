@@ -77,4 +77,18 @@ public class IntegralController {
         jsonResultData.setData(integralService.hasIntegralByUserId(userId));
         return jsonResultData;
     }
+
+    /**
+     * 取最近一条签到记录，如果最近签到日期等于昨天，则连续签到天数为昨天的积分数，
+     * 如果最近签到日期等于今天，则连续签到天数为今天的积分数。
+     * @param userId
+     * @return
+     */
+    @GetMapping("/getRecentlyIntegralByUserId")
+    @ResponseBody
+    public JsonResultData getRecentlyIntegralByUserId(@RequestParam("userId") Integer userId) {
+        JsonResultData jsonResultData = new JsonResultData();
+        jsonResultData.setData(integralService.getRecentlyIntegralByUserId(userId));
+        return jsonResultData;
+    }
 }

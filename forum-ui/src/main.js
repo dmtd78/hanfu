@@ -12,8 +12,8 @@ Vue.use(VueQuillEditor)
 import 'babel-polyfill';
 Vue.use(VueAxios,axios)
 //当创建实例时，设置默认配置。
-axios.defaults.baseURL = 'http://106.12.61.131:8081';
-// axios.defaults.baseURL = 'http://localhost:8081';
+// axios.defaults.baseURL = 'http://106.12.61.131:8081';
+axios.defaults.baseURL = 'http://localhost:8081';
 axios.defaults.headers = {
     "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
 }
@@ -28,7 +28,7 @@ Vue.prototype.$api = api
 
 
 import {Button,Checkbox,Icon,Layout,Menu,Breadcrumb,List,Avatar,Card,Form,Input,Radio,Modal,Select,Row,Col,Cascader,
-    Tooltip,Alert,message,Tabs,Popover,Divider,Collapse,Comment,notification,Calendar} from "ant-design-vue";
+    Tooltip,Alert,message,Tabs,Popover,Divider,Collapse,Comment,notification,Calendar,Steps} from "ant-design-vue";
 import 'ant-design-vue/dist/antd.css';
 import moment from 'moment';
 import VueRouter from 'vue-router'
@@ -40,6 +40,7 @@ Vue.use(Button)
 Vue.use(Checkbox)
 Vue.use(Icon)
 Vue.use(Layout);
+Vue.use(Steps);
 Vue.use(Breadcrumb);
 Vue.use(Menu);
 Vue.use(List);

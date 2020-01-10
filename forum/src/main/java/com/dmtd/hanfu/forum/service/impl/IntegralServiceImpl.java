@@ -3,6 +3,7 @@ package com.dmtd.hanfu.forum.service.impl;
 import com.dmtd.hanfu.forum.dao.IntegralDao;
 import com.dmtd.hanfu.forum.entity.Integral;
 import com.dmtd.hanfu.forum.service.IntegralService;
+import com.dmtd.hanfu.forum.util.TimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,5 +63,18 @@ public class IntegralServiceImpl implements IntegralService {
     @Override
     public Integral hasIntegralByUserId(Integer userId) {
         return integralDao.getTodayIntegralByUserId(userId);
+    }
+
+    @Override
+    public Integral getRecentlyIntegralByUserId(Integer userId) {
+        Integral integral = integralDao.getRecentlyIntegralByUserId(userId);
+        if (integral == null || !TimeUtils.getDate(integral.getCreateTime(), TimeUtils.YYYY_MM_DD)
+                .equals(TimeUtils.getDate(new Date(), TimeUtils.YYYY_MM_DD))) {
+            integral = new Integral();
+            integral.setIntegral(1);
+            return integral;
+        } else {
+            return integral;
+        }
     }
 }

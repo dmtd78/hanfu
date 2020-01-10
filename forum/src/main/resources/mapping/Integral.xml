@@ -38,4 +38,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by create_time
 		limit 1
 	</select>
+
+	<select id="getRecentlyIntegralByUserId" resultType="Integral">
+		select * from forum_integral
+		where user_id=#{userId}
+		order by create_time desc
+		limit 1
+	</select>
 </mapper>

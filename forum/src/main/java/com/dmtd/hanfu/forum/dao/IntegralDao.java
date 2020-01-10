@@ -32,5 +32,7 @@ public interface IntegralDao {
 
     Integral getYesterdayIntegralByUserId(@Param("userId")Integer userId);
 
-    Integral getTodayIntegralByUserId(Integer userId);
+    Integral getTodayIntegralByUserId(@Param("userId")Integer userId);
+
+    Integral getRecentlyIntegralByUserId(@Param("userId")Integer userId);
 }
