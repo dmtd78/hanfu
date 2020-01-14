@@ -87,17 +87,29 @@
                 // eslint-disable-next-line no-console
                 console.log(str);
                 if (str == 'star-o') {
-                    this.$notification.open({
-                        message: '温馨提醒',
-                        description: '程序员忙不过来，该功能暂未上线，敬请期待！（你可以试试评论）',
-                        icon: <a-icon type="smile" style="color: #108ee9" />,
-                    });
+                    let params = {
+                        articleId:this.articleId,
+                        userId:userId
+                    };
+                    axios.post('/collect/addCollectByUserId',qs.stringify(params),{
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                    },).then((res) => {
+                        if (res.data.resultCode == 0) {
+                            this.$notification.open({
+                                message: '温馨提醒',
+                                description: '已收藏',
+                                icon: <a-icon type="smile" style="color: #108ee9" />,
+                        });
+                        }
+                    })
                 } else if (str == 'like-o') {
                     this.$notification.open({
                         message: '温馨提醒',
                         description: '程序员忙不过来，该功能暂未上线，敬请期待！（你可以试试评论）',
                         icon: <a-icon type="smile" style="color: #108ee9" />,
-                });
+                    });
                 } else if (str == 'message') {
                     if (this.commentIsShow == false) {
                         axios.get('/comment/list',{params:{articleId:this.articleId}},{

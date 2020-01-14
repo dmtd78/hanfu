@@ -75,6 +75,25 @@ public class ArticleController {
         return jsonResultData;
     }
 
+    /**
+     * 获取我的收藏等跟我相关等帖子信息
+     *
+     * @return
+     */
+    @GetMapping("/iCollectArticles")
+    @ResponseBody
+    public JsonResultData iCollectArticles(@RequestParam("currentPage") int currentPage,
+                                             @RequestParam(value = "type",required = false) Integer type,
+                                             @RequestParam(value = "userId",required = false) Integer userId) {
+        int pageSize = Config.DEFAULT_PAGESIZE;// 每页记录数
+        if (currentPage == 0) {
+            currentPage = 1;
+        }
+        JsonResultData jsonResultData = new JsonResultData();
+        PageBean pageBean = articleService.iCollectArticles(currentPage, pageSize, type, userId);
+        jsonResultData.setData(pageBean);
+        return jsonResultData;
+    }
 
     /**
      * 根据id获取帖子数据

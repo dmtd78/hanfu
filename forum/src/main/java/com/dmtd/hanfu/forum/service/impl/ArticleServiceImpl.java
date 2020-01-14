@@ -107,4 +107,9 @@ public class ArticleServiceImpl implements ArticleService {
         return typeTexts;
     }
 
+    @Override
+    public PageBean iCollectArticles(int currentPage, int pageSize, Integer type, Integer userId) {
+        return null;
+    }
+
 }

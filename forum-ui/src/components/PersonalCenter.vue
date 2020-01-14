@@ -14,6 +14,15 @@
                 </a-list-item-meta>
             </a-list-item>
         </a-list>
+        <a-divider orientation="left">我的收藏</a-divider>
+        <a-list bordered :dataSource="articleData">
+            <a-list-item slot="renderItem" slot-scope="article">
+                <a slot="actions">{{$moment(article.date).format('YYYY-MM-DD')}}</a>
+                <a-list-item-meta :descreption="article.title">
+                    <a slot="title" @click="gotoDetail(article.aid)">{{article.title}}</a>
+                </a-list-item-meta>
+            </a-list-item>
+        </a-list>
     </div>
 </template>
 
@@ -26,7 +35,8 @@
             return {
                 text: `A dog is a type of domesticated animal.Known for its loyalty and faithfulness,it can be found as a welcome guest in many households across the world.`,
                 userData: [],
-                articleData: []
+                articleData: [],
+                collectData:[]
             };
         },
         name: "PersonalCenter",

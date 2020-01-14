@@ -38,8 +38,8 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         logger.info("---------------开始进入地址拦截器-------------------");
-        User user = (User) httpServletRequest.getSession().getAttribute("user");
-        if (user == null) {
+        String userToken = (String) httpServletRequest.getSession().getAttribute("userToken");
+        if (userToken == null) {
             return false;
         }
         return true;

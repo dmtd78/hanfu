@@ -24,6 +24,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from forum_collect where user_id=#{userId}
 	</select>
 
+	<select id="getCollectByUserIdAndArticleId" resultType="Collect">
+		select * from forum_collect where user_id=#{userId} and article_id =#{articleId}
+	</select>
+
 	<select id="getCollectListByUserId" resultMap="CollectResult">
 		select * from forum_collect where user_id=#{userId}
 	</select>

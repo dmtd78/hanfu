@@ -79,4 +79,6 @@ public interface ArticleService {
     public List<Article> getArticleListByStatus(List<Integer> statusList);
 
     List<TypeText> getArticleActions(Integer articleId);
+
+    PageBean iCollectArticles(int currentPage, int pageSize, Integer type, Integer userId);
 }

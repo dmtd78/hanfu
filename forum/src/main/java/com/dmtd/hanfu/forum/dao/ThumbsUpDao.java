@@ -1,5 +1,6 @@
 package com.dmtd.hanfu.forum.dao;
 
+import com.dmtd.hanfu.forum.entity.ThumbsUp;
 import com.dmtd.hanfu.forum.entity.TypeText;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -23,4 +24,8 @@ import org.springframework.stereotype.Component;
 public interface ThumbsUpDao {
 
     TypeText getTypeTextByArticleId(@Param("articleId")Integer articleId);
+
+    ThumbsUp getThumbsUpByUserIdAndArticleId(Integer articleId, Integer userId);
+
+    void addThumbsUpByUserId(Integer articleId, Integer userId);
 }

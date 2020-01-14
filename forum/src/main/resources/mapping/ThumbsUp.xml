@@ -20,5 +20,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select 'like-o' as type, count(*) as text  from forum_thumbs_up where article_id = #{articleId} group by article_id
 	</select>
 
+	<select id="getThumbsUpByUserId" resultType="ThumbsUp">
+		select * from forum_thumbs_up where user_id=#{userId}
+	</select>
 
+	<select id="getThumbsUpListByUserId" resultMap="ThumbsUpResult">
+		select * from forum_thumbs_up where user_id=#{userId}
+	</select>
+
+	<insert id="addThumbsUpByUserId" >
+		insert into forum_thumbs_up(user_id,article_id,create_time) values(#{userId},#{articleId},now())
+	</insert>
 </mapper>

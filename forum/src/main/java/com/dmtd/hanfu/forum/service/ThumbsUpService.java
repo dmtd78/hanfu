@@ -1,5 +1,7 @@
 package com.dmtd.hanfu.forum.service;
 
+import com.dmtd.hanfu.forum.entity.ThumbsUp;
+
 /**
  * <br>
  * Copyright (c) 2020/1/9 All Rights Reserved By dmtd<br>
@@ -14,4 +16,7 @@ package com.dmtd.hanfu.forum.service;
  * @history
  */
 public interface ThumbsUpService {
+    void addThumbsUpByUserIdAndArticleId(Integer articleId, Integer userId);
+
+    ThumbsUp getThumbsUpByUserIdAndArticleId(Integer articleId, Integer userId);
 }
