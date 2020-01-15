@@ -108,8 +108,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public PageBean iCollectArticles(int currentPage, int pageSize, Integer type, Integer userId) {
-        return null;
+    public List<Article> iCollectArticles(int currentPage, int pageSize, Integer type, Integer userId) {
+        return articleDao.iCollectArticles(userId);
     }
 
 }

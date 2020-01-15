@@ -87,6 +87,10 @@
                 // eslint-disable-next-line no-console
                 console.log(str);
                 if (str == 'star-o') {
+                    if (!userId) {
+                        this.$message.info('请先登录！',5);
+                        setTimeout(()=>{this.$router.push('/register')},1000);
+                    }
                     let params = {
                         articleId:this.articleId,
                         userId:userId

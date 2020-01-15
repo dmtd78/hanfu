@@ -90,8 +90,8 @@ public class ArticleController {
             currentPage = 1;
         }
         JsonResultData jsonResultData = new JsonResultData();
-        PageBean pageBean = articleService.iCollectArticles(currentPage, pageSize, type, userId);
-        jsonResultData.setData(pageBean);
+        List<Article> articles = articleService.iCollectArticles(currentPage, pageSize, type, userId);
+        jsonResultData.setData(articles);
         return jsonResultData;
     }
 

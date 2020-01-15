@@ -15,11 +15,11 @@
             </a-list-item>
         </a-list>
         <a-divider orientation="left">我的收藏</a-divider>
-        <a-list bordered :dataSource="articleData">
-            <a-list-item slot="renderItem" slot-scope="article">
-                <a slot="actions">{{$moment(article.date).format('YYYY-MM-DD')}}</a>
-                <a-list-item-meta :descreption="article.title">
-                    <a slot="title" @click="gotoDetail(article.aid)">{{article.title}}</a>
+        <a-list bordered :dataSource="iCollectData">
+            <a-list-item slot="renderItem" slot-scope="iCollctArticle">
+                <a slot="actions">{{$moment(iCollctArticle.date).format('YYYY-MM-DD')}}</a>
+                <a-list-item-meta :descreption="iCollctArticle.title">
+                    <a slot="title" @click="gotoDetail(iCollctArticle.aid)">{{iCollctArticle.title}}</a>
                 </a-list-item-meta>
             </a-list-item>
         </a-list>
@@ -36,29 +36,48 @@
                 text: `A dog is a type of domesticated animal.Known for its loyalty and faithfulness,it can be found as a welcome guest in many households across the world.`,
                 userData: [],
                 articleData: [],
-                collectData:[]
+                iCollectData:[]
             };
         },
         name: "PersonalCenter",
         mounted() {
             this.getArticleData(res => {
-                // eslint-disable-next-line no-console
-                console.log('article data list:' + res.data.list);
                 this.articleData = res.data.data.list;
+            });
+            this.getICollectArticleData(res => {
+                // eslint-disable-next-line no-console
+                console.log('i collect article data list:' + res.data.data);
+                this.iCollectData = res.data.data;
             });
             this.getUserData(res => {
                 this.userData = res.data;
             });
         },
         methods: {
-            getArticleData() {
+            getArticleData(callback) {
                 axios.get('/article/list?currentPage=1&userId=' + userId, {
                     xhrFields: {
                         withCredentials: true
                     },
                 }).then((res) => {
                     if (res.data.resultCode == 0) {
-                        this.articleData = res.data.data.list;
+                        callback(res)
+                    } else {
+                        this.$message.failure(
+                            res.data.resultInfo,
+                            10,
+                        );
+                    }
+                })
+            },
+            getICollectArticleData(callback) {
+                axios.get('/article/iCollectArticles?currentPage=1&userId=' + userId, {
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                }).then((res) => {
+                    if (res.data.resultCode == 0) {
+                        callback(res)
                     } else {
                         this.$message.failure(
                             res.data.resultInfo,

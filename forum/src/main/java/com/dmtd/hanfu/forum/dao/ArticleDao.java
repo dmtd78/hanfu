@@ -1,6 +1,7 @@
 package com.dmtd.hanfu.forum.dao;
 
 import com.dmtd.hanfu.forum.entity.Article;
+import com.dmtd.hanfu.forum.entity.PageBean;
 import org.apache.ibatis.annotations.Param;
 
 import java.sql.Timestamp;
@@ -35,4 +36,6 @@ public interface ArticleDao {
     public List<Article> getArticleListByStatus(List<Integer> statusList);
 
     public int getArticleCount();
+
+    List<Article> iCollectArticles(@Param("userId") Integer userId);
 }

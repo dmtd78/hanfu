@@ -36,6 +36,17 @@
 		order by t.date desc
 	</select>
 
+	<select id="iCollectArticles" resultMap="ArticleResult">
+		select * from article t left join forum_collect c on t.aid = c.article_id
+		<where>
+			1=1
+			<if test="userId!=null and userId!=''">
+				and c.user_id=#{userId}
+			</if>
+		</where>
+		order by t.date desc
+	</select>
+
     <select id="getArticleByID" resultMap="ArticleResult">
 		select * from 
 			article,user 

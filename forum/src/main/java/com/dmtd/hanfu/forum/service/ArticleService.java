@@ -80,5 +80,5 @@ public interface ArticleService {
 
     List<TypeText> getArticleActions(Integer articleId);
 
-    PageBean iCollectArticles(int currentPage, int pageSize, Integer type, Integer userId);
+    List<Article> iCollectArticles(int currentPage, int pageSize, Integer type, Integer userId);
 }
