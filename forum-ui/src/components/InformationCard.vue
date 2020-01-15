@@ -3,7 +3,7 @@
         <a-card hoverable style="width: 240px">
             <img
                     alt="example"
-                    src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                    src="../assets/hanfu-hf.jpg"
                     slot="cover"
             />
             <template class="ant-card-actions" slot="actions">

@@ -12,7 +12,7 @@
                     </a-breadcrumb>
                     <div id="forum" :style="{ background: '#fff', padding: '24px', minHeight: '380px' }">
                         <a-card hoverable style="width: 240px">
-                            <img src="../assets/hanfu-hf.jpg" alt="合肥汉服社" width="240px" slot="cover"/>
+                            <img src="../assets/logo-hanfu.png" alt="合肥汉服社" width="240px" slot="cover"/>
                             <a-card-meta title="合肥汉服社">
                                 <template slot="description">339819261</template>
                             </a-card-meta>

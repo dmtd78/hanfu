@@ -26,7 +26,7 @@ public interface ArticleDao {
 
     public List<Article> getArticleByUID(@Param("uid") Integer uid);
 
-    public int deleteArticleByID(@Param("aid") Integer aid);
+    public int deleteArticleByID(@Param("articleId") Integer articleId);
 
     public List<Article> getArticlePageList(@Param("currentPage") int currentPage, @Param("pageSize") int pageSize,
                                             @Param("type") Integer type, @Param("userId") Integer userId);

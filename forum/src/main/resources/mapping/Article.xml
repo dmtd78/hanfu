@@ -32,6 +32,7 @@
 		<if test="userId!=null and userId!=''">
 			and t.uid=#{userId}
 		</if>
+		and t.is_delete=0
 		</where>
 		order by t.date desc
 	</select>
@@ -71,9 +72,9 @@
 		select * from article where uid=#{uid} order by aid desc
 	</select>
 
-    <delete id="deleteArticleByID">
-		delete from article where aid=#{aid}
-	</delete>
+	<update id="deleteArticleByID">
+		update article set is_delete=1 where aid=#{articleId}
+	</update>
 
     <select id="searchArticleByKey" resultMap="ArticleResult">
 		select * from article where title like '%' #{key} '%' order by aid desc
