@@ -11,17 +11,14 @@
                 <br>
             </div>
             <div v-show="snippetsButton">
-                今日已签到
-                <a-icon type="snippets" theme="filled"/>
+                今日已签到 <a-icon type="snippets" theme="filled"/>
                 <br>
             </div>
             <div v-if="integral==0">
                 您还未签到，签到可以领积分！
             </div>
             <div v-else>
-                已连续签到
-                <br>
-                {{signDay}}天
+                已连续签到 {{signDay}}天
             </div>
         </div>
         <a-card-meta title="" :description="myIntegral">

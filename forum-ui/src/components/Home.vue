@@ -18,7 +18,6 @@
             </a-layout>
             <a-layout-sider width="300" :style="{background: '#fff',padding:'84px 1px 0px 1px',overflow: 'auto', right: 0 }">
                 <InformationCard></InformationCard>
-                <SignModule></SignModule>
             </a-layout-sider>
         </a-layout>
         <a-layout-footer :style="{ textAlign: 'center' }">
@@ -31,11 +30,10 @@
     import InformationCard from "./InformationCard";
     import Navigate from "./Navigate";
     import ForumListNoImg from "./ForumListNoImg";
-    import SignModule from "./SignModule";
 
     export default {
         name: "Demo",
-        components: {SignModule, ForumListNoImg, Navigate, InformationCard, AddForum},
+        components: {ForumListNoImg, Navigate, InformationCard, AddForum},
     }
 </script>
 <style>
