@@ -10,6 +10,7 @@ import com.dmtd.hanfu.forum.entity.TypeText;
 import com.dmtd.hanfu.forum.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -59,7 +60,18 @@ public class ArticleServiceImpl implements ArticleService {
         int count = articleDao.getArticleCount();
         int totalPage = count % pageSize == 0 ? count / pageSize : count / pageSize + 1;
         List<Article> articleList = articleDao.getArticlePageList((currentPage - 1) * pageSize, pageSize, type, userId);
-        PageBean pageBean = new PageBean(currentPage, pageSize, count, totalPage, articleList);
+        List<Article> newArticleList = new ArrayList<>();
+        for (Article article : articleList) {
+            Article newArticle = article;
+            if (!StringUtils.isEmpty(article.getContent()) && article.getContent().contains("<img")) {
+                String imgData = article.getContent().split("src=\"")[1].split("\"")[0];
+                newArticle.setImg(imgData);
+                newArticleList.add(newArticle);
+                continue;
+            }
+            newArticleList.add(newArticle);
+        }
+        PageBean pageBean = new PageBean(currentPage, pageSize, count, totalPage, newArticleList);
         return pageBean;
     }
 

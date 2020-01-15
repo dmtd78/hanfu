@@ -1,44 +1,41 @@
 <template>
-    <a-list class="demo-loadmore-list" :loading="loading" itemLayout="horizontal" :dataSource="data">
-        <div
-                v-if="showLoadingMore"
-                slot="loadMore"
-                :style="{ textAlign: 'center', marginTop: '12px', height: '32px', lineHeight: '32px' }"
-        >
-            <a-spin v-if="loadingMore" />
-            <a-button v-else @click="onLoadMore">加载更多</a-button>
-        </div>
-
-        <a-list-item slot="renderItem" slot-scope="item">
-            <a slot="actions">{{$moment(item.date).format('YYYY-MM-DD')}}</a>
-            <a-list-item-meta :description="item.content">
-                <a slot="title" @click="gotoDetail(item.aid)">{{item.title}}</a>
-                <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                />
+    <a-list itemLayout="vertical" size="large" :pagination="pagination" :dataSource="data">
+        <div slot="footer"><b>大美汉服</b> ，致力于发扬中国传统文化。</div>
+        <a-list-item slot="renderItem" slot-scope="item" key="item.title">
+            <a-list-item-meta :description="item.author.username">
+                <a slot="title" :href="item.href">{{item.title}}</a>
+                <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
             </a-list-item-meta>
+            <p v-html="item.content"></p>
+            <v-addComment :articleId="item.aid"></v-addComment>
         </a-list-item>
     </a-list>
 </template>
 <script>
-    import reqwest from 'reqwest';
     import axios from 'axios';
-
-    const fakeDataUrl = 'http://106.12.61.131:8081/article/list?currentPage=1&type=3';
+    import AddComment from "./AddComment";
 
     export default {
         name:"LittleWhiteList",
+        components: {
+            'v-addComment':AddComment,
+        },
         data() {
             return {
-                loading: true,
-                loadingMore: false,
-                showLoadingMore: true,
                 data: [],
+                pagination: {
+                    onChange: page => {
+                        // eslint-disable-next-line no-console
+                        console.log(page);
+                    },
+                    pageSize: 3,
+                },
             };
         },
         mounted() {
             this.getData(res => {
                 this.loading = false;
-                this.data = res.data.list;
+                this.data = res.data.data.list;
             });
         },
         methods: {
@@ -65,15 +62,19 @@
                 })
             },
             getData(callback) {
-                reqwest({
-                    url: fakeDataUrl,
-                    type: 'json',
-                    method: 'get',
-                    contentType: 'application/json',
-                    success: res => {
-                        callback(res);
+                let values = {
+                    currentPage: 1,
+                    type: 3,
+                };
+                axios.get('/article/list', {params: values}, {
+                    xhrFields: {
+                        withCredentials: true
                     },
-                });
+                }).then((res) => {
+                    if (res.data.resultCode == 0) {
+                        callback(res);
+                    }
+                })
             },
             onLoadMore() {
                 this.loadingMore = true;

@@ -2,11 +2,10 @@
     <a-list itemLayout="vertical" size="large" :pagination="pagination" :dataSource="data">
         <div slot="footer"><b>大美汉服</b> ，致力于发扬中国传统文化。</div>
         <a-list-item slot="renderItem" slot-scope="item" key="item.title">
-            <img slot="extra" width="272" alt="logo" src="../assets/logo-hanfu.png"
-            />
+            <img slot="extra" v-if="item.img!=null" width="200" alt="logo" :src="item.img" v-show="shortShow"/>
             <a-list-item-meta :description="item.author.username">
                 <a slot="title" :href="item.href">{{item.title}}</a>
-                <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"/>
             </a-list-item-meta>
             <p v-html="item.content" v-show="longShow"></p>
             <p v-html="item.content.substring(0,400)" v-show="shortShow"></p>
@@ -19,22 +18,21 @@
     </a-list>
 </template>
 <script>
-    import reqwest from 'reqwest';
     import AddComment from "./AddComment";
-    const fakeDataUrl = 'http://106.12.61.131:8081/article/list?currentPage=1&type=2';
+    import axios from 'axios';
 
     export default {
-        name:"ForumListImg",
+        name: "ForumListImg",
         components: {
-            'v-addComment':AddComment,
+            'v-addComment': AddComment,
         },
         data() {
             return {
-                allContent:'1',
-                moreContent:'',
-                shortShow:true,
-                longShow:false,
-                data:[],
+                allContent: '1',
+                moreContent: '',
+                shortShow: true,
+                longShow: false,
+                data: [],
                 pagination: {
                     onChange: page => {
                         // eslint-disable-next-line no-console
@@ -47,32 +45,36 @@
         mounted() {
             this.getData(res => {
                 this.loading = false;
-                this.data = res.data.list;
+                this.data = res.data.data.list;
             });
         },
         methods: {
-            showMoreContent(flag){
+            showMoreContent(flag) {
                 //this.allContent=str;
                 //this.moreContent=str;
-                if(flag==1){
-                    this.shortShow=false;
+                if (flag == 1) {
+                    this.shortShow = false;
                     this.longShow = true;
-                }else{
-                    this.shortShow=true;
+                } else {
+                    this.shortShow = true;
                     this.longShow = false;
                 }
 
             },
             getData(callback) {
-                reqwest({
-                    url: fakeDataUrl,
-                    type: 'json',
-                    method: 'get',
-                    contentType: 'application/json',
-                    success: res => {
-                        callback(res);
+                let values = {
+                    currentPage: 1,
+                    type: 2,
+                };
+                axios.get('/article/list', {params: values}, {
+                    xhrFields: {
+                        withCredentials: true
                     },
-                });
+                }).then((res) => {
+                    if (res.data.resultCode == 0) {
+                        callback(res);
+                    }
+                })
             },
         }
     };

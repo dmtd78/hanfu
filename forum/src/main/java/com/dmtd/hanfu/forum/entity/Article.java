@@ -20,6 +20,15 @@ public class Article implements Serializable {
 	private Integer status; // 置顶:2、加精:1、加精且置顶:3
 	private User author;
 	private Integer type;
+	private String img;
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
 
 	public Integer getType() {
 		return type;
