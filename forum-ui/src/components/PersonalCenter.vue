@@ -19,7 +19,7 @@
         <a-list bordered :dataSource="iCollectData">
             <a-list-item slot="renderItem" slot-scope="iCollctArticle">
                 <a slot="actions">{{$moment(iCollctArticle.date).format('YY-MM-DD HH:mm')}}</a>
-                <a slot="actions"><a-icon type="delete" theme="filled" @click="deleteCollect"/></a>
+                <a slot="actions"><a-icon type="delete" theme="filled" @click="deleteCollect(iCollctArticle.aid)"/></a>
                 <a-list-item-meta :descreption="iCollctArticle.title">
                     <a slot="title" @click="gotoDetail(iCollctArticle.aid)">{{iCollctArticle.title}}</a>
                 </a-list-item-meta>
@@ -75,12 +75,24 @@
                     }
                 })
             },
-            deleteCollect(){
-                this.$notification.open({
-                    message: '温馨提醒',
-                    description: '未上线，请耐心等待！',
-                    icon: <a-icon type="smile" style="color: #108ee9" />,
-                });
+            deleteCollect(articleId){
+                let params = {
+                    articleId :articleId,
+                    userId :userId
+                };
+                axios.post('/collect/deleteCollectByArticleId',qs.stringify(params),{
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                },).then((res) => {
+                    if (res.data.resultCode == 0) {
+                        this.$notification.open({
+                            message: '温馨提醒',
+                            description: '已删除',
+                            icon: <a-icon type="smile" style="color: #108ee9" />,
+                    });
+                    }
+                })
             },
             getArticleData(callback) {
                 axios.get('/article/list?currentPage=1&userId=' + userId, {

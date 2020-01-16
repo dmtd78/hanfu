@@ -24,4 +24,6 @@ public interface CollectionService {
     List<Collect> getCollectListByUserId(Integer userId);
 
     void addCollectByUserIdAndArticleId(Integer articleId, Integer userId);
+
+    int deleteCollectByArticleId(Integer articleId, Integer userId);
 }

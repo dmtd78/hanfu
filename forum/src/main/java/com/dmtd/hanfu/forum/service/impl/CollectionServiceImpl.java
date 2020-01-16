@@ -46,4 +46,9 @@ public class CollectionServiceImpl implements CollectionService {
             collectionDao.addCollectByUserId(articleId,userId);
         }
     }
+
+    @Override
+    public int deleteCollectByArticleId(Integer articleId, Integer userId) {
+        return collectionDao.deleteCollectByArticleId(articleId, userId);
+    }
 }

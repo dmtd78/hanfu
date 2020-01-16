@@ -34,4 +34,6 @@ public interface CollectionDao {
     Collect getCollectByUserIdAndArticleId(@Param("articleId")Integer articleId, @Param("userId")Integer userId);
 
     TypeText getTypeTextByArticleId(@Param("articleId")Integer articleId);
+
+    int deleteCollectByArticleId(Integer articleId, Integer userId);
 }

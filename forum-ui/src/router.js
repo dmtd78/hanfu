@@ -7,6 +7,7 @@ import PhotoForum from "./components/PhotoForum";
 import Register from "./components/Register";
 import LittleWhite from "./components/LittleWhite";
 import PersonalInfo from "./components/PersonalInfo";
+import BussinessHome from './components/bussiness/Home'
 
 const router = new VueRouter({
     // mode: 'history',
@@ -19,6 +20,7 @@ const router = new VueRouter({
         { path: '/photoForum', name: 'photoForum', component: PhotoForum },
         { path: '/register', name: 'register', component: Register },
         { path: '/littleWhite', name: 'littleWhite', component: LittleWhite },
+        { path: '/bussinessHome', name: '/bussiness/home', component: BussinessHome },
         { path: '/personalInfo', name: 'personalInfo', component: PersonalInfo },
         { path: '/', redirect: '/home' }
     ]

@@ -18,6 +18,7 @@
                         <a-radio-button :value="1">闲聊</a-radio-button>
                         <a-radio-button :value="2">图文赏析</a-radio-button>
                         <a-radio-button :value="3">小白</a-radio-button>
+                        <a-radio-button :value="4">汉服推荐</a-radio-button>
                     </a-radio-group>
                 </a-form-item>
                 <a-form-item label='标题'>
@@ -59,6 +60,9 @@
         beforeCreate() {
             this.form = this.$form.createForm(this, {name: 'create article form'});
             this.form.userId = userId;
+            this.setFieldsValue('type',{
+                initialValue:'1'
+            })
         },
         methods: {
             showMsgFromChild: function (data) {

@@ -8,11 +8,9 @@
             <div v-show="signButton">
                 签到有礼
                 <a-icon type="form" @click="sign"/>
-                <br>
             </div>
             <div v-show="snippetsButton">
                 今日已签到 <a-icon type="snippets" theme="filled"/>
-                <br>
             </div>
             <div v-if="integral==0">
                 您还未签到，签到可以领积分！
@@ -24,7 +22,6 @@
         <a-card-meta title="" :description="myIntegral">
         </a-card-meta>
         <div>
-            <br>
             <a-steps direction="vertical" size="small" progressDot :current="signDay-1">
                 <a-step title="1分" description="1天" />
                 <a-step title="2分" description="2天" />

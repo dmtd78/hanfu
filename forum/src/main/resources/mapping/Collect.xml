@@ -51,4 +51,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by create_time
 		limit 1
 	</select>
+
+	<delete id="deleteCollectByArticleId">
+		delete from forum_collect where article_id=#{articleId} and user_id = #{userId}
+	</delete>
 </mapper>

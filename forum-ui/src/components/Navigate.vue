@@ -10,6 +10,7 @@
             <a-menu-item key="/home">闲聊</a-menu-item>
             <a-menu-item key="/photoForum">图文赏析</a-menu-item>
             <a-menu-item key="/littleWhite">小白</a-menu-item>
+            <a-menu-item key="/bussinessHome">汉服推荐</a-menu-item>
             <a-menu-item key="/aboutUs">关于我们</a-menu-item>
             <a-menu-item key="/contactUs">联系我们</a-menu-item>
             <a-menu-item key="/register">注册/登录</a-menu-item>
@@ -23,6 +24,7 @@
             <a-menu-item key="/home">闲聊</a-menu-item>
             <a-menu-item key="/photoForum">图文赏析</a-menu-item>
             <a-menu-item key="/littleWhite">小白</a-menu-item>
+            <a-menu-item key="/bussinessHome">汉服推荐</a-menu-item>
             <a-menu-item key="/aboutUs">关于我们</a-menu-item>
             <a-menu-item key="/contactUs">联系我们</a-menu-item>
             <LoginOut></LoginOut>

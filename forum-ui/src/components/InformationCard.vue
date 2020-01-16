@@ -17,7 +17,7 @@
                     <a-icon type="ellipsis"/>
                 </a-tooltip>
             </template>
-            <a-card-meta v-if="data.username==null" :title="loginMsg">
+            <a-card-meta v-if="data.username==null" :title="loginMsg" @click="toLogin">
                 <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"/>
             </a-card-meta>
             <a-card-meta v-else :title="data.username"
@@ -56,6 +56,9 @@
             });
         },
         methods: {
+            toLogin() {
+                this.$router.push('/register')
+            },
             toPersonalCenter() {
                 if (!userId) {
                     this.$message.info('请先登录！', 5);
