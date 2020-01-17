@@ -60,7 +60,7 @@
         beforeCreate() {
             this.form = this.$form.createForm(this, {name: 'create article form'});
             this.form.userId = userId;
-            this.setFieldsValue('type',{
+            this.form.setFieldsValue('type',{
                 initialValue:'1'
             })
         },

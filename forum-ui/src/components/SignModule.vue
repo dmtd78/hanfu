@@ -10,7 +10,8 @@
                 <a-icon type="form" @click="sign"/>
             </div>
             <div v-show="snippetsButton">
-                今日已签到 <a-icon type="snippets" theme="filled"/>
+                今日已签到
+                <a-icon type="snippets" theme="filled"/>
             </div>
             <div v-if="integral==0">
                 您还未签到，签到可以领积分！
@@ -22,11 +23,9 @@
         <a-card-meta title="" :description="myIntegral">
         </a-card-meta>
         <div>
-            <a-steps direction="vertical" size="small" progressDot :current="signDay-1">
-                <a-step title="1分" description="1天" />
-                <a-step title="2分" description="2天" />
-                <a-step title="3分" description="3天" />
-                <a-step title="……" description="……" />
+            <a-steps v-for="(item) in signDays" :key='item' direction="vertical" size="small"
+                     :current="signDay-1">
+                <a-step :title="item.title" :description="item.value"/>
             </a-steps>
         </div>
     </a-card>
@@ -46,14 +45,19 @@
                 signDay: 1,
                 signButton: true,
                 snippetsButton: false,
-                integral:0
+                integral: 0,
+                signDays: [
+                    {title: (this.signDay - 1) + '分', value: (this.signDay - 1) + '天'},
+                    {title: this.signDay + '分', value: this.signDay + '天'},
+                    {title: (this.signDay + 1) + '分', value: (this.signDay + 1) + '天'}
+                ]
             }
         },
         mounted() {
             this.getData(res => {
                 this.data = res.data.data;
                 this.myIntegral = '我的积分：' + (this.data == null ? 0 : this.data.integral);
-                if(this.data == null){
+                if (this.data == null) {
                     this.integral = 0;
                 }
             });
@@ -130,6 +134,11 @@
                 }).then((res) => {
                     if (res.data.resultCode == 0) {
                         this.signDay = res.data.data.integral;
+                        this.signDays= [
+                            {title: (this.signDay - 1) + '分', value: (this.signDay - 1) + '天'},
+                            {title: this.signDay + '分', value: this.signDay + '天'},
+                            {title: ((this.signDay + 1)>7?7:(this.signDay + 1)) + '分', value: (this.signDay + 1) + '天'}
+                        ]
                     }
                 })
             },
