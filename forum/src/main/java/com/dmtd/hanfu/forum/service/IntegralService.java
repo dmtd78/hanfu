@@ -27,4 +27,6 @@ public interface IntegralService {
     Integral hasIntegralByUserId(Integer userId);
 
     Integral getRecentlyIntegralByUserId(Integer userId);
+
+    Integral getIntegralDays(Integer userId);
 }

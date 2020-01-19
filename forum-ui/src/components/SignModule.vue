@@ -46,11 +46,7 @@
                 signButton: true,
                 snippetsButton: false,
                 integral: 0,
-                signDays: [
-                    {title: (this.signDay - 1) + '分', value: (this.signDay - 1) + '天'},
-                    {title: this.signDay + '分', value: this.signDay + '天'},
-                    {title: (this.signDay + 1) + '分', value: (this.signDay + 1) + '天'}
-                ]
+                signDays: []
             }
         },
         mounted() {
@@ -64,7 +60,7 @@
             //连续签到天数
             this.getIntegralDays();
             //看今天是否已签到
-            this.getIntegralData();
+            this.hasIntegralByUserId();
         },
         methods: {
             sign() {
@@ -100,7 +96,7 @@
                     }
                 })
             },
-            getIntegralData() {
+            hasIntegralByUserId() {
                 if (userId == null) {
                     return;
                 }
@@ -127,7 +123,7 @@
                 if (userId == null) {
                     return;
                 }
-                axios.get('/integral/getRecentlyIntegralByUserId', {params: {userId: userId}}, {
+                axios.get('/integral/getIntegralDays', {params: {userId: userId}}, {
                     xhrFields: {
                         withCredentials: true
                     },

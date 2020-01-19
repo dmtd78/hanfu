@@ -77,4 +77,19 @@ public class IntegralServiceImpl implements IntegralService {
             return integral;
         }
     }
+
+    @Override
+    public Integral getIntegralDays(Integer userId) {
+        Integral integral = integralDao.getRecentlyIntegralByUserId(userId);
+        if (integral == null || (!TimeUtils.getDate(integral.getCreateTime(), TimeUtils.YYYY_MM_DD)
+                .equals(TimeUtils.getDate(new Date(), TimeUtils.YYYY_MM_DD)) &&
+                !TimeUtils.getDate(integral.getCreateTime(), TimeUtils.YYYY_MM_DD)
+                        .equals(TimeUtils.getYesterday(TimeUtils.YYYY_MM_DD)))) {
+            integral = new Integral();
+            integral.setIntegral(1);
+            return integral;
+        } else {
+            return integral;
+        }
+    }
 }
