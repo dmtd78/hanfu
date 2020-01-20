@@ -20,10 +20,10 @@ public interface ArticleService {
     /**
      * 根据id获取帖子数据
      *
-     * @param aid 帖子id
+     * @param articleId 帖子id
      * @return
      */
-    public Article getArticleByID(Integer aid);
+    public Article getArticleById(Integer articleId);
 
     /**
      * 发表新帖

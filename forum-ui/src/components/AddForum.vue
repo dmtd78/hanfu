@@ -13,14 +13,6 @@
                 @cancel="handleCancel"
         >
             <a-form layout='vertical' :form="form">
-                <a-form-item>
-                    <a-radio-group name="type" :defaultValue="1" v-decorator="['type']">
-                        <a-radio-button :value="1">闲聊</a-radio-button>
-                        <a-radio-button :value="2">图文赏析</a-radio-button>
-                        <a-radio-button :value="3">小白</a-radio-button>
-                        <a-radio-button :value="4">汉服推荐</a-radio-button>
-                    </a-radio-group>
-                </a-form-item>
                 <a-form-item label='标题'>
                     <a-input v-decorator="[ 'title', { rules: [{ required: true, message: '请输入帖子标题！' }], } ]"
                     />
@@ -36,6 +28,20 @@
                     </span>
                 </a-form-item>
                 <QuillEditorForArticle v-on:description="showMsgFromChild"></QuillEditorForArticle>
+                <a-form-item label='话题'>
+                    <a-select
+                            mode="default"
+                            v-decorator="['type']"
+                            :defaultValue="['1']"
+                            style="width: 100%"
+                            @change="handleChange"
+                            placeholder="请选择一个话题"
+                    >
+                        <a-select-option v-for="item in forumModules" :key="item.value"
+                        >{{item.label}}</a-select-option
+                        >
+                    </a-select>
+                </a-form-item>
             </a-form>
         </a-modal>
     </div>
@@ -54,15 +60,19 @@
             return {
                 visible: false,
                 userIdShow: false,
-                description: ''
+                description: '',
+                value :1,
+                forumModules :[
+                    {value:'1',label:'闲聊'},
+                    {value:'2',label:'图文赏析'},
+                    {value:'3',label:'小白'},
+                    {value:'4',label:'汉服商家'},
+                ]
             };
         },
         beforeCreate() {
             this.form = this.$form.createForm(this, {name: 'create article form'});
             this.form.userId = userId;
-            this.form.setFieldsValue('type',{
-                initialValue:'1'
-            })
         },
         methods: {
             showMsgFromChild: function (data) {

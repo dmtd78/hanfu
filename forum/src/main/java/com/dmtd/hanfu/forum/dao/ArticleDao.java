@@ -1,14 +1,12 @@
 package com.dmtd.hanfu.forum.dao;
 
 import com.dmtd.hanfu.forum.entity.Article;
-import com.dmtd.hanfu.forum.entity.PageBean;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
 import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Component;
 
 @Mapper
 @Component(value = "articleDao")
@@ -16,7 +14,7 @@ public interface ArticleDao {
 
     public List<Article> getArticleList();
 
-    public Article getArticleByID(@Param("aid") Integer aid);
+    public Article getArticleById(@Param("articleId") Integer articleId);
 
     public int addArticle(@Param("title") String title,
                           @Param("content") String content,

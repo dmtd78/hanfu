@@ -98,14 +98,14 @@ public class ArticleController {
     /**
      * 根据id获取帖子数据
      *
-     * @param aid
+     * @param articleId
      * @return
      */
     @RequestMapping("/details")
     @ResponseBody
-    public JsonResultData getArticleByID(@RequestParam("aid") Integer aid) {
+    public JsonResultData getArticleByID(@RequestParam("articleId") Integer articleId) {
         JsonResultData jsonResultData = new JsonResultData();
-        jsonResultData.setData(articleService.getArticleByID(aid));
+        jsonResultData.setData(articleService.getArticleById(articleId));
         // 帖子数据
         return jsonResultData;
     }

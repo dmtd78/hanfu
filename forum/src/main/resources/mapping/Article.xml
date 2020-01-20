@@ -48,13 +48,11 @@
 		order by t.date desc
 	</select>
 
-    <select id="getArticleByID" resultMap="ArticleResult">
+    <select id="getArticleById" resultMap="ArticleResult">
 		select * from 
-			article,user 
-		where 
-			article.uid = user.uid  
-		and 
-			aid=#{aid}
+			article
+		where
+			aid=#{articleId}
 	</select>
 
     <select id="getArticleListByStatus" resultMap="ArticleResult">
@@ -65,7 +63,7 @@
     </select>
 
     <insert id="addArticle">
-		insert into article(title,content,date,uid,lable,type) values(#{title},#{content},#{date},#{uid},#{lable},#{type})
+		insert into article(title,content,date,uid,lable,type,is_delete) values(#{title},#{content},#{date},#{uid},#{lable},#{type},0)
 	</insert>
 
     <select id="getArticleByUID" resultType="Article">

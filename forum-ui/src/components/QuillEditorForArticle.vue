@@ -46,9 +46,7 @@
         methods: {
             // eslint-disable-next-line no-unused-vars
             onEditorChange({ editor, html, text }) {
-                this.content = html
-                // eslint-disable-next-line no-console
-                console.log(this.content)
+                this.content = html;
                 this.$emit('description',this.content)
             }
         },

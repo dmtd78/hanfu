@@ -4,10 +4,12 @@ import com.dmtd.hanfu.forum.dao.ArticleDao;
 import com.dmtd.hanfu.forum.dao.CollectionDao;
 import com.dmtd.hanfu.forum.dao.CommentDao;
 import com.dmtd.hanfu.forum.dao.ThumbsUpDao;
+import com.dmtd.hanfu.forum.dto.ArticleDto;
 import com.dmtd.hanfu.forum.entity.Article;
 import com.dmtd.hanfu.forum.entity.PageBean;
 import com.dmtd.hanfu.forum.entity.TypeText;
 import com.dmtd.hanfu.forum.service.ArticleService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -36,8 +38,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Article getArticleByID(Integer aid) {
-        return articleDao.getArticleByID(aid);
+    public Article getArticleById(Integer articleId) {
+        return articleDao.getArticleById(articleId);
     }
 
     @Override
@@ -60,14 +62,21 @@ public class ArticleServiceImpl implements ArticleService {
         int count = articleDao.getArticleCount();
         int totalPage = count % pageSize == 0 ? count / pageSize : count / pageSize + 1;
         List<Article> articleList = articleDao.getArticlePageList((currentPage - 1) * pageSize, pageSize, type, userId);
-        List<Article> newArticleList = new ArrayList<>();
+        List<ArticleDto> newArticleList = new ArrayList<>();
         for (Article article : articleList) {
-            Article newArticle = article;
-            if (!StringUtils.isEmpty(article.getContent()) && article.getContent().contains("<img")) {
-                String imgData = article.getContent().split("src=\"")[1].split("\"")[0];
-                newArticle.setImg(imgData);
-                newArticleList.add(newArticle);
-                continue;
+            ArticleDto newArticle = new ArticleDto();
+            BeanUtils.copyProperties(article,newArticle);
+            if (!StringUtils.isEmpty(article.getContent())) {
+                if (article.getContent().length() > 400) {
+                    newArticle.setContent(article.getContent().substring(0, 400));
+                    newArticle.setIsBigContent(1);
+                }
+                if (article.getContent().contains("<img")) {
+                    String imgData = article.getContent().split("src=\"")[1].split("\"")[0];
+                    newArticle.setImg(imgData);
+                    newArticleList.add(newArticle);
+                    continue;
+                }
             }
             newArticleList.add(newArticle);
         }
