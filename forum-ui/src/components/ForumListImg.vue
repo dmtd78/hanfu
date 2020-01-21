@@ -73,6 +73,11 @@
                 }).then((res) => {
                     if (res.data.resultCode == 0) {
                         callback(res);
+                    }else{
+                        this.$message.warn(
+                            res.data.resultInfo,
+                            10,
+                        );
                     }
                 })
             },

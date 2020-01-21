@@ -105,7 +105,7 @@
                                 message: '温馨提醒',
                                 description: '已收藏',
                                 icon: <a-icon type="smile" style="color: #108ee9" />,
-                        });
+                            });
                         }
                     })
                 } else if (str == 'like-o') {

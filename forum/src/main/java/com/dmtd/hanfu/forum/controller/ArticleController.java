@@ -4,11 +4,12 @@ import com.dmtd.hanfu.forum.config.Config;
 import com.dmtd.hanfu.forum.entity.Article;
 import com.dmtd.hanfu.forum.entity.PageBean;
 import com.dmtd.hanfu.forum.entity.TypeText;
+import com.dmtd.hanfu.forum.exception.ForumBizException;
 import com.dmtd.hanfu.forum.exception.JsonResult;
 import com.dmtd.hanfu.forum.exception.JsonResultData;
 import com.dmtd.hanfu.forum.service.ArticleService;
 import com.dmtd.hanfu.forum.service.UserService;
-import com.dmtd.hanfu.forum.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -50,13 +51,13 @@ public class ArticleController {
     @ResponseBody
     public JsonResultData getArticlePageList(@RequestParam("currentPage") int currentPage,
                                              @RequestParam(value = "type",required = false) Integer type,
-                                             @RequestParam(value = "userId",required = false) Integer userId) {
+                                             @RequestParam(value = "userId",required = false) String userId) {
         int pageSize = Config.DEFAULT_PAGESIZE;// 每页记录数
         if (currentPage == 0) {
             currentPage = 1;
         }
         JsonResultData jsonResultData = new JsonResultData();
-        PageBean pageBean = articleService.getArticlePageList(currentPage, pageSize, type, userId);
+        PageBean pageBean = articleService.getArticlePageList(currentPage, pageSize, type, Integer.getInteger(userId));
         jsonResultData.setData(pageBean);
         return jsonResultData;
     }
@@ -68,9 +69,13 @@ public class ArticleController {
      */
     @GetMapping("/getArticleActions")
     @ResponseBody
-    public JsonResultData getArticleActions(@RequestParam(value = "articleId",required = false) Integer articleId) {
+    public JsonResultData getArticleActions(@RequestParam(value = "articleId",required = true) String articleId)
+            throws ForumBizException {
+        if(StringUtils.isBlank(articleId)){
+            throw new ForumBizException("参数不能为空！");
+        }
         JsonResultData jsonResultData = new JsonResultData();
-        List<TypeText> typeTexts = articleService.getArticleActions(articleId);
+        List<TypeText> typeTexts = articleService.getArticleActions(Integer.getInteger(articleId));
         jsonResultData.setData(typeTexts);
         return jsonResultData;
     }
@@ -101,7 +106,7 @@ public class ArticleController {
      * @param articleId
      * @return
      */
-    @RequestMapping("/details")
+    @GetMapping("/details")
     @ResponseBody
     public JsonResultData getArticleByID(@RequestParam("articleId") Integer articleId) {
         JsonResultData jsonResultData = new JsonResultData();
@@ -116,7 +121,7 @@ public class ArticleController {
      * @param articleId
      * @return
      */
-    @RequestMapping("/delete")
+    @GetMapping("/delete")
     @ResponseBody
     public JsonResult deleteArticleByID(@RequestParam("articleId") Integer articleId) {
         JsonResult jsonResult = new JsonResult();
@@ -135,7 +140,7 @@ public class ArticleController {
      * @param title
      * @return
      */
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @PostMapping(value = "/add")
     @ResponseBody
     public JsonResult addArticle(@RequestParam(value = "title") String title,
                                  @RequestParam(value = "description") String description,
@@ -158,9 +163,9 @@ public class ArticleController {
      * @param key
      * @return
      */
-    @RequestMapping("/search")
+    @GetMapping("/search")
     @ResponseBody
-    public List<Article> SearchArticle(@RequestParam("key") String key) {
+    public List<Article> searchArticle(@RequestParam("key") String key) {
         return articleService.searchArticleByKey(key);
     }
 
