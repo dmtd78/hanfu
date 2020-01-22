@@ -75,6 +75,9 @@
             this.form.userId = userId;
         },
         methods: {
+            handleChange(selectedItems) {
+                this.selectedItems = selectedItems;
+            },
             showMsgFromChild: function (data) {
                 this.form.descreption = data;
             },

@@ -1,13 +1,14 @@
 package com.dmtd.hanfu.forum.service.impl;
 
 import com.dmtd.hanfu.forum.dao.IntegralDao;
+import com.dmtd.hanfu.forum.dto.IntegralDto;
 import com.dmtd.hanfu.forum.entity.Integral;
 import com.dmtd.hanfu.forum.service.IntegralService;
 import com.dmtd.hanfu.forum.util.TimeUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -79,17 +80,48 @@ public class IntegralServiceImpl implements IntegralService {
     }
 
     @Override
-    public Integral getIntegralDays(Integer userId) {
-        Integral integral = integralDao.getRecentlyIntegralByUserId(userId);
-        if (integral == null || (!TimeUtils.getDate(integral.getCreateTime(), TimeUtils.YYYY_MM_DD)
-                .equals(TimeUtils.getDate(new Date(), TimeUtils.YYYY_MM_DD)) &&
-                !TimeUtils.getDate(integral.getCreateTime(), TimeUtils.YYYY_MM_DD)
-                        .equals(TimeUtils.getYesterday(TimeUtils.YYYY_MM_DD)))) {
-            integral = new Integral();
-            integral.setIntegral(1);
-            return integral;
+    public List<Integral> getIntegralDays(Integer userId) {
+        List<Integral> integrals = integralDao.getIntegralDays(userId);
+        return integrals;
+    }
+
+    /**
+     * 连续签到天数，取最近一条签到记录，如果最近签到日期等于昨天，则连续签到天数为昨天的积分数，
+     * 如果最近签到日期等于今天，则连续签到天数为今天的积分数，
+     * 如果最近签到积分等于7，则6+7的个数就是连续签到数。
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public IntegralDto getSignDayCount(Integer userId) {
+        Integral todayIntegral = integralDao.getTodayIntegralByUserId(userId);
+        if (todayIntegral == null) {
+            Integral yesterdayIntegral = integralDao.getYesterdayIntegralByUserId(userId);
+            if (yesterdayIntegral == null) {
+                IntegralDto integralDto = new IntegralDto();
+                integralDto.setSignDay(1);
+                return integralDto;
+            } else {
+                IntegralDto integralDto = new IntegralDto();
+                BeanUtils.copyProperties(yesterdayIntegral, integralDto);
+                integralDto.setSignDay(yesterdayIntegral.getIntegral());
+                return integralDto;
+            }
         } else {
-            return integral;
+            //积分等于7的情况
+            if (todayIntegral.getIntegral() == 7) {
+                IntegralDto integralDto = new IntegralDto();
+                integralDto.setSignDay(6+7);
+                return integralDto;
+            } else {
+                IntegralDto integralDto = new IntegralDto();
+                BeanUtils.copyProperties(todayIntegral, integralDto);
+                integralDto.setSignDay(todayIntegral.getIntegral());
+                return integralDto;
+            }
+
         }
+
     }
 }

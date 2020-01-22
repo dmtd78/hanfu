@@ -1,5 +1,6 @@
 package com.dmtd.hanfu.forum.service;
 
+import com.dmtd.hanfu.forum.dto.IntegralDto;
 import com.dmtd.hanfu.forum.entity.Integral;
 
 import java.util.List;
@@ -28,5 +29,7 @@ public interface IntegralService {
 
     Integral getRecentlyIntegralByUserId(Integer userId);
 
-    Integral getIntegralDays(Integer userId);
+    List<Integral> getIntegralDays(Integer userId);
+
+    IntegralDto getSignDayCount(Integer userId);
 }

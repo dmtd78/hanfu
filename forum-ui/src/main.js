@@ -28,7 +28,7 @@ Vue.prototype.$api = api
 
 
 import {Button,Checkbox,Icon,Layout,Menu,Breadcrumb,List,Avatar,Card,Form,Input,Radio,Modal,Select,Row,Col,Cascader,
-    Tooltip,Alert,message,Tabs,Popover,Divider,Collapse,Comment,notification,Calendar,Steps} from "ant-design-vue";
+    Tooltip,Alert,message,Tabs,Popover,Divider,Collapse,Comment,notification,Calendar,Steps,Dropdown} from "ant-design-vue";
 import 'ant-design-vue/dist/antd.css';
 import moment from 'moment';
 import VueRouter from 'vue-router'
@@ -37,6 +37,7 @@ Vue.prototype.$notification = notification;
 Vue.config.productionTip = false;
 
 Vue.use(Button)
+Vue.use(Dropdown)
 Vue.use(Checkbox)
 Vue.use(Icon)
 Vue.use(Layout);

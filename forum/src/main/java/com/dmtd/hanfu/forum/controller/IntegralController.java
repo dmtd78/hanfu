@@ -79,8 +79,7 @@ public class IntegralController {
     }
 
     /**
-     * 连续签到天数，取最近一条签到记录，如果最近签到日期等于昨天，则连续签到天数为昨天的积分数，
-     * 如果最近签到日期等于今天，则连续签到天数为今天的积分数。
+     * 积分情况
      * @param userId
      * @return
      */
@@ -89,6 +88,21 @@ public class IntegralController {
     public JsonResultData getIntegralDays(@RequestParam("userId") Integer userId) {
         JsonResultData jsonResultData = new JsonResultData();
         jsonResultData.setData(integralService.getIntegralDays(userId));
+        return jsonResultData;
+    }
+
+    /**
+     * 连续签到天数，取最近一条签到记录，如果最近签到日期等于昨天，则连续签到天数为昨天的积分数，
+     * 如果最近签到日期等于今天，则连续签到天数为今天的积分数，
+     * 如果最近签到积分等于7，则6+7的个数就是连续签到数。
+     * @param userId
+     * @return
+     */
+    @GetMapping("/getSignDayCount")
+    @ResponseBody
+    public JsonResultData getSignDayCount(@RequestParam("userId") Integer userId) {
+        JsonResultData jsonResultData = new JsonResultData();
+        jsonResultData.setData(integralService.getSignDayCount(userId));
         return jsonResultData;
     }
 }

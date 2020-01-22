@@ -1,11 +1,11 @@
 <template>
-    <a-popover title="">
-        <template slot="content">
-            <p><a @click="gotoPersonalInfo">个人中心</a></p>
-            <p><a @click="loginOut">退出</a></p>
-        </template>
-        <a-button>{{lrmsg}}</a-button>
-    </a-popover>
+    <a-dropdown>
+        <span style="user-select: none">{{lrmsg}}</span>
+        <a-menu slot="overlay">
+            <a-menu-item key="1" @click="gotoPersonalInfo">个人中心</a-menu-item>
+            <a-menu-item key="2" @click="loginOut">退出</a-menu-item>
+        </a-menu>
+    </a-dropdown>
 </template>
 
 

@@ -24,15 +24,17 @@ import java.util.List;
 @Component(value = "integralDao")
 public interface IntegralDao {
 
-    public Integral getIntegralByUserId(@Param("userId")Integer userId);
+    public Integral getIntegralByUserId(@Param("userId") Integer userId);
 
-    List<Integral> getIntegralListByUserId(@Param("userId")Integer userId);
+    List<Integral> getIntegralListByUserId(@Param("userId") Integer userId);
 
-    void addIntegralByUserId(@Param("integral")Integer integral, @Param("userId")Integer userId);
+    void addIntegralByUserId(@Param("integral") Integer integral, @Param("userId") Integer userId);
 
-    Integral getYesterdayIntegralByUserId(@Param("userId")Integer userId);
+    Integral getYesterdayIntegralByUserId(@Param("userId") Integer userId);
 
-    Integral getTodayIntegralByUserId(@Param("userId")Integer userId);
+    Integral getTodayIntegralByUserId(@Param("userId") Integer userId);
 
-    Integral getRecentlyIntegralByUserId(@Param("userId")Integer userId);
+    Integral getRecentlyIntegralByUserId(@Param("userId") Integer userId);
+
+    List<Integral> getIntegralDays(@Param("userId") Integer userId);
 }

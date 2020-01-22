@@ -67,10 +67,10 @@ public class ArticleServiceImpl implements ArticleService {
             ArticleDto newArticle = new ArticleDto();
             BeanUtils.copyProperties(article,newArticle);
             if (!StringUtils.isEmpty(article.getContent())) {
-                if (article.getContent().length() > 400) {
-                    newArticle.setContent(article.getContent().substring(0, 400));
-                    newArticle.setIsBigContent(1);
-                }
+//                if (article.getContent().length() > 400) {
+//                    newArticle.setContent(article.getContent().substring(0, 400));
+//                    newArticle.setIsBigContent(1);
+//                }
                 if (article.getContent().contains("<img")) {
                     String imgData = article.getContent().split("src=\"")[1].split("\"")[0];
                     newArticle.setImg(imgData);
