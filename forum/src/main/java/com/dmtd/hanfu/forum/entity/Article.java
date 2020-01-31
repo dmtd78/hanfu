@@ -21,6 +21,15 @@ public class Article implements Serializable {
 	private User author;
 	private Integer type;
 	private String img;
+	private Integer isTop;
+
+	public Integer getIsTop() {
+		return isTop;
+	}
+
+	public void setIsTop(Integer isTop) {
+		this.isTop = isTop;
+	}
 
 	public String getImg() {
 		return img;

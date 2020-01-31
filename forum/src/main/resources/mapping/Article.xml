@@ -12,6 +12,7 @@
         <result property="lable" column="lable"/>
         <result property="status" column="status"/>
         <result property="type" column="type"/>
+		<result property="isTop" column="is_top"/>
         <association property="author" column="uid" select="com.dmtd.hanfu.forum.dao.UserDao.getUserByID"/>
     </resultMap>
 
@@ -34,7 +35,7 @@
 		</if>
 		and t.is_delete=0
 		</where>
-		order by t.date desc
+		order by t.is_top desc,t.date desc
 	</select>
 
 	<select id="iCollectArticles" resultMap="ArticleResult">
