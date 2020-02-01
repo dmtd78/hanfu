@@ -3,7 +3,8 @@
         <div slot="footer"><b>大美汉服</b> ，致力于发扬中国传统文化。</div>
         <a-list-item slot="renderItem" slot-scope="item" key="item.title">
             <a-list-item-meta :description="item.author.username">
-                <a slot="title" :href="item.href">{{item.title}}</a>
+                <a slot="title" :href="item.href">{{item.title}} <a-tag v-if="item.isTop==1" color="orange">置顶</a-tag></a>
+
                 <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
             </a-list-item-meta>
             <p v-html="item.content"></p>
