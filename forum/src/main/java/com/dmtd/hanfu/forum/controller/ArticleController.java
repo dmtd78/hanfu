@@ -50,8 +50,8 @@ public class ArticleController {
     @GetMapping("/list")
     @ResponseBody
     public JsonResultData getArticlePageList(@RequestParam("currentPage") int currentPage,
-                                             @RequestParam(value = "type",required = false) Integer type,
-                                             @RequestParam(value = "userId",required = false) String userId) {
+                                             @RequestParam(value = "type", required = false) Integer type,
+                                             @RequestParam(value = "userId", required = false) String userId) {
         int pageSize = Config.DEFAULT_PAGESIZE;// 每页记录数
         if (currentPage == 0) {
             currentPage = 1;
@@ -69,13 +69,13 @@ public class ArticleController {
      */
     @GetMapping("/getArticleActions")
     @ResponseBody
-    public JsonResultData getArticleActions(@RequestParam(value = "articleId",required = true) String articleId)
+    public JsonResultData getArticleActions(@RequestParam(value = "articleId", required = true) String articleId)
             throws ForumBizException {
-        if(StringUtils.isBlank(articleId)){
+        if (StringUtils.isBlank(articleId)) {
             throw new ForumBizException("参数不能为空！");
         }
         JsonResultData jsonResultData = new JsonResultData();
-        List<TypeText> typeTexts = articleService.getArticleActions(Integer.getInteger(articleId));
+        List<TypeText> typeTexts = articleService.getArticleActions(Integer.parseInt(articleId));
         jsonResultData.setData(typeTexts);
         return jsonResultData;
     }
@@ -88,8 +88,8 @@ public class ArticleController {
     @GetMapping("/iCollectArticles")
     @ResponseBody
     public JsonResultData iCollectArticles(@RequestParam("currentPage") int currentPage,
-                                             @RequestParam(value = "type",required = false) Integer type,
-                                             @RequestParam(value = "userId",required = false) Integer userId) {
+                                           @RequestParam(value = "type", required = false) Integer type,
+                                           @RequestParam(value = "userId", required = false) Integer userId) {
         int pageSize = Config.DEFAULT_PAGESIZE;// 每页记录数
         if (currentPage == 0) {
             currentPage = 1;
