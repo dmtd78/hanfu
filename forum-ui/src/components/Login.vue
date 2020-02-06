@@ -83,7 +83,8 @@
                             username: values.username,
                             password: values.password,
                         }).then((res) => {
-                            this.$message.success(res.resultInfo)
+                            this.$message.success(res.resultInfo);
+                            sessionStorage.setItem("userId",res.data.uid);
                             this.$store.commit('auth/setUser', res.data)
                             this.$router.push('/home').catch(err => {err})
                         }).catch((res) => {

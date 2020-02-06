@@ -30,7 +30,7 @@
 </template>
 
 <script>
-    import axios from 'axios';
+    // import axios from 'axios';
     import SignModule from "./SignModule";
     // eslint-disable-next-line no-irregular-whitespace
     const userId = JSON.parse(sessionStorage.getItem("userId"));
@@ -50,7 +50,7 @@
         mounted() {
             this.getData(res => {
                 this.loading = false;
-                this.data = res.data.data;
+                this.data = res.data;
                 // eslint-disable-next-line no-console
                 console.log('get data :' + this.data);
             });
@@ -73,15 +73,19 @@
                 if (userId == null) {
                     return;
                 }
-                axios.get('/user/info', {params: {uid: userId}}, {
-                    xhrFields: {
-                        withCredentials: true
-                    },
-                }).then((res) => {
-                    if (res.data.resultCode == 0) {
-                        callback(res);
-                    }
-                })
+                // axios.get('/user/info', {params: {uid: userId}}, {
+                //     xhrFields: {
+                //         withCredentials: true
+                //     },
+                // }).then((res) => {
+                //     if (res.data.resultCode == 0) {
+                //         callback(res);
+                //     }
+                // })
+                let values = {
+                    uid: userId,
+                };
+                callback(this.$api.getUserInfo(values))
             },
         }
     }

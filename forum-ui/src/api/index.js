@@ -69,5 +69,8 @@ export default {
     },
     getArticleList(data) {
         return get('/article/list', data)
+    },
+    getUserInfo(data) {
+        return get('/user/info', data)
     }
 }

@@ -22,11 +22,11 @@ const router = new VueRouter({
     base: __dirname,
     routes: [
         { path: '/demo', name: 'demo', component: Demo },
-        { path: '/aboutUs', name: 'aboutUs', component: AboutUs },
-        { path: '/photoForum', name: 'photoForum', component: PhotoForum },
+        // { path: '/aboutUs', name: 'aboutUs', component: AboutUs },
+        // { path: '/photoForum', name: 'photoForum', component: PhotoForum },
         { path: '/register', name: 'register', component: Register },
-        { path: '/littleWhite', name: 'littleWhite', component: LittleWhite },
-        { path: '/bussinessHome', name: '/bussiness/home', component: BussinessHome },
+        // { path: '/littleWhite', name: 'littleWhite', component: LittleWhite },
+        // { path: '/bussinessHome', name: '/bussiness/home', component: BussinessHome },
         { path: '/personalInfo', name: 'personalInfo', component: PersonalInfo },
         { 
             path: '/', component: Portal,
@@ -36,6 +36,10 @@ const router = new VueRouter({
                 { path: 'home', name: 'home', component: Home },
                 { path: 'login', name: 'login', component: Login },
                 { path: '/contactUs', name: 'contactUs', component: ContactUs },
+                { path: '/littleWhite', name: 'littleWhite', component: LittleWhite },
+                { path: '/bussinessHome', name: '/bussiness/home', component: BussinessHome },
+                { path: '/aboutUs', name: 'aboutUs', component: AboutUs },
+                { path: '/photoForum', name: 'photoForum', component: PhotoForum },
             ]
         },
     ]
