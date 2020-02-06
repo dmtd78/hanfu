@@ -1,96 +1,73 @@
 /* eslint-disable no-console */
-// 配置API接口地址
-var root = 'http://106.12.61.131:8081'
-// 引用axios
-var axios = require('axios')
+import axios from 'axios'
+import qs from 'qs'
 
-// 自定义判断元素类型JS
-function toType(obj) {
-    return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
-}
+let instance = axios.create({
+    baseURL: 'http://106.12.61.131:8081',
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+    },
+    withCredentials: true // 跨域
+})
 
-// 参数过滤函数
-function filterNull(o) {
-    for (var key in o) {
-        if (o[key] === null) {
-            delete o[key]
-        }
-        if (toType(o[key]) === 'string') {
-            o[key] = o[key].trim()
-        } else if (toType(o[key]) === 'object') {
-            o[key] = filterNull(o[key])
-        } else if (toType(o[key]) === 'array') {
-            o[key] = filterNull(o[key])
-        }
-    }
-    return o
-}
-
-/*
-  接口处理函数
-  这个函数每个项目都是不一样的，我现在调整的是适用于
-  https://cnodejs.org/api/v1 的接口，如果是其他接口
-  需要根据接口的参数进行调整。参考说明文档地址：
-  https://cnodejs.org/topic/5378720ed6e2d16149fa16bd
-  主要是，不同的接口的成功标识和失败提示是不一致的。
-  另外，不同的项目的处理方法也是不一致的，这里出错就是简单的alert
-*/
-function apiAxios(method, url, params) {
-    if (params) {
-        params = filterNull(params)
-    }
-    axios({
-        method: method,
-        url: url,
-        data: method === 'POST' || method === 'PUT' ? params : null,
-        params: method === 'GET' || method === 'DELETE' ? params : null,
-        baseURL: root,
-        withCredentials: false
-    })
-        .then(function (res) {
-            console.log('resultCode content is :'+res.data.resultCode)
-            console.log('resultInfo content is :'+res.data.resultInfo)
-            if (res.data.resultCode === 0) {
-                console.log('success:'+res.data.resultInfo);
-                this.$message.success(
-                    res.data.resultInfo,
-                    10,
-                );
-            } else {
-                console.log(res.resultInfo);
-                this.failure(res.resultInfo)
+function get(url, params) {
+    return new Promise((resolve, reject) => {
+        instance.request({
+            url: url,
+            method: 'get',
+            params,
+        }).then(({ data }) => {
+            console.log(data.data)
+            if (data.resultCode !== 0) {
+                console.log('data.resultCode !== 0  -----'+data.data)
+                return reject(data)
             }
+            console.log('data.resultCode == 0  -----'+data.data)
+            return resolve(data)
+        }).catch(({ response }) => {
+            return reject({
+                resultCode: response.status,
+                resultInfo: response.statusText
+            })
         })
-        .catch(function (err) {
-            console.log(err)
-            this.failure(err)
-        })
+    })
 }
 
-// 返回在vue模板中的调用接口
+function post(url, data) {
+    return new Promise((resolve, reject) => {
+        instance.request({
+            url: url,
+            method: 'post',
+            data: qs.stringify(data) // application/x-www-form-urlencoded
+        }).then(({ data }) => {
+            if (!data.data/* data.resultCode !== 0 */) {
+                console.log(data.data)
+                return reject(data)
+            }
+            return resolve(data)
+        }).catch(({ response }) => {
+            return reject({
+                resultCode: response.status,
+                resultInfo: response.statusText
+            })
+        })
+    })
+}
+
 export default {
-    get: function (url, params, success, failure) {
-        return apiAxios('GET', url, params, success, failure)
+    register(data) {
+        return post('/user/regist', data)
     },
-    post: function (url, params, success, failure) {
-        return apiAxios('POST', url, params, success, failure)
+    login(data) {
+        return post('/user/login', data)
     },
-    put: function (url, params, success, failure) {
-        return apiAxios('PUT', url, params, success, failure)
+    checkLogin(data) {
+        return post('/user/login', data)
     },
-    delete: function (url, params, success, failure) {
-        return apiAxios('DELETE', url, params, success, failure)
+    logout(data) {
+        return instance.get('/user/exit', {params: {uid: data.uid}})
     },
-    success: function (resultInfo) {
-        this.$message.success(
-            resultInfo,
-            10,
-        );
-    },
-    failure: function (resultInfo) {
-        this.$message.failure(
-            resultInfo,
-            10,
-        );
+    getArticleList(data) {
+        return get('/article/list', data)
     }
 }

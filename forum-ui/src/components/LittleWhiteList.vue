@@ -34,8 +34,7 @@
         },
         mounted() {
             this.getData(res => {
-                this.loading = false;
-                this.data = res.data.data.list;
+                this.data = res.list;
             });
         },
         methods: {
@@ -66,15 +65,16 @@
                     currentPage: 1,
                     type: 3,
                 };
-                axios.get('/article/list', {params: values}, {
-                    xhrFields: {
-                        withCredentials: true
-                    },
-                }).then((res) => {
-                    if (res.data.resultCode == 0) {
-                        callback(res);
-                    }
-                })
+                // axios.get('/article/list', {params: values}, {
+                //     xhrFields: {
+                //         withCredentials: true
+                //     },
+                // }).then((res) => {
+                //     if (res.data.resultCode == 0) {
+                //         callback(res);
+                //     }
+                // })
+                callback(this.$api.getArticleList(values));
             },
             onLoadMore() {
                 this.loadingMore = true;

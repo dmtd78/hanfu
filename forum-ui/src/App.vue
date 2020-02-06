@@ -6,13 +6,7 @@
 </template>
 
 <script>
-  import router from './router'
-export default {
-  name: 'app',
-  router,
-}
+  export default {
+    name: 'app'
+  }
 </script>
-<style>
-#app {}
-.logo{width: 200px;height: 200px;}
-</style>

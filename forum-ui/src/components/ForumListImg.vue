@@ -19,7 +19,7 @@
 </template>
 <script>
     import AddComment from "./AddComment";
-    import axios from 'axios';
+    // import axios from 'axios';
 
     export default {
         name: "ForumListImg",
@@ -44,8 +44,9 @@
         },
         mounted() {
             this.getData(res => {
-                this.loading = false;
-                this.data = res.data.data.list;
+                this.data = res;
+                // eslint-disable-next-line no-console
+                console.log(res)
             });
         },
         methods: {
@@ -66,20 +67,22 @@
                     currentPage: 1,
                     type: 2,
                 };
-                axios.get('/article/list', {params: values}, {
-                    xhrFields: {
-                        withCredentials: true
-                    },
-                }).then((res) => {
-                    if (res.data.resultCode == 0) {
-                        callback(res);
-                    }else{
-                        this.$message.warn(
-                            res.data.resultInfo,
-                            10,
-                        );
-                    }
-                })
+                //this.$api.get('/article/list',values);
+                callback(this.$api.getArticleList(values));
+                // axios.get('/article/list', {params: values}, {
+                //     xhrFields: {
+                //         withCredentials: true
+                //     },
+                // }).then((res) => {
+                //     if (res.data.resultCode == 0) {
+                //         callback(res);
+                //     }else{
+                //         this.$message.warn(
+                //             res.data.resultInfo,
+                //             10,
+                //         );
+                //     }
+                // })
             },
         }
     };

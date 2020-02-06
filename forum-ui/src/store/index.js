@@ -1,10 +1,14 @@
 import vue from 'vue'
 
-import vuex from 'vuex'
+import Vuex from 'vuex'
+import auth from './auth'
 
-vue.use(vuex)
+vue.use(Vuex)
 
-const store = new vuex.store({
+const store = new Vuex.Store({
+    modules:{
+      auth
+    },
     state: {
         currentUser: null,
         isLogin: false,
