@@ -1,20 +1,14 @@
 <template>
-    <a-layout id="components-layout-demo-fixed">
-        <a-layout>
-            <a-layout style="padding: 0 24px 24px">
-                <a-layout-content :style="{ padding: '0 50px', marginTop: '64px' }">
-                    <a-breadcrumb :style="{ margin: '16px 0' }">
-                        <a-breadcrumb-item>首页</a-breadcrumb-item>
-                        <a-breadcrumb-item>关于我们</a-breadcrumb-item>
-                    </a-breadcrumb>
-                    <div id="forum" :style="{ background: '#fff', padding: '24px', minHeight: '380px' }">
-                        <a-card hoverable style="width: 240px">
-                            大美汉服，致力于发扬中国传统文化。
-                        </a-card>
-                    </div>
-                </a-layout-content>
-            </a-layout>
-        </a-layout>
+    <a-layout style="padding: 0 24px 24px">
+        <a-breadcrumb :style="{ margin: '16px 0' }">
+            <a-breadcrumb-item>首页</a-breadcrumb-item>
+            <a-breadcrumb-item>关于我们</a-breadcrumb-item>
+        </a-breadcrumb>
+        <div id="forum" :style="{ background: '#fff', padding: '24px', minHeight: '380px' }">
+            <a-card hoverable style="width: 240px">
+                大美汉服，致力于发扬中国传统文化。
+            </a-card>
+        </div>
     </a-layout>
 </template>
 <script>

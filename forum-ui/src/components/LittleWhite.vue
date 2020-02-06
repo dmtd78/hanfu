@@ -1,24 +1,21 @@
 <template>
-    <a-layout id="components-layout-demo-fixed">
-        <a-layout>
-            <a-layout style="padding: 0 24px 24px">
-                <a-layout-content :style="{ padding: '0 50px', marginTop: '64px' }">
-                    <a-breadcrumb :style="{ margin: '16px 0' }">
-                        <a-breadcrumb-item>首页</a-breadcrumb-item>
-                        <a-breadcrumb-item>小白</a-breadcrumb-item>
-                    </a-breadcrumb>
-                    <div><AddForum></AddForum></div>
-                    <div id="forum" :style="{ background: '#fff', padding: '24px', minHeight: '380px' }">
-                        <LittleWhiteList></LittleWhiteList>
-                    </div>
-                </a-layout-content>
-            </a-layout>
-        </a-layout>
+    <a-layout style="padding: 0 24px 24px">
+        <a-breadcrumb :style="{ margin: '16px 0' }">
+            <a-breadcrumb-item>首页</a-breadcrumb-item>
+            <a-breadcrumb-item>小白</a-breadcrumb-item>
+        </a-breadcrumb>
+        <div>
+            <AddForum></AddForum>
+        </div>
+        <div id="forum" :style="{ background: '#fff', padding: '24px', minHeight: '380px' }">
+            <LittleWhiteList></LittleWhiteList>
+        </div>
     </a-layout>
 </template>
 <script>
     import LittleWhiteList from "./LittleWhiteList";
     import AddForum from "./AddForum";
+
     export default {
         name: "LittleWhite",
         components: {AddForum, LittleWhiteList},
