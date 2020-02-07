@@ -34,7 +34,11 @@
         },
         mounted() {
             this.getData(res => {
-                this.data = res.list;
+                res.then(data => {
+                    // eslint-disable-next-line no-console
+                    console.log("Yay! " + data.data.list);
+                    this.data = data.data.list;
+                })
             });
         },
         methods: {

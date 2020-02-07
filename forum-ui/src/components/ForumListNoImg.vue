@@ -4,7 +4,6 @@
         <a-list-item slot="renderItem" slot-scope="item" key="item.title">
             <a-list-item-meta :description="item.author.username">
                 <a slot="title" :href="item.href">{{item.title}} <a-tag v-if="item.isTop==1" color="orange">置顶</a-tag></a>
-
                 <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
             </a-list-item-meta>
             <p v-html="item.content"></p>
@@ -35,7 +34,11 @@
         },
         mounted() {
             this.getData(res => {
-                this.data = res.list;
+                res.then(data => {
+                    // eslint-disable-next-line no-console
+                    console.log("Yay! " + data.data.list);
+                    this.data = data.data.list;
+                })
             });
         },
         methods: {

@@ -68,20 +68,28 @@
         },
         mounted() {
             this.getData(res => {
-                this.actions = res.data.data;
+                res.then(data => {
+                    // eslint-disable-next-line no-console
+                    console.log("Yay! " + data.data);
+                    this.actions = data.data;
+                })
             });
         },
         methods: {
             getData(callback) {
-                axios.get('/article/getArticleActions', {params: {articleId: this.articleId}}, {
-                    xhrFields: {
-                        withCredentials: true
-                    },
-                },).then((res) => {
-                    if (res.data.resultCode == 0) {
-                        callback(res);
-                    }
-                })
+                // axios.get('/article/getArticleActions', {params: {articleId: this.articleId}}, {
+                //     xhrFields: {
+                //         withCredentials: true
+                //     },
+                // },).then((res) => {
+                //     if (res.data.resultCode == 0) {
+                //         callback(res);
+                //     }
+                // })
+                let params = {
+                    articleId: this.articleId
+                }
+                callback(this.$api.getArticleActions(params))
             },
             show(str) {
                 // eslint-disable-next-line no-console

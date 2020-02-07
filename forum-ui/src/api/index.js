@@ -17,13 +17,13 @@ function get(url, params) {
             method: 'get',
             params,
         }).then(({ data }) => {
-            console.log(data.data)
+            console.log('data.data : '+data.data)
             if (data.resultCode !== 0) {
                 console.log('data.resultCode !== 0  -----'+data.data)
                 return reject(data)
             }
-            console.log('data.resultCode == 0  -----'+data.data)
-            return resolve(data)
+            console.log('data.resultCode == 0  -----'+data.data);
+            return resolve(data);
         }).catch(({ response }) => {
             return reject({
                 resultCode: response.status,
@@ -55,6 +55,7 @@ function post(url, data) {
 }
 
 export default {
+    //用户相关
     register(data) {
         return post('/user/regist', data)
     },
@@ -67,10 +68,15 @@ export default {
     logout(data) {
         return instance.get('/user/exit', {params: {uid: data.uid}})
     },
+    getUserInfo(data) {
+        return get('/user/info', data)
+    },
+    //帖子相关
     getArticleList(data) {
         return get('/article/list', data)
     },
-    getUserInfo(data) {
-        return get('/user/info', data)
-    }
+    //积分相关
+    getArticleActions(data) {
+        return get('/article/getArticleActions', data)
+    },
 }

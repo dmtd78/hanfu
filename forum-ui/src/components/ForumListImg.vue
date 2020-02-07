@@ -4,7 +4,9 @@
         <a-list-item slot="renderItem" slot-scope="item" key="item.title">
             <img slot="extra" v-if="item.img!=null" width="200" alt="logo" :src="item.img" v-show="shortShow"/>
             <a-list-item-meta :description="item.author.username">
-                <a slot="title" :href="item.href">{{item.title}} <a-tag v-if="item.isTop==1" color="orange">置顶</a-tag></a>
+                <a slot="title" :href="item.href">{{item.title}}
+                    <a-tag v-if="item.isTop==1" color="orange">置顶</a-tag>
+                </a>
                 <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"/>
             </a-list-item-meta>
             <p v-html="item.content" v-show="longShow"></p>
@@ -44,9 +46,13 @@
         },
         mounted() {
             this.getData(res => {
-                this.data = res;
                 // eslint-disable-next-line no-console
-                console.log(res)
+                console.log('看看返回到前端的是什么：' + res)
+                res.then(data => {
+                    // eslint-disable-next-line no-console
+                    console.log("Yay! " + data.data.list);
+                    this.data = data.data.list;
+                })
             });
         },
         methods: {

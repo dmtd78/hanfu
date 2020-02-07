@@ -50,9 +50,11 @@
         mounted() {
             this.getData(res => {
                 this.loading = false;
-                this.data = res.data;
-                // eslint-disable-next-line no-console
-                console.log('get data :' + this.data);
+                res.then(data => {
+                    // eslint-disable-next-line no-console
+                    console.log("Yay! " + data.data);
+                    this.data = data.data;
+                })
             });
         },
         methods: {

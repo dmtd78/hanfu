@@ -59,9 +59,11 @@
         },
         mounted() {
             this.getUserInfo(res => {
-                // eslint-disable-next-line no-console
-                console.log(res);
-                this.username = res;
+                res.then(data => {
+                    // eslint-disable-next-line no-console
+                    console.log("Yay! " + data.data);
+                    this.username = data.data.username;
+                })
             });
         },
         methods: {
@@ -78,7 +80,7 @@
             }),
             handlePortalNav() {
                 this.setSelectedKeys()
-                this.checkLogin().then(() => {
+                this.checkLogin(userId).then(() => {
                     /* eslint-disable no-console */
                     console.log('已登陆')
                 }).catch(() => {
