@@ -2,7 +2,7 @@
 <div>
     <a-breadcrumb :style="{ margin: '16px 0' }">
         <a-breadcrumb-item>首页</a-breadcrumb-item>
-        <a-breadcrumb-item>闲聊</a-breadcrumb-item>
+        <a-breadcrumb-item>登录</a-breadcrumb-item>
     </a-breadcrumb>
     <div>
         <a-tabs defaultActiveKey="login">

@@ -79,4 +79,23 @@ export default {
     getArticleActions(data) {
         return get('/article/getArticleActions', data)
     },
+    addIntegralByUserId(data){
+        return post('/integral/addIntegralByUserId', data)
+    },
+    getIntegralByUserId(data){
+        return get('/integral/getIntegralByUserId', data)
+    },
+    hasIntegralByUserId(data){
+        return get('/integral/hasIntegralByUserId', data)
+    },
+    getIntegralDays(data){
+        return get('/integral/getIntegralDays', data)
+    },
+    getSignDayCount(data){
+        return get('/integral/getSignDayCount', data)
+    },
+    //收藏相关
+    addCollectByUserId(data){
+        return post('/collect/addCollectByUserId', data)
+    }
 }

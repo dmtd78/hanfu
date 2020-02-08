@@ -58,13 +58,13 @@
             }),
         },
         mounted() {
-            this.getUserInfo(res => {
-                res.then(data => {
+            this.getUserInfo(res =>{
+                res.then(res => {
                     // eslint-disable-next-line no-console
-                    console.log("Yay! " + data.data);
-                    this.username = data.data.username;
+                    console.log("get user info Yay! " + res.data.username);
+                    this.username = res.data.username;
                 })
-            });
+            })
         },
         methods: {
             navPortal({key}) {
@@ -102,6 +102,7 @@
                     uid: this.user.uid
                 }).then(() => {
                     this.$store.commit('auth/clearUser')
+                    sessionStorage.clear();
                 }).catch((res) => {
                     this.$message.error(res.resultInfo)
                 })

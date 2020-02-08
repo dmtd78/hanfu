@@ -70,7 +70,7 @@
             this.getData(res => {
                 res.then(data => {
                     // eslint-disable-next-line no-console
-                    console.log("Yay! " + data.data);
+                    console.log("get article actions Yay! " + data.data);
                     this.actions = data.data;
                 })
             });
@@ -103,12 +103,8 @@
                         articleId:this.articleId,
                         userId:userId
                     };
-                    axios.post('/collect/addCollectByUserId',qs.stringify(params),{
-                        xhrFields: {
-                            withCredentials: true
-                        },
-                    },).then((res) => {
-                        if (res.data.resultCode == 0) {
+                    this.$api.addCollectByUserId(params).then(res => {
+                        if (res.resultCode == 0) {
                             this.$notification.open({
                                 message: '温馨提醒',
                                 description: '已收藏',
@@ -116,6 +112,19 @@
                             });
                         }
                     })
+                    // axios.post('/collect/addCollectByUserId',qs.stringify(params),{
+                    //     xhrFields: {
+                    //         withCredentials: true
+                    //     },
+                    // },).then((res) => {
+                    //     if (res.data.resultCode == 0) {
+                    //         this.$notification.open({
+                    //             message: '温馨提醒',
+                    //             description: '已收藏',
+                    //             icon: <a-icon type="smile" style="color: #108ee9" />,
+                    //         });
+                    //     }
+                    // })
                 } else if (str == 'like-o') {
                     this.$notification.open({
                         message: '温馨提醒',
