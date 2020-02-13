@@ -84,7 +84,11 @@
             <version>1.2.62</version>
         </dependency>
 
-
+        <dependency>
+            <groupId>com.dmtd</groupId>
+            <artifactId>service-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 
     </dependencies>
 

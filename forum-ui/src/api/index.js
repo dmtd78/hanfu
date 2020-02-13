@@ -16,15 +16,15 @@ function get(url, params) {
             url: url,
             method: 'get',
             params,
-        }).then(({ data }) => {
-            console.log('data.data : '+data.data)
+        }).then(({data}) => {
+            console.log('get,data.data : ' + data.data)
             if (data.resultCode !== 0) {
-                console.log('data.resultCode !== 0  -----'+data.data)
+                console.log('data.resultCode !== 0  -----' + data.data)
                 return reject(data)
             }
-            console.log('data.resultCode == 0  -----'+data.data);
+            console.log('data.resultCode == 0  -----');
             return resolve(data);
-        }).catch(({ response }) => {
+        }).catch(({response}) => {
             return reject({
                 resultCode: response.status,
                 resultInfo: response.statusText
@@ -39,13 +39,13 @@ function post(url, data) {
             url: url,
             method: 'post',
             data: qs.stringify(data) // application/x-www-form-urlencoded
-        }).then(({ data }) => {
-            if (!data.data/* data.resultCode !== 0 */) {
-                console.log(data.data)
+        }).then(({data}) => {
+            if (data.resultCode !== 0) {
+                console.log('post:'+data.resultCode)
                 return reject(data)
             }
             return resolve(data)
-        }).catch(({ response }) => {
+        }).catch(({response}) => {
             return reject({
                 resultCode: response.status,
                 resultInfo: response.statusText
@@ -79,23 +79,23 @@ export default {
     getArticleActions(data) {
         return get('/article/getArticleActions', data)
     },
-    addIntegralByUserId(data){
+    addIntegralByUserId(data) {
         return post('/integral/addIntegralByUserId', data)
     },
-    getIntegralByUserId(data){
+    getIntegralByUserId(data) {
         return get('/integral/getIntegralByUserId', data)
     },
-    hasIntegralByUserId(data){
+    hasIntegralByUserId(data) {
         return get('/integral/hasIntegralByUserId', data)
     },
-    getIntegralDays(data){
+    getIntegralDays(data) {
         return get('/integral/getIntegralDays', data)
     },
-    getSignDayCount(data){
+    getSignDayCount(data) {
         return get('/integral/getSignDayCount', data)
     },
     //收藏相关
-    addCollectByUserId(data){
+    addCollectByUserId(data) {
         return post('/collect/addCollectByUserId', data)
     }
 }

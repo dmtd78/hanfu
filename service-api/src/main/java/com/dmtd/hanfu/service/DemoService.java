@@ -1,6 +1,6 @@
-package com.sunwin.dubbozkpdemo.service;
+package com.dmtd.hanfu.service;
 
-import com.sunwin.dubbozkpdemo.dto.DemoDTO;
+import com.dmtd.hanfu.dto.DemoDTO;
 
 /**
  * <br>

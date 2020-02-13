@@ -1,9 +1,9 @@
-package com.sunwin.dubbozkpdemo.service.impl;
+package com.dmtd.hanfu.service.impl;
 
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.sunwin.dubbozkpdemo.dto.DemoDTO;
-import com.sunwin.dubbozkpdemo.service.DemoService;
+import com.dmtd.hanfu.dto.DemoDTO;
+import com.dmtd.hanfu.service.DemoService;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

@@ -1,4 +1,4 @@
-package com.sunwin.dubbozkpdemo.dto;
+package com.dmtd.hanfu.dto;
 
 import java.io.Serializable;
 

@@ -17,6 +17,6 @@
     <dubbo:monitor protocol="registry" />
     <dubbo:provider filter="monitor" group="dubbo"/>
     <!-- 生成远程服务代理，可以和本地bean一样使用demoService -->
-    <dubbo:service interface="com.sunwin.dubbozkpdemo.service.DemoService" ref="demoService"/>
-    <bean id="demoService" class="com.sunwin.dubbozkpdemo.service.impl.DemoServiceImpl" />
+    <dubbo:service interface="com.dmtd.hanfu.service.DemoService" ref="demoService"/>
+    <bean id="demoService" class="com.dmtd.hanfu.service.impl.DemoServiceImpl" />
 </beans>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sunwin.swbd.dao.traffic.DataWarehouseMapper" >
+  <resultMap id="BaseResultMap" type="com.sunwin.swbd.bean.traffic.KafkaDataInfo" >
+      <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="fromoffset" property="fromoffset" jdbcType="INTEGER" />
+    <result column="remanent" property="remanent" jdbcType="INTEGER" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+  </resultMap>
+    <resultMap id="NameValueResultMap" type="com.sunwin.swbd.dto.NameValueDTO" >
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="value" property="value" jdbcType="VARCHAR" />
+        <result column="sum" property="sum" jdbcType="VARCHAR" />
+    </resultMap>
+  <sql id="Base_Column_List">
+        id,fromoffset,remanent,ip
+    </sql>
+
+  <select id="selectResultFromMySql" resultMap="BaseResultMap">
+      SELECT
+      id,
+      fromoffset,
+      remanent,
+      t.ip,
+      ifnull( p.currentdayoffset, 0 ) AS currentdayoffset
+      FROM
+      t_kafka_data t
+      LEFT JOIN (
+      SELECT
+      ip,
+      MAX( CONVERT ( fromoffset, SIGNED ) ) - MIN( CONVERT ( fromoffset, SIGNED ) ) currentdayoffset
+      FROM
+      t_kafka_data
+      WHERE
+      createDate <![CDATA[>= ]]> STR_TO_DATE(curdate(),'%Y-%m-%d %H:%i:%s')
+      GROUP BY
+      ip
+      ) p ON p.ip = t.ip
+      ORDER BY
+      createDate DESC
+      LIMIT 3
+  </select>
+
+    <select id="selectFlowpeakFromImpala" resultMap="NameValueResultMap">
+        SELECT DISTINCT t1.param_name AS name,
+                nvl(t2.num1,0) AS value
+        FROM
+          (SELECT param_name
+           FROM t_param
+           WHERE param_type_id=10) t1
+        LEFT JOIN
+          (SELECT flowpeak,
+                  count() over(partition BY flowpeak) AS num1
+           FROM t_congattr
+           WHERE flowdate <![CDATA[>= ]]>  #{beginDate,jdbcType=VARCHAR}
+           AND flowdate <![CDATA[<= ]]>  #{endDate,jdbcType=VARCHAR} ) t2 ON t1.param_name=t2.flowpeak;
+
+    </select>
+
+    <select id="selectJamcauseFromImpala" resultMap="NameValueResultMap">
+        SELECT DISTINCT t1.param_name AS name,
+                nvl(t2.num1,0) AS value
+        FROM
+          (SELECT param_name
+           FROM t_param
+           WHERE param_type_id=15) t1
+        LEFT JOIN
+          (SELECT jam_cause,
+                  count() over(partition BY jam_cause) AS num1
+           FROM t_congattr
+           WHERE flowdate <![CDATA[>= ]]> #{beginDate,jdbcType=VARCHAR}
+           AND flowdate <![CDATA[<= ]]> #{endDate,jdbcType=VARCHAR} ) t2 ON t1.param_name=t2.jam_cause
+    </select>
+
+    <select id="selectJamtypeFromImpala" resultMap="NameValueResultMap">
+        SELECT DISTINCT t1.param_name AS name,
+                nvl(t2.num1,0) AS value
+        FROM
+          (SELECT param_name
+           FROM t_param
+           WHERE param_type_id=16) t1
+        LEFT JOIN
+          (SELECT jam_type,
+                  count() over(partition BY jam_type) AS num1
+           FROM t_congattr
+           WHERE flowdate <![CDATA[>= ]]> #{beginDate,jdbcType=VARCHAR}
+           AND flowdate <![CDATA[<= ]]> #{endDate,jdbcType=VARCHAR} ) t2 ON t1.param_name=t2.jam_type
+    </select>
+
+    <select id="selectViolateResultFromImpala" resultMap="NameValueResultMap">
+        SELECT p.param_name AS name,
+                nvl(t.value,0) AS value
+        FROM
+          (SELECT param_name
+           FROM t_param
+           WHERE param_type_id=10 ) p
+        LEFT JOIN
+          (SELECT IF (b.flowpeak_name IS NULL,"平峰",b.flowpeak_name) AS name,
+                     count(1) AS value
+           FROM vehicle_violation_record a
+           LEFT JOIN dim_festival d ON from_timestamp(a.cap_date,"yyyyMMdd") = d.festival_date
+           LEFT JOIN dim_flowpeak_time b ON IF (dayofweek(a.cap_date) = 1
+                                                OR dayofweek(a.cap_date) =7
+                                                OR d.festival_date IS NOT NULL,
+                                                                      0,
+                                                                      1)=b.flowpeak_type
+           AND from_timestamp(a.cap_date,"HHmm") BETWEEN b.flowpeak_begin AND b.flowpeak_end
+           INNER JOIN t_param c ON cast(a.rec_type AS string) = c.param_code
+           AND c.param_type_id=7
+           WHERE a.cap_date BETWEEN #{beginDate,jdbcType=VARCHAR} AND #{endDate,jdbcType=VARCHAR}
+           GROUP BY IF (b.flowpeak_name IS NULL,"平峰",b.flowpeak_name)) t ON t.name=p.param_name
+    </select>
+
+    <select id="selectPassingResultFromImpala" resultMap="NameValueResultMap">
+        SELECT p.param_name AS name,
+       nvl(t.value,0) AS value,
+       nvl(t.SUM,0) AS SUM
+        FROM
+          (SELECT param_name
+           FROM t_param
+           WHERE param_type_id=10) p
+        LEFT JOIN
+          (SELECT IF (b.flowpeak_name IS NULL,
+                                         "平峰",
+                                         b.flowpeak_name) AS name,
+                     count(1) AS value,
+                     sum(count(1)) over() AS SUM
+           FROM vehicle_passing_record a
+           LEFT JOIN dim_flowpeak_time b ON IF (dayofweek(a.cap_date) = 1
+                                                OR dayofweek(a.cap_date) =7,
+                                                   0,
+                                                   1)=b.flowpeak_type
+           AND from_timestamp(a.cap_date,"HH") BETWEEN b.flowpeak_begin AND b.flowpeak_end
+           WHERE a.cap_date BETWEEN #{beginDate,jdbcType=VARCHAR} AND #{endDate,jdbcType=VARCHAR}
+           GROUP BY IF (b.flowpeak_name IS NULL,
+                                           "平峰",
+                                           b.flowpeak_name)) t ON t.name=p.param_name
+    </select>
+
+</mapper>

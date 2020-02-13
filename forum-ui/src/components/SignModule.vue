@@ -93,13 +93,13 @@
             },
             sign() {
                 let params = {userId: userId};
-                this.$api.addIntegralByUserId(params).then((res) => {
-                    if (res.data.resultCode == 0) {
+                this.$api.addIntegralByUserId(params).then(res => {
+                    if (res.resultCode == 0) {
                         this.signButton = false;
                         this.snippetsButton = true;
                         this.integral = 1;
                         this.getData(res => {
-                            this.data = res.data.data;
+                            this.data = res.data;
                             this.myIntegral = '我的积分：' + (this.data == null ? 0 : this.data.integral);
                         });
                     }
