@@ -19,9 +19,8 @@
     <modules>
         <module>forum</module>
         <module>uaac</module>
-        <module>service-api</module>
-        <module>service-consumer</module>
-        <module>service-provider</module>
+        <module>hs-api</module>
+        <module>hs-provider</module>
     </modules>
 
 

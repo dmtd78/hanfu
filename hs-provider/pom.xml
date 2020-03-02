@@ -10,10 +10,10 @@
 	</parent>
 
 	<groupId>com.dmtd</groupId>
-	<artifactId>service-provider</artifactId>
+	<artifactId>hs-provider</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>service-provider</name>
-	<description>Demo project for Spring Boot</description>
+	<name>hs-provider</name>
+	<description>hanfu service provider</description>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -88,7 +88,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.dmtd</groupId>
-			<artifactId>service-api</artifactId>
+			<artifactId>hs-api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 

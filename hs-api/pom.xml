@@ -10,9 +10,9 @@
 	</parent>
 
 	<groupId>com.dmtd</groupId>
-	<artifactId>service-api</artifactId>
+	<artifactId>hs-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>service-api</name>
+	<name>hs-api</name>
 	<description>Demo project for Spring Boot</description>
 
 
