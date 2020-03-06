@@ -13,7 +13,7 @@
 	<artifactId>hs-provider</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>hs-provider</name>
-	<description>hanfu service provider</description>
+	<description>Hanfu service provider</description>
 
 	<properties>
 		<java.version>1.8</java.version>
