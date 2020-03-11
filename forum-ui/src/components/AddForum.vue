@@ -50,8 +50,6 @@
 </template>
 
 <script>
-    import axios from 'axios';
-    import qs from 'qs';
     import QuillEditorForArticle from "./QuillEditorForArticle";
     // eslint-disable-next-line no-irregular-whitespace
     const userId = JSON.parse(sessionStorage.getItem("userId"));
@@ -99,13 +97,10 @@
                     obj.description = this.form.descreption;
                     // eslint-disable-next-line no-console
                     console.log('Received values of form: ', obj);
-                    axios.post('/article/add', qs.stringify(obj), {
-                        xhrFields: {
-                            withCredentials: true
-                        },
-                    },).then((res) => {
+
+                    this.$api.addArticle(obj).then((res) => {
                         // eslint-disable-next-line no-console
-                        console.log(res)
+                        console.log('add article :'+res)
                         if (res.data.resultCode == 0) {
                             this.$message.success(
                                 res.data.resultInfo,
@@ -118,6 +113,11 @@
                             );
                         }
                     })
+                    // axios.post('/article/add', qs.stringify(obj), {
+                    //     xhrFields: {
+                    //         withCredentials: true
+                    //     },
+                    // },)
                     this.form.resetFields();
                     this.visible = false;
                 });

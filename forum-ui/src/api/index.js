@@ -17,12 +17,11 @@ function get(url, params) {
             method: 'get',
             params,
         }).then(({data}) => {
-            console.log('get,data.data : ' + data.data)
             if (data.resultCode !== 0) {
-                console.log('data.resultCode !== 0  -----' + data.data)
+                console.log('get failure')
                 return reject(data)
             }
-            console.log('data.resultCode == 0  -----');
+            console.log('get success  -----'+data.data);
             return resolve(data);
         }).catch(({response}) => {
             return reject({
@@ -41,9 +40,10 @@ function post(url, data) {
             data: qs.stringify(data) // application/x-www-form-urlencoded
         }).then(({data}) => {
             if (data.resultCode !== 0) {
-                console.log('post:'+data.resultCode)
+                console.log('post failure')
                 return reject(data)
             }
+            console.log('post success:'+resolve(data))
             return resolve(data)
         }).catch(({response}) => {
             return reject({
@@ -74,6 +74,9 @@ export default {
     //帖子相关
     getArticleList(data) {
         return get('/article/list', data)
+    },
+    addArticle(data) {
+        return post('/article/add', data)
     },
     //积分相关
     getArticleActions(data) {

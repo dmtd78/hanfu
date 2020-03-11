@@ -61,7 +61,7 @@
             this.getUserInfo(res =>{
                 res.then(res => {
                     // eslint-disable-next-line no-console
-                    console.log("get user info Yay! " + res.data.username);
+                    console.log("1get user info Yay! " + res.data.username);
                     this.username = res.data.username;
                 })
             })
@@ -80,13 +80,25 @@
             }),
             handlePortalNav() {
                 this.setSelectedKeys()
-                this.checkLogin(userId).then(() => {
-                    /* eslint-disable no-console */
+                // this.checkLogin(userId).then(() => {
+                //     /* eslint-disable no-console */
+                //     console.log('已登陆')
+                // }).catch(() => {
+                //     /* eslint-disable no-console */
+                //     console.log('未登陆或登陆已过期')
+                // })
+                if(userId!=null){
+                    // eslint-disable-next-line no-console
                     console.log('已登陆')
-                }).catch(() => {
-                    /* eslint-disable no-console */
-                    console.log('未登陆或登陆已过期')
-                })
+                    let values = {
+                        uid: userId,
+                    };
+                    this.$api.getUserInfo(values).then(res => {
+                        // eslint-disable-next-line no-console
+                        console.log("2get user info Yay! " + res.data.username);
+                        this.username = res.data.username;
+                    })
+                }
             },
             getUserInfo(callback) {
                 let values = {
