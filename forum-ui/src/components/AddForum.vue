@@ -27,7 +27,9 @@
                     ②为了营造一个轻松的汉服交流空间，帖子内容请慎重考虑，不要涉及一些有影响的不健康的还有国家禁止的内容，非常感谢！
                     </span>
                 </a-form-item>
-                <QuillEditorForArticle v-on:description="showMsgFromChild"></QuillEditorForArticle>
+                <a-form-item>
+                    <QuillEditorForArticle v-on:description="showMsgFromChild"></QuillEditorForArticle>
+                </a-form-item>
                 <a-form-item label='话题'>
                     <a-select
                             mode="default"

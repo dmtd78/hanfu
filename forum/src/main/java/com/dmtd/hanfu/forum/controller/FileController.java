@@ -1,6 +1,8 @@
 package com.dmtd.hanfu.forum.controller;
 
+import com.dmtd.hanfu.forum.dto.FileDTO;
 import com.dmtd.hanfu.forum.exception.JsonResult;
+import com.dmtd.hanfu.forum.exception.JsonResultData;
 import org.csource.common.MyException;
 import org.csource.common.NameValuePair;
 import org.csource.fastdfs.*;
@@ -38,8 +40,8 @@ public class FileController {
      */
     @PostMapping("/upload")
     @ResponseBody
-    public JsonResult upload(@RequestParam(value = "file", required = false) MultipartFile file) {
-        JsonResult jsonResult = new JsonResult();
+    public JsonResultData upload(@RequestParam(value = "file", required = false) MultipartFile file) {
+        JsonResultData jsonResult = new JsonResultData();
         String ext_Name = file.getOriginalFilename().split("\\.")[1];
         String file_Name = file.getOriginalFilename().split("\\.")[0];
 
@@ -50,11 +52,7 @@ public class FileController {
             e.printStackTrace();
         }
 
-
         try {
-            //加载fastDFS客户端的配置文件
-//            ClientGlobal.initByProperties("conf/fastdfs-client.properties");
-
             //创建tracker的客户端
             InetSocketAddress inetSocketAddress = new InetSocketAddress("106.12.61.131", 22122);
             TrackerServer trackerServer = new TrackerServer(inetSocketAddress);
@@ -70,8 +68,11 @@ public class FileController {
 
             System.out.println("上传组名：" + fileIds[0]);
             System.out.println("上传路径: " + fileIds[1]);
+            FileDTO fileDTO = new FileDTO();
+            fileDTO.setGroup(fileIds[0]);
+            fileDTO.setPath("http://106.12.61.131/"+fileIds[0]+"/"+fileIds[1]);
+            jsonResult.setData(fileDTO);
 
-//            trackerServer.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
