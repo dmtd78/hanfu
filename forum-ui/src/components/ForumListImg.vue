@@ -46,11 +46,7 @@
         },
         mounted() {
             this.getData(res => {
-                // eslint-disable-next-line no-console
-                console.log('看看返回到前端的是什么：' + res)
                 res.then(data => {
-                    // eslint-disable-next-line no-console
-                    console.log("Yay! " + data.data.list);
                     this.data = data.data.list;
                 })
             });

@@ -16,9 +16,12 @@
     import 'quill/dist/quill.bubble.css'
     import {quillEditor,Quill} from 'vue-quill-editor'
     import {container,ImageExtend, QuillWatch} from 'quill-image-extend-module'
+    import ImageResize from 'quill-image-resize-module'
+
+    Quill.register('modules/imageResize',ImageResize)
 
     Quill.register('modules/ImageExtend', ImageExtend)
-    let updateUrl = 'http://localhost:8081/file/upload';
+    let updateUrl = 'http://106.12.61.131:8081/file/upload';
 
     export default {
         name: "QuillEditorForArticle",
@@ -31,6 +34,14 @@
                     theme: 'snow',
                     placeholder: "请输入您想要表达的内容！",
                     modules: {
+                        imageResize: {
+                            displayStyles: {
+                                backgroundColor: "black",
+                                border: "none",
+                                color: "white"
+                            },
+                            modules: ["Resize", "DisplaySize", "Toolbar"]
+                        },
                         ImageExtend: {
                             loading: true,
                             name: 'file',

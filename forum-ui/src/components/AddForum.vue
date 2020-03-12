@@ -19,12 +19,10 @@
                 </a-form-item>
                 <a-form-item label='内容'>
                     <a-input v-decorator="['description']" v-model="description" v-show="false"></a-input>
-                    <a-tooltip title="注：目前，如果帖子内容包含图片的话，请将图片大小控制在20kb以内，以后升级服务器会无此限制，非常感谢您的谅解！
-                    ②为了营造一个轻松的汉服交流空间，帖子内容请慎重考虑，不要涉及一些有影响的不健康的还有国家禁止的内容，非常感谢！">
+                    <a-tooltip title="注：为了营造一个轻松的汉服交流空间，帖子内容请慎重考虑，不要涉及一些有影响的不健康的还有国家禁止的内容，非常感谢！">
                         <a-icon type="question-circle-o"/>
                     </a-tooltip>
-                    <span style="color: gray">注：①目前，如果帖子内容包含图片的话，请将图片大小控制在20kb以内，以后升级服务器会无此限制，非常感谢您的谅解！<br>
-                    ②为了营造一个轻松的汉服交流空间，帖子内容请慎重考虑，不要涉及一些有影响的不健康的还有国家禁止的内容，非常感谢！
+                    <span style="color: gray">注：为了营造一个轻松的汉服交流空间，帖子内容请慎重考虑，不要涉及一些有影响的不健康的还有国家禁止的内容，非常感谢！
                     </span>
                 </a-form-item>
                 <a-form-item>
