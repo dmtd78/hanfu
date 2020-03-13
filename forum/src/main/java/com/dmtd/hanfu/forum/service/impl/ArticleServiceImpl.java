@@ -65,12 +65,20 @@ public class ArticleServiceImpl implements ArticleService {
         List<ArticleDto> newArticleList = new ArrayList<>();
         for (Article article : articleList) {
             ArticleDto newArticle = new ArticleDto();
-            BeanUtils.copyProperties(article,newArticle);
+            BeanUtils.copyProperties(article, newArticle);
             if (!StringUtils.isEmpty(article.getContent())) {
-                if (article.getContent().length() > 400) {
-                    newArticle.setContent(article.getContent().substring(0, 400));
-                    newArticle.setIsBigContent(1);
+                String tempContent = null;
+                if (article.getContent().contains("<img")) {
+                    tempContent = article.getContent().replaceAll("<img.*>.*</img>", "")
+                            .replaceAll("<img.*/>", "").replaceAll("<img.*>", "");
                 }
+                if (!StringUtils.isEmpty(tempContent))
+                    if (tempContent.length() > 400) {
+                        newArticle.setContent(tempContent.substring(0, 400));
+                        newArticle.setIsBigContent(1);
+                    } else {
+                        newArticle.setContent(tempContent);
+                    }
                 if (article.getContent().contains("<img")) {
                     String imgData = article.getContent().split("src=\"")[1].split("\"")[0];
                     newArticle.setImg(imgData);

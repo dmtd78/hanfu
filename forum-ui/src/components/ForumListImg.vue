@@ -21,7 +21,6 @@
 </template>
 <script>
     import AddComment from "./AddComment";
-    // import axios from 'axios';
 
     export default {
         name: "ForumListImg",
