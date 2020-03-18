@@ -7,6 +7,7 @@ import com.dmtd.hanfu.forum.entity.TypeText;
 import com.dmtd.hanfu.forum.exception.ForumBizException;
 import com.dmtd.hanfu.forum.exception.JsonResult;
 import com.dmtd.hanfu.forum.exception.JsonResultData;
+import com.dmtd.hanfu.forum.filter.AuthCheck;
 import com.dmtd.hanfu.forum.service.ArticleService;
 import com.dmtd.hanfu.forum.service.UserService;
 import org.apache.commons.lang3.StringUtils;
@@ -87,6 +88,7 @@ public class ArticleController {
      */
     @GetMapping("/iCollectArticles")
     @ResponseBody
+    @AuthCheck
     public JsonResultData iCollectArticles(@RequestParam("currentPage") int currentPage,
                                            @RequestParam(value = "type", required = false) Integer type,
                                            @RequestParam(value = "userId", required = false) Integer userId) {
@@ -142,6 +144,7 @@ public class ArticleController {
      */
     @PostMapping(value = "/add")
     @ResponseBody
+    @AuthCheck
     public JsonResult addArticle(@RequestParam(value = "title") String title,
                                  @RequestParam(value = "description") String description,
                                  @RequestParam(value = "userId") Integer userId,

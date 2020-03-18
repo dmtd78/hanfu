@@ -2,6 +2,7 @@ package com.dmtd.hanfu.forum.controller;
 
 import com.dmtd.hanfu.forum.exception.JsonResult;
 import com.dmtd.hanfu.forum.exception.JsonResultData;
+import com.dmtd.hanfu.forum.filter.AuthCheck;
 import com.dmtd.hanfu.forum.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,6 +37,7 @@ public class CommentController {
      */
     @PostMapping(value = "/add")
     @ResponseBody
+    @AuthCheck
     public JsonResult addComment(@RequestParam(value = "content", required = false) String content,
                                  @RequestParam(value = "articleId") Integer articleId,
                                  @RequestParam(value = "userId") Integer userId) {
@@ -56,6 +58,7 @@ public class CommentController {
      */
     @GetMapping(value = "/list")
     @ResponseBody
+    @AuthCheck
     public JsonResultData commentList(@RequestParam(value = "content", required = false) String content,
                                       @RequestParam(value = "articleId", required = false) Integer articleId,
                                       @RequestParam(value = "userId", required = false) Integer userId) {
@@ -93,6 +96,7 @@ public class CommentController {
      */
     @ResponseBody
     @PostMapping(value = "/floor/add")
+    @AuthCheck
     public JsonResult findFloorComment(@RequestParam("articleId") Integer articleId,
                                        @RequestParam("commentId") Integer commentId,
                                        @RequestParam("userId") Integer userId,

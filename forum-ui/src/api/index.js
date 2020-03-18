@@ -3,7 +3,9 @@ import axios from 'axios'
 import qs from 'qs'
 
 let instance = axios.create({
-    baseURL: 'http://106.12.61.131:8081',
+    baseURL: 'http://localhost:8081',
+    // baseURL: 'http://106.12.61.131:8081',
+
     headers: {
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
     },

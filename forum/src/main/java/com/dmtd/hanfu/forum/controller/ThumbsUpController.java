@@ -2,6 +2,7 @@ package com.dmtd.hanfu.forum.controller;
 
 import com.dmtd.hanfu.forum.exception.JsonResult;
 import com.dmtd.hanfu.forum.exception.JsonResultData;
+import com.dmtd.hanfu.forum.filter.AuthCheck;
 import com.dmtd.hanfu.forum.service.ThumbsUpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,6 +37,7 @@ public class ThumbsUpController {
      */
     @PostMapping("/addThumbsUpByUserId")
     @ResponseBody
+    @AuthCheck
     public JsonResult addThumbsUpByUserId(@RequestParam("articleId") Integer articleId,
                                           @RequestParam("userId") Integer userId) {
         JsonResult jsonResult = new JsonResult();
@@ -51,6 +53,7 @@ public class ThumbsUpController {
      */
     @PostMapping("/getThumbsUpByUserIdAndArticleId")
     @ResponseBody
+    @AuthCheck
     public JsonResultData getThumbsUpByUserIdAndArticleId(@RequestParam("articleId") Integer articleId,
                                                           @RequestParam("userId") Integer userId) {
         JsonResultData jsonResult = new JsonResultData();

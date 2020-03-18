@@ -2,6 +2,7 @@ package com.dmtd.hanfu.forum.controller;
 
 import com.dmtd.hanfu.forum.exception.JsonResult;
 import com.dmtd.hanfu.forum.exception.JsonResultData;
+import com.dmtd.hanfu.forum.filter.AuthCheck;
 import com.dmtd.hanfu.forum.service.CollectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,6 +36,7 @@ public class CollectController {
      */
     @PostMapping("/addCollectByUserId")
     @ResponseBody
+    @AuthCheck
     public JsonResult addCollectByUserId(@RequestParam("articleId") Integer articleId, @RequestParam("userId") Integer userId) {
         JsonResult jsonResult = new JsonResult();
         collectionService.addCollectByUserIdAndArticleId(articleId, userId);
@@ -49,6 +51,7 @@ public class CollectController {
      */
     @GetMapping("/getCollectByUserId")
     @ResponseBody
+    @AuthCheck
     public JsonResultData getCollectByUserId(@RequestParam("userId") int userId) {
         JsonResultData jsonResultData = new JsonResultData();
         jsonResultData.setData(collectionService.getCollectByUserId(userId));
@@ -63,6 +66,7 @@ public class CollectController {
      */
     @GetMapping("/getCollectListByUserId")
     @ResponseBody
+    @AuthCheck
     public JsonResultData getCollectListByUserId(@RequestParam("userId") int userId) {
         JsonResultData jsonResultData = new JsonResultData();
         jsonResultData.setData(collectionService.getCollectListByUserId(userId));
@@ -78,6 +82,7 @@ public class CollectController {
      */
     @RequestMapping("/deleteCollectByArticleId")
     @ResponseBody
+    @AuthCheck
     public JsonResult deleteCollectByArticleId(@RequestParam("articleId") Integer articleId,
                                                @RequestParam("userId") Integer userId) {
         JsonResult jsonResult = new JsonResult();

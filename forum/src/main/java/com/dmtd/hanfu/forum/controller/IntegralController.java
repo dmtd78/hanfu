@@ -2,6 +2,7 @@ package com.dmtd.hanfu.forum.controller;
 
 import com.dmtd.hanfu.forum.exception.JsonResult;
 import com.dmtd.hanfu.forum.exception.JsonResultData;
+import com.dmtd.hanfu.forum.filter.AuthCheck;
 import com.dmtd.hanfu.forum.service.IntegralService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +34,7 @@ public class IntegralController {
      */
     @PostMapping("/addIntegralByUserId")
     @ResponseBody
+    @AuthCheck
     public JsonResult addIntegralByUserId(@RequestParam("userId") Integer userId) {
         JsonResult jsonResult = new JsonResult();
         integralService.addIntegralByUserId(userId);
@@ -46,6 +48,7 @@ public class IntegralController {
      */
     @GetMapping("/getIntegralByUserId")
     @ResponseBody
+    @AuthCheck
     public JsonResultData getIntegralByUserId(@RequestParam("userId") int userId) {
         JsonResultData jsonResultData = new JsonResultData();
         jsonResultData.setData(integralService.getIntegralByUserId(userId));
@@ -59,6 +62,7 @@ public class IntegralController {
      */
     @GetMapping("/getIntegralListByUserId")
     @ResponseBody
+    @AuthCheck
     public JsonResultData getIntegralListByUserId(@RequestParam("userId") Integer userId) {
         JsonResultData jsonResultData = new JsonResultData();
         jsonResultData.setData(integralService.getIntegralListByUserId(userId));
@@ -72,6 +76,7 @@ public class IntegralController {
      */
     @GetMapping("/hasIntegralByUserId")
     @ResponseBody
+    @AuthCheck
     public JsonResultData hasIntegralByUserId(@RequestParam("userId") Integer userId) {
         JsonResultData jsonResultData = new JsonResultData();
         jsonResultData.setData(integralService.hasIntegralByUserId(userId));
@@ -85,6 +90,7 @@ public class IntegralController {
      */
     @GetMapping("/getIntegralDays")
     @ResponseBody
+    @AuthCheck
     public JsonResultData getIntegralDays(@RequestParam("userId") Integer userId) {
         JsonResultData jsonResultData = new JsonResultData();
         jsonResultData.setData(integralService.getIntegralDays(userId));
@@ -100,6 +106,7 @@ public class IntegralController {
      */
     @GetMapping("/getSignDayCount")
     @ResponseBody
+    @AuthCheck
     public JsonResultData getSignDayCount(@RequestParam("userId") Integer userId) {
         JsonResultData jsonResultData = new JsonResultData();
         jsonResultData.setData(integralService.getSignDayCount(userId));

@@ -1,27 +1,16 @@
 package com.dmtd.hanfu.forum.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import com.dmtd.hanfu.forum.config.Config;
 import com.dmtd.hanfu.forum.entity.Article;
 import com.dmtd.hanfu.forum.entity.User;
 import com.dmtd.hanfu.forum.exception.JsonResult;
 import com.dmtd.hanfu.forum.exception.JsonResultData;
+import com.dmtd.hanfu.forum.filter.AuthCheck;
 import com.dmtd.hanfu.forum.service.ArticleService;
 import com.dmtd.hanfu.forum.service.UserService;
 import com.dmtd.hanfu.forum.util.LogUtils;
 import com.dmtd.hanfu.forum.util.StringUtils;
+import com.dmtd.hanfu.forum.util.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +19,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import sun.misc.BASE64Encoder;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 
 /**
@@ -86,7 +81,8 @@ public class UserController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public JsonResultData login(HttpServletRequest request, @RequestParam("username") String username,
+    public JsonResultData login(HttpServletRequest request, HttpServletResponse response,
+                                @RequestParam("username") String username,
                                 @RequestParam("password") String password) {
         JsonResultData jsonResult = new JsonResultData();
         User user = userService.findUser(username, StringUtils.MD5(password));
@@ -94,30 +90,17 @@ public class UserController {
             userService.updateUserLoginTime(user.getUid(), new Date());
             jsonResult.setResultInfo("登录成功！");
             request.getSession().setAttribute("user", user);
-            request.getSession().setAttribute(SESSION_TOKEN, this.genetateToken());
+            String token = TokenUtils.getToken(username);
+            request.getSession().setAttribute(SESSION_TOKEN, token);
+            Cookie cookie = new Cookie(SESSION_TOKEN, token);
+            cookie.setPath("/");
+            response.addCookie(cookie);
             jsonResult.setData(user);
         } else {
             jsonResult.setResultInfo("登录失败！");
             return jsonResult;
         }
         return jsonResult;
-    }
-
-    //随机数发生器
-    public static String genetateToken() {
-        String token = System.currentTimeMillis() + "";//获得毫秒数加随机数
-        String tokenMd5 = "";
-        try {
-            MessageDigest md = MessageDigest.getInstance("md5");
-            byte[] md5 = md.digest(token.getBytes());
-            BASE64Encoder base = new BASE64Encoder();
-            tokenMd5 = base.encode(md5);
-
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-
-        return tokenMd5;
     }
 
 
@@ -127,6 +110,7 @@ public class UserController {
      * @return
      */
     @RequestMapping("/manager")
+    @AuthCheck
     public ModelAndView getUserManager(@RequestParam("uid") Integer uid) {
         ModelAndView mav = new ModelAndView();
         // 用户信息
@@ -198,6 +182,7 @@ public class UserController {
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
+    @AuthCheck
     public Map<String, String> updateUserInfo(HttpServletRequest request, @RequestParam("uid") Integer uid,
                                               @RequestParam("password") String password) {
         Map<String, String> map = new HashMap<>();
@@ -225,7 +210,7 @@ public class UserController {
      */
     @RequestMapping("/exit")
     @ResponseBody
-    public JsonResult exit(HttpServletRequest request,@RequestParam("uid") Integer uid) {
+    public JsonResult exit(HttpServletRequest request, @RequestParam("uid") Integer uid) {
         JsonResult jsonResult = new JsonResult();
         // 销毁session
         request.getSession().invalidate();

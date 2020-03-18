@@ -24,6 +24,7 @@ public class WebAppConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginInterceptor())//添加拦截器
                 .addPathPatterns("/**") //拦截所有请求
-                .excludePathPatterns("/article/**", "/comment/**", "/user/**", "/integral/**", "/file/**");//对应的不拦截的请求
+                .excludePathPatterns("/article/**", "/comment/**", "/user/**",
+                        "/file/**","/collect/**");//对应的不拦截的请求
     }
 }
