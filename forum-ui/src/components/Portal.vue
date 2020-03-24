@@ -53,12 +53,12 @@
         },
         computed: {
             ...mapGetters({
-                isLogin: 'auth/isLogin',
-                user: 'auth/user'
+                isLogin: 'isLogin',
+                user: 'user'
             }),
         },
         mounted() {
-            this.getUserInfo(res =>{
+            this.getUserInfo(res => {
                 res.then(res => {
                     // eslint-disable-next-line no-console
                     console.log("1get user info Yay! " + res.data.username);
@@ -76,7 +76,7 @@
                 this.selectedKeys = [this.$route.path.substring(1)]
             },
             ...mapActions({
-                checkLogin: 'auth/checkLogin'
+                checkLogin: 'checkLogin'
             }),
             handlePortalNav() {
                 this.setSelectedKeys()
@@ -87,7 +87,7 @@
                 //     /* eslint-disable no-console */
                 //     console.log('未登陆或登陆已过期')
                 // })
-                if(userId!=null){
+                if (userId != null) {
                     // eslint-disable-next-line no-console
                     console.log('已登陆')
                     let values = {

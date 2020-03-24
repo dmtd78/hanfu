@@ -1,6 +1,7 @@
 package com.dmtd.hanfu.forum.controller;
 
 import com.dmtd.hanfu.forum.config.Config;
+import com.dmtd.hanfu.forum.dto.FileDTO;
 import com.dmtd.hanfu.forum.entity.Article;
 import com.dmtd.hanfu.forum.entity.User;
 import com.dmtd.hanfu.forum.exception.JsonResult;
@@ -8,9 +9,14 @@ import com.dmtd.hanfu.forum.exception.JsonResultData;
 import com.dmtd.hanfu.forum.filter.AuthCheck;
 import com.dmtd.hanfu.forum.service.ArticleService;
 import com.dmtd.hanfu.forum.service.UserService;
+import com.dmtd.hanfu.forum.util.FileUtils;
 import com.dmtd.hanfu.forum.util.LogUtils;
 import com.dmtd.hanfu.forum.util.StringUtils;
 import com.dmtd.hanfu.forum.util.TokenUtils;
+import org.csource.common.NameValuePair;
+import org.csource.fastdfs.StorageClient;
+import org.csource.fastdfs.StorageServer;
+import org.csource.fastdfs.TrackerServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.util.*;
 
 
@@ -141,7 +148,6 @@ public class UserController {
     /**
      * 更新头像
      *
-     * @param request
      * @param file
      * @param uid
      * @return
@@ -149,28 +155,13 @@ public class UserController {
      * @throws IllegalStateException
      */
     @RequestMapping(value = "/headimg", method = RequestMethod.POST)
-    public String updateHeadImg(HttpServletRequest request, @RequestParam("file") MultipartFile file, @RequestParam("uid") Integer uid) throws IllegalStateException, IOException {
-        // 防止空白头像的情况
-        if (file.isEmpty())
-            return null;
-        // 进行上传操作
-        String fileName = uid + "-" + UUID.randomUUID().toString().replace("-", "") + "-" + file.getOriginalFilename();
-        String filePath = request.getServletContext().getRealPath(Config.DEFAULT_UPLOAD_ADDRESS) + "/" + fileName;
-        File dest = new File(filePath);
-        dest.getParentFile().mkdirs();
-        // transferto实现文件上传
-        file.transferTo(dest);
-        // 头像地址并更根据uid插入对应数据库
-        String address = Config.DEFAULT_UPLOAD_ADDRESS + "/" + fileName;
-        int result = userService.updateHeadImg(address, uid);
-        if (result > 0) {
-            LogUtils.info("成功更新uid为{}的用户头像,文件名{}", uid, address);
-        } else {
-            LogUtils.info("更新头像失败！");
-        }
-        // 刷新session
-        request.getSession().setAttribute("user", userService.getUserByID(uid));
-        return "redirect:/index.jsp";
+    public JsonResult updateHeadImg(@RequestParam("file") MultipartFile file,
+                                @RequestParam("uid") Integer uid) throws IllegalStateException {
+        JsonResult jsonResult = new JsonResult();
+        String filePath = FileUtils.getFilePath(file);
+
+        int result = userService.updateHeadImg(filePath, uid);
+        return jsonResult;
     }
 
     /**

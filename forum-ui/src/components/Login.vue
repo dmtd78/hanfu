@@ -85,7 +85,7 @@
                         }).then((res) => {
                             this.$message.success(res.resultInfo);
                             sessionStorage.setItem("userId",res.data.uid);
-                            this.$store.commit('auth/setUser', res.data)
+                            this.$store.commit('setUser', res.data)
                             this.$router.push('/home').catch(err => {err})
                         }).catch((res) => {
                             this.$message.error(res.resultInfo)
