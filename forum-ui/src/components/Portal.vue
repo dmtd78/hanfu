@@ -53,8 +53,8 @@
         },
         computed: {
             ...mapGetters({
-                isLogin: 'isLogin',
-                user: 'user'
+                isLogin: 'auth/isLogin',
+                user: 'auth/user'
             }),
         },
         mounted() {
@@ -76,7 +76,7 @@
                 this.selectedKeys = [this.$route.path.substring(1)]
             },
             ...mapActions({
-                checkLogin: 'checkLogin'
+                checkLogin: 'auth/checkLogin'
             }),
             handlePortalNav() {
                 this.setSelectedKeys()

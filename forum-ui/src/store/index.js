@@ -6,6 +6,7 @@ import api from "../api";
 vue.use(Vuex)
 
 const auth = {
+    namespaced: true,
     actions: {
         checkLogin({commit, state}) {
             // eslint-disable-next-line no-console
@@ -23,7 +24,7 @@ const auth = {
         },
     },
     getters: {
-        isLogin: state => state.user,
+        isLogin: state => !!state.user,
         user: state => state.user
     },
     mutations: {
@@ -45,7 +46,7 @@ const store = new Vuex.Store({
     state: {
         user: null,
         isLogin: false,
-        token: "",
+        userToken: "",
     },
 })
 

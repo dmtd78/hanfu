@@ -23,7 +23,6 @@ function get(url, params) {
                 console.log('get failure')
                 return reject(data)
             }
-            console.log('get success  -----'+data.data);
             return resolve(data);
         }).catch(({response}) => {
             return reject({
@@ -45,7 +44,6 @@ function post(url, data) {
                 console.log('post failure')
                 return reject(data)
             }
-            console.log('post success:'+resolve(data))
             return resolve(data)
         }).catch(({response}) => {
             return reject({
