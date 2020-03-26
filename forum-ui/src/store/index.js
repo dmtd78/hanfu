@@ -1,40 +1,40 @@
 import vue from 'vue'
 
 import Vuex from 'vuex'
-import api from "../api";
 
 vue.use(Vuex)
 
 const auth = {
     namespaced: true,
+    state: {
+        user: null,
+        username:"",
+        isLogin: false,
+        userToken: "",
+    },
     actions: {
         checkLogin({commit, state}) {
             // eslint-disable-next-line no-console
-            console.log("check login username :"+state.user.username)
-            if (state.user) {
-                api.checkLogin({username: state.user.username, password: state.user.password}).then(({data}) => {
-                    commit('setUser', data)
-                    return Promise.resolve()
-                }).catch(() => {
-                    return Promise.reject()
-                })
-            } else {
-                return Promise.reject()
-            }
+            console.log("check login username :"+state.username)
+            commit('setUser', state.user)
         },
     },
     getters: {
-        isLogin: state => !!state.user,
+        isLogin: state => state.isLogin,
         user: state => state.user
     },
     mutations: {
         setUser(state, user) {
             // eslint-disable-next-line no-console
             console.log('setUser username:' + user.username)
-            state.user = user
+            state.username = user.username;
+            state.isLogin = true
         },
         clearUser(state) {
+            // eslint-disable-next-line no-console
+            console.log('clear username:' + state.username)
             state.user = null
+            state.isLogin = false
         }
     }
 }
@@ -42,11 +42,6 @@ const auth = {
 const store = new Vuex.Store({
     modules: {
         auth
-    },
-    state: {
-        user: null,
-        isLogin: false,
-        userToken: "",
     },
 })
 

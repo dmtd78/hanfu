@@ -7,7 +7,17 @@
                         <span class="username">{{username}}</span>
                         <a-menu slot="overlay">
                             <a-menu-item key="1">个人中心</a-menu-item>
-                            <a-menu-item key="2" @click="logout">退出</a-menu-item>
+                            <a-menu-item key="2">
+                                <a-popconfirm
+                                        title="确定要退出吗？"
+                                        @confirm="confirm"
+                                        @cancel="cancel"
+                                        okText="是"
+                                        cancelText="否"
+                                >
+                                    退出
+                                </a-popconfirm>
+                            </a-menu-item>
                         </a-menu>
                     </a-dropdown>
                 </a-menu-item>
@@ -80,24 +90,9 @@
             }),
             handlePortalNav() {
                 this.setSelectedKeys()
-                // this.checkLogin(userId).then(() => {
-                //     /* eslint-disable no-console */
-                //     console.log('已登陆')
-                // }).catch(() => {
-                //     /* eslint-disable no-console */
-                //     console.log('未登陆或登陆已过期')
-                // })
                 if (userId != null) {
                     // eslint-disable-next-line no-console
                     console.log('已登陆')
-                    let values = {
-                        uid: userId,
-                    };
-                    this.$api.getUserInfo(values).then(res => {
-                        // eslint-disable-next-line no-console
-                        console.log("2get user info Yay! " + res.data.username);
-                        this.username = res.data.username;
-                    })
                 }
             },
             getUserInfo(callback) {
@@ -106,15 +101,19 @@
                 };
                 callback(this.$api.getUserInfo(values))
             },
+            confirm() {
+                setTimeout(this.logout(), 1000);
+            },
+            cancel() {},
             logout() {
                 if (!this.isLogin) {
                     return
                 }
                 this.$api.logout({
-                    uid: this.user.uid
+                    uid: userId
                 }).then(() => {
                     this.$store.commit('auth/clearUser')
-                    sessionStorage.clear();
+                    sessionStorage.removeItem("userId");
                 }).catch((res) => {
                     this.$message.error(res.resultInfo)
                 })

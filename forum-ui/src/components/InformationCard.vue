@@ -17,7 +17,7 @@
                     <a-icon type="ellipsis"/>
                 </a-tooltip>
             </template>
-            <a-card-meta v-if="data.username==null" :title="loginMsg" @click="toLogin">
+            <a-card-meta v-if="!isLogin" :title="loginMsg" @click="toLogin">
                 <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"/>
             </a-card-meta>
             <a-card-meta v-else :title="data.username"
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-    // import axios from 'axios';
+    import {mapActions, mapGetters} from 'vuex'
     import SignModule from "./SignModule";
     // eslint-disable-next-line no-irregular-whitespace
     const userId = JSON.parse(sessionStorage.getItem("userId"));
@@ -39,25 +39,30 @@
         components: {SignModule},
         data() {
             return {
-                loading: true,
-                loadingMore: false,
-                showLoadingMore: true,
                 msg: '上次登录时间：',
                 loginMsg: '请登录',
                 data: {},
             };
         },
+        computed: {
+            ...mapGetters({
+                isLogin: 'auth/isLogin',
+                user: 'auth/user'
+            }),
+        },
         mounted() {
             this.getData(res => {
-                this.loading = false;
                 res.then(data => {
                     // eslint-disable-next-line no-console
-                    console.log("Yay! " + data.data);
+                    console.log("Yay! " + data.data+'-----isLogin:'+this.$store.isLogin);
                     this.data = data.data;
                 })
             });
         },
         methods: {
+            ...mapActions({
+                checkLogin: 'auth/checkLogin'
+            }),
             toLogin() {
                 this.$router.push('/register')
             },
