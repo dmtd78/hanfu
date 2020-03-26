@@ -20,7 +20,7 @@
             <a-card-meta v-if="!isLogin" :title="loginMsg" @click="toLogin">
                 <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"/>
             </a-card-meta>
-            <a-card-meta v-else :title="data.username"
+            <a-card-meta v-else :title="user.username"
                          :description="msg+$moment(data.lastLoginTime).format('YYYY-MM-DD')">
                 <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"/>
             </a-card-meta>
@@ -50,15 +50,7 @@
                 user: 'auth/user'
             }),
         },
-        mounted() {
-            this.getData(res => {
-                res.then(data => {
-                    // eslint-disable-next-line no-console
-                    console.log("Yay! " + data.data+'-----isLogin:'+this.$store.isLogin);
-                    this.data = data.data;
-                })
-            });
-        },
+        mounted() {},
         methods: {
             ...mapActions({
                 checkLogin: 'auth/checkLogin'
@@ -80,15 +72,6 @@
                 if (userId == null) {
                     return;
                 }
-                // axios.get('/user/info', {params: {uid: userId}}, {
-                //     xhrFields: {
-                //         withCredentials: true
-                //     },
-                // }).then((res) => {
-                //     if (res.data.resultCode == 0) {
-                //         callback(res);
-                //     }
-                // })
                 let values = {
                     uid: userId,
                 };

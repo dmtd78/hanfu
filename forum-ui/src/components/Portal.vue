@@ -1,10 +1,11 @@
 <template>
     <a-layout class="layout">
+        {{isLogin}}
         <a-layout-header class="header">
             <a-menu v-if="isLogin" class="user" theme="dark" mode="horizontal" :selectable="false">
                 <a-menu-item key="user">
                     <a-dropdown>
-                        <span class="username">{{username}}</span>
+                        <span class="username">{{user.username}}</span>
                         <a-menu slot="overlay">
                             <a-menu-item key="1">个人中心</a-menu-item>
                             <a-menu-item key="2">
@@ -58,7 +59,6 @@
         data() {
             return {
                 selectedKeys: [],
-                username: '12'
             }
         },
         computed: {
@@ -68,13 +68,6 @@
             }),
         },
         mounted() {
-            this.getUserInfo(res => {
-                res.then(res => {
-                    // eslint-disable-next-line no-console
-                    console.log("1get user info Yay! " + res.data.username);
-                    this.username = res.data.username;
-                })
-            })
         },
         methods: {
             navPortal({key}) {
@@ -92,19 +85,20 @@
                 this.setSelectedKeys()
                 if (userId != null) {
                     // eslint-disable-next-line no-console
-                    console.log('已登陆')
+                    console.log('has login')
+                    let values = {
+                        uid: userId
+                    }
+                    this.$api.getUserInfo(values).then((res) => {
+                        this.$store.commit('auth/setUser', res.data)
+                    })
                 }
-            },
-            getUserInfo(callback) {
-                let values = {
-                    uid: userId,
-                };
-                callback(this.$api.getUserInfo(values))
             },
             confirm() {
                 setTimeout(this.logout(), 1000);
             },
-            cancel() {},
+            cancel() {
+            },
             logout() {
                 if (!this.isLogin) {
                     return

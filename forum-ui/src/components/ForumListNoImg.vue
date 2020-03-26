@@ -3,8 +3,10 @@
         <div slot="footer"><b>大美汉服</b> ，致力于发扬中国传统文化。</div>
         <a-list-item slot="renderItem" slot-scope="item" key="item.title">
             <a-list-item-meta :description="item.author.username">
-                <a slot="title" :href="item.href">{{item.title}} <a-tag v-if="item.isTop==1" color="orange">置顶</a-tag></a>
-                <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                <a slot="title" :href="item.href">{{item.title}}
+                    <a-tag v-if="item.isTop==1" color="orange">置顶</a-tag>
+                </a>
+                <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"/>
             </a-list-item-meta>
             <p v-html="item.content"></p>
             <v-addComment :articleId="item.aid"></v-addComment>
@@ -16,13 +18,13 @@
     import AddComment from "./AddComment";
 
     export default {
-        name:"ForumListNoImg",
+        name: "ForumListNoImg",
         components: {
-            'v-addComment':AddComment,
+            'v-addComment': AddComment,
         },
         data() {
             return {
-                data:[],
+                data: [],
                 pagination: {
                     onChange: page => {
                         // eslint-disable-next-line no-console
@@ -35,8 +37,6 @@
         mounted() {
             this.getData(res => {
                 res.then(data => {
-                    // eslint-disable-next-line no-console
-                    console.log("Yay! " + data.data.list);
                     this.data = data.data.list;
                 })
             });
@@ -44,18 +44,9 @@
         methods: {
             getData(callback) {
                 let values = {
-                    currentPage:1,
-                    type:1,
+                    currentPage: 1,
+                    type: 1,
                 };
-                // axios.get('/article/list',{params:values},{
-                //     xhrFields: {
-                //         withCredentials: true
-                //     },
-                // }).then((res) => {
-                //     if (res.data.resultCode == 0) {
-                //         callback(res);
-                //     }
-                // })
                 callback(this.$api.getArticleList(values));
             },
         }

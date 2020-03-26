@@ -24,11 +24,16 @@ const auth = {
         user: state => state.user
     },
     mutations: {
+        setIsLogin(state) {
+            state.isLogin = true;
+        },
         setUser(state, user) {
             // eslint-disable-next-line no-console
             console.log('setUser username:' + user.username)
             state.username = user.username;
-            state.isLogin = true
+            state.isLogin = true;
+            state.user = user;
+            sessionStorage.setItem("userId",user.uid);
         },
         clearUser(state) {
             // eslint-disable-next-line no-console

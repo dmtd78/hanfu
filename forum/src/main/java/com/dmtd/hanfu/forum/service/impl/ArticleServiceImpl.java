@@ -71,10 +71,17 @@ public class ArticleServiceImpl implements ArticleService {
                 if (article.getContent().contains("<img")) {
                     tempContent = article.getContent().replaceAll("<img.*>.*</img>", "")
                             .replaceAll("<img.*/>", "").replaceAll("<img.*>", "");
+                } else {
+                    if (article.getContent().replaceAll(" ", "").length() > 100) {
+                        newArticle.setContent(article.getContent().replaceAll(" ", "").substring(0, 100));
+                        newArticle.setIsBigContent(1);
+                    } else {
+                        newArticle.setContent(article.getContent());
+                    }
                 }
                 if (!StringUtils.isEmpty(tempContent))
-                    if (tempContent.length() > 400) {
-                        newArticle.setContent(tempContent.substring(0, 400));
+                    if (tempContent.replaceAll(" ", "").length() > 100) {
+                        newArticle.setContent(tempContent.replaceAll(" ", "").substring(0, 100));
                         newArticle.setIsBigContent(1);
                     } else {
                         newArticle.setContent(tempContent);

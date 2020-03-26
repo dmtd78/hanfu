@@ -10,8 +10,8 @@
                 <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"/>
             </a-list-item-meta>
             <p v-html="item.content" v-show="longShow"></p>
-            <p v-html="item.content.substring(0,400)" v-show="shortShow"></p>
-            <div v-if="item.content.length>400">
+            <p v-html="item.content.substring(0,100)" v-show="shortShow"></p>
+            <div v-if="item.content.length>100">
                 <a @click="showMoreContent(1)" v-show="shortShow">阅读全文</a>
                 <a @click="showMoreContent(2)" v-show="longShow">收起</a>
             </div>
