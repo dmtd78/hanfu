@@ -9,7 +9,7 @@ import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 import {Button,Checkbox,Icon,Layout,Menu,Breadcrumb,List,Avatar,Card,Form,Input,Radio,Modal,Select,Row,Col,Cascader,Popconfirm,
-    Tooltip,Alert,message,Tabs,Popover,Divider,Collapse,Comment,notification,Calendar,Steps,Dropdown,Tag,Descriptions} from "ant-design-vue";
+    Tooltip,Alert,message,Tabs,Popover,Divider,Collapse,Comment,notification,Calendar,Steps,Dropdown,Tag,Descriptions,Upload} from "ant-design-vue";
 import 'ant-design-vue/dist/antd.css';
 import moment from 'moment';
 
@@ -45,6 +45,7 @@ Vue.use(Calendar)
 Vue.use(VueQuillEditor)
 Vue.use(Popconfirm)
 Vue.use(Descriptions)
+Vue.use(Upload)
 
 Vue.prototype.$api = api
 Vue.prototype.$message = message;
