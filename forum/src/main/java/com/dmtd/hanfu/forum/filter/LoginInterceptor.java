@@ -41,7 +41,6 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object handler)
             throws Exception {
-        logger.info("---------------开始进入地址拦截器-------------------");
         //token 校验
         AuthCheck authCheck;
         if (handler instanceof HandlerMethod) {
@@ -66,6 +65,5 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
                                 Object o, Exception e) throws Exception {
-        logger.info("---------------视图渲染之后的操作-------------------------0");
     }
 }

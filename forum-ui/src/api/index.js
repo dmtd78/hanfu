@@ -78,6 +78,12 @@ export default {
     addArticle(data) {
         return post('/article/add', data)
     },
+    deleteArticle(data) {
+        return post('/article/delete', data)
+    },
+    getICollectArticleData(data){
+        return get('/article/iCollectArticles', data)
+    },
     //积分相关
     getArticleActions(data) {
         return get('/article/getArticleActions', data)
@@ -100,5 +106,8 @@ export default {
     //收藏相关
     addCollectByUserId(data) {
         return post('/collect/addCollectByUserId', data)
-    }
+    },
+    deleteCollect(data){
+        return post('/collect/deleteCollectByArticleId', data)
+    },
 }

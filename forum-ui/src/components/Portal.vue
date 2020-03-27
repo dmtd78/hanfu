@@ -7,7 +7,7 @@
                     <a-dropdown>
                         <span class="username">{{user.username}}</span>
                         <a-menu slot="overlay">
-                            <a-menu-item key="1">个人中心</a-menu-item>
+                            <a-menu-item key="1" @click="gotoPersonalInfo">个人中心</a-menu-item>
                             <a-menu-item key="2">
                                 <a-popconfirm
                                         title="确定要退出吗？"
@@ -98,6 +98,9 @@
                 setTimeout(this.logout(), 1000);
             },
             cancel() {
+            },
+            gotoPersonalInfo() {
+                this.$router.push('/personalInfo');
             },
             logout() {
                 if (!this.isLogin) {

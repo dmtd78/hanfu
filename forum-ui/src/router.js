@@ -27,7 +27,7 @@ const router = new VueRouter({
         { path: '/register', name: 'register', component: Register },
         // { path: '/littleWhite', name: 'littleWhite', component: LittleWhite },
         // { path: '/bussinessHome', name: '/bussiness/home', component: BussinessHome },
-        { path: '/personalInfo', name: 'personalInfo', component: PersonalInfo },
+        // { path: '/personalInfo', name: 'personalInfo', component: PersonalInfo },
         { 
             path: '/', component: Portal,
             children: [
@@ -40,6 +40,7 @@ const router = new VueRouter({
                 { path: '/bussinessHome', name: '/bussiness/home', component: BussinessHome },
                 { path: '/aboutUs', name: 'aboutUs', component: AboutUs },
                 { path: '/photoForum', name: 'photoForum', component: PhotoForum },
+                { path: '/personalInfo', name: 'personalInfo', component: PersonalInfo },
             ]
         },
     ]

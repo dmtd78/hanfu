@@ -123,7 +123,7 @@ public class ArticleController {
      * @param articleId
      * @return
      */
-    @GetMapping("/delete")
+    @PostMapping("/delete")
     @ResponseBody
     public JsonResult deleteArticleByID(@RequestParam("articleId") Integer articleId) {
         JsonResult jsonResult = new JsonResult();

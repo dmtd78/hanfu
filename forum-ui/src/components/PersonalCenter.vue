@@ -1,15 +1,23 @@
 <template>
     <div>
-        <a-divider orientation="left">基本信息</a-divider>
-        <a-card style="width: 300px">
-            <p>{{userData.username}}</p>
-            <p>{{userData.nickname}}</p>
-        </a-card>
+        <a-descriptions title="基本信息">
+            <a-descriptions-item label="姓名">{{user.username}}</a-descriptions-item>
+            <a-descriptions-item label="电话">1810000000</a-descriptions-item>
+            <a-descriptions-item label="住址">Hangzhou, Zhejiang</a-descriptions-item>
+            <a-descriptions-item label="备注">empty</a-descriptions-item>
+            <a-descriptions-item label="地址">
+                No. 18, Wantang Road, Xihu District, Hangzhou, Zhejiang, China
+            </a-descriptions-item>
+        </a-descriptions>
         <a-divider orientation="left">我的帖子</a-divider>
         <a-list bordered :dataSource="articleData">
             <a-list-item slot="renderItem" slot-scope="article">
                 <a slot="actions">{{$moment(article.date).format('YY-MM-DD HH:mm')}}</a>
-                <a slot="actions"><a-icon type="delete" theme="filled" @click="deleteArticle(article.aid)" /></a>
+                <a slot="actions" >
+                    <a-popconfirm title="确定要删除吗?" @confirm="() => onDelete(article.aid)">
+                       删除
+                    </a-popconfirm>
+                </a>
                 <a-list-item-meta :descreption="article.title">
                     <a slot="title" @click="gotoDetail(article.aid)">{{article.title}}</a>
                 </a-list-item-meta>
@@ -19,7 +27,11 @@
         <a-list bordered :dataSource="iCollectData">
             <a-list-item slot="renderItem" slot-scope="iCollctArticle">
                 <a slot="actions">{{$moment(iCollctArticle.date).format('YY-MM-DD HH:mm')}}</a>
-                <a slot="actions"><a-icon type="delete" theme="filled" @click="deleteCollect(iCollctArticle.aid)"/></a>
+                <a slot="actions" >
+                    <a-popconfirm title="确定要删除吗?" @confirm="() => deleteCollect(iCollctArticle.aid)">
+                        删除
+                    </a-popconfirm>
+                </a>
                 <a-list-item-meta :descreption="iCollctArticle.title">
                     <a slot="title" @click="gotoDetail(iCollctArticle.aid)">{{iCollctArticle.title}}</a>
                 </a-list-item-meta>
@@ -29,118 +41,86 @@
 </template>
 
 <script>
-    import axios from 'axios';
-    import qs from 'qs';
+    import {mapGetters} from "vuex";
     // eslint-disable-next-line no-irregular-whitespace
     const userId = JSON.parse(sessionStorage.getItem("userId"));
     export default {
         data() {
             return {
-                text: `A dog is a type of domesticated animal.Known for its loyalty and faithfulness,it can be found as a welcome guest in many households across the world.`,
-                userData: [],
                 articleData: [],
                 iCollectData:[]
             };
         },
+        computed: {
+            ...mapGetters({
+                isLogin: 'auth/isLogin',
+                user: 'auth/user'
+            }),
+        },
         name: "PersonalCenter",
         mounted() {
             this.getArticleData(res => {
-                this.articleData = res.data.data.list;
+                // eslint-disable-next-line no-console
+                console.log('getArticleData:' + res.data);
+                this.articleData = res.data.list;
             });
             this.getICollectArticleData(res => {
                 // eslint-disable-next-line no-console
-                console.log('i collect article data list:' + res.data.data);
-                this.iCollectData = res.data.data;
-            });
-            this.getUserData(res => {
-                this.userData = res.data;
+                console.log('i collect article data list:' + res.data);
+                this.iCollectData = res.data;
             });
         },
         methods: {
-            deleteArticle(articleId){
+            onDelete(articleId) {
                 let params = {
                     articleId :articleId
                 };
-                axios.post('/article/delete',qs.stringify(params),{
-                    xhrFields: {
-                        withCredentials: true
-                    },
-                },).then((res) => {
-                    if (res.data.resultCode == 0) {
+                this.$api.deleteArticle(params).then((res) => {
+                    if (res.resultCode == 0) {
                         this.$notification.open({
                             message: '温馨提醒',
                             description: '已删除',
                             icon: <a-icon type="smile" style="color: #108ee9" />,
-                        });
-                    }
+                    })}
                 })
+                const dataSource = [...this.articleData];
+                this.articleData = dataSource.filter(item => item.aid !== articleId);
             },
             deleteCollect(articleId){
                 let params = {
                     articleId :articleId,
                     userId :userId
                 };
-                axios.post('/collect/deleteCollectByArticleId',qs.stringify(params),{
-                    xhrFields: {
-                        withCredentials: true
-                    },
-                },).then((res) => {
-                    if (res.data.resultCode == 0) {
+                this.$api.deleteCollect(params).then((res) => {
+                    if (res.resultCode == 0) {
                         this.$notification.open({
                             message: '温馨提醒',
                             description: '已删除',
                             icon: <a-icon type="smile" style="color: #108ee9" />,
-                    });
-                    }
+                    })}
                 })
+                const dataSource = [...this.iCollectData];
+                this.iCollectData = dataSource.filter(item => item.aid !== articleId);
             },
             getArticleData(callback) {
-                axios.get('/article/list?currentPage=1&userId=' + userId, {
-                    xhrFields: {
-                        withCredentials: true
-                    },
-                }).then((res) => {
-                    if (res.data.resultCode == 0) {
+                let values = {
+                    currentPage: 1,
+                    userId: userId,
+                };
+                this.$api.getArticleList(values).then((res) => {
+                    if (res.resultCode == 0) {
                         callback(res)
-                    } else {
-                        this.$message.failure(
-                            res.data.resultInfo,
-                            10,
-                        );
                     }
                 })
             },
             getICollectArticleData(callback) {
-                axios.get('/article/iCollectArticles?currentPage=1&userId=' + userId, {
-                    xhrFields: {
-                        withCredentials: true
-                    },
-                }).then((res) => {
-                    if (res.data.resultCode == 0) {
+                let values = {
+                    currentPage: 1,
+                    userId: userId,
+                };
+                this.$api.getICollectArticleData(values).then((res) => {
+                    if (res.resultCode == 0) {
                         callback(res)
-                    } else {
-                        this.$message.failure(
-                            res.data.resultInfo,
-                            10,
-                        );
-                    }
-                })
-            },
-            getUserData() {
-                axios.get('/user/info?uid=' + userId, {
-                    xhrFields: {
-                        withCredentials: true
-                    },
-                }).then((res) => {
-                    // eslint-disable-next-line no-console
-                    console.log('user data list:' + res.data);
-                    if (res.data.resultCode == 0) {
-                        this.userData = res.data.data;
-                    } else {
-                        this.$message.failure(
-                            res.data.resultInfo,
-                            10,
-                        );
                     }
                 })
             },

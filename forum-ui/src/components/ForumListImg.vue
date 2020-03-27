@@ -70,20 +70,6 @@
                 };
                 //this.$api.get('/article/list',values);
                 callback(this.$api.getArticleList(values));
-                // axios.get('/article/list', {params: values}, {
-                //     xhrFields: {
-                //         withCredentials: true
-                //     },
-                // }).then((res) => {
-                //     if (res.data.resultCode == 0) {
-                //         callback(res);
-                //     }else{
-                //         this.$message.warn(
-                //             res.data.resultInfo,
-                //             10,
-                //         );
-                //     }
-                // })
             },
         }
     };
